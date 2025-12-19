@@ -12,7 +12,7 @@
     <div class="container mx-auto px-6 relative z-10">
       <!-- Section header -->
       <div class="text-center mb-20">
-        <span class="inline-block px-4 py-2 rounded-full bg-fortu-off-white border text-fortu-dark font-semibold text-md tracking-wide uppercase mb-6">
+        <span class="inline-block px-4 py-2 rounded-full bg-fortu-off-white border text-fortu-dark font-light text-md tracking-wide uppercase mb-6">
           {{ cmsDemo.badge }}
         </span>
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-fortu-off-white mb-6 tracking-tight">
@@ -27,14 +27,18 @@
       </div>
 
       <!-- Main visualization container -->
-      <div class="relative max-w-6xl mx-auto h-[700px] flex items-center justify-center">
+      <div class="relative max-w-6xl mx-auto h-[780px] flex items-center justify-center">
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
         <div v-if="getProductByPosition('top-left')" class="product-card product-1 absolute top-0 left-0 md:left-12 lg:left-24">
           <div class="relative group">
-            <!-- Connection line -->
-            <div class="connection-line connection-1"></div>
+            <!-- Connection line - L-shaped: right then down -->
+            <div class="connection-line connection-1">
+              <div class="line-horizontal"></div>
+              <div class="line-vertical"></div>
+              <div class="pulse-dot pulse-1"></div>
+            </div>
             
             <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
@@ -47,8 +51,8 @@
               </div>
               <div class="space-y-2">
                 <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-fortu-off-white animate-pulse"></div>
-                  <span class="text-xs text-fortu-light uppercase tracking-wider">Syncing</span>
+                  <div class="w-2 h-2 rounded-full bg-[green] animate-pulse"></div>
+                  <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium">{{ getProductName('top-left') }}</h4>
                 <p class="text-fortu-medium text-sm">{{ formatPrice('top-left') }}</p>
@@ -60,8 +64,12 @@
         <!-- Product 2 - Top Right -->
         <div v-if="getProductByPosition('top-right')" class="product-card product-2 absolute top-0 right-0 md:right-12 lg:right-24">
           <div class="relative group">
-            <!-- Connection line -->
-            <div class="connection-line connection-2"></div>
+            <!-- Connection line - L-shaped: left then down -->
+            <div class="connection-line connection-2">
+              <div class="line-horizontal"></div>
+              <div class="line-vertical"></div>
+              <div class="pulse-dot pulse-2"></div>
+            </div>
             
             <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
@@ -74,8 +82,8 @@
               </div>
               <div class="space-y-2">
                 <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-fortu-off-white animate-pulse"></div>
-                  <span class="text-xs text-fortu-light uppercase tracking-wider">Syncing</span>
+                  <div class="w-2 h-2 rounded-full bg-[green] animate-pulse"></div>
+                  <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium">{{ getProductName('top-right') }}</h4>
                 <p class="text-fortu-medium text-sm">{{ formatPrice('top-right') }}</p>
@@ -87,8 +95,11 @@
         <!-- Product 3 - Bottom Center -->
         <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute bottom-0 left-1/2 -translate-x-1/2">
           <div class="relative group">
-            <!-- Connection line -->
-            <div class="connection-line connection-3"></div>
+            <!-- Connection line - straight up -->
+            <div class="connection-line connection-3">
+              <div class="line-vertical-up"></div>
+              <div class="pulse-dot pulse-3"></div>
+            </div>
             
             <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
@@ -101,8 +112,8 @@
               </div>
               <div class="space-y-2">
                 <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-fortu-off-white animate-pulse"></div>
-                  <span class="text-xs text-fortu-light uppercase tracking-wider">Syncing</span>
+                  <div class="w-2 h-2 rounded-full bg-[green] animate-pulse"></div>
+                  <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium">{{ getProductName('bottom-center') }}</h4>
                 <p class="text-fortu-medium text-sm">{{ formatPrice('bottom-center') }}</p>
@@ -191,10 +202,7 @@
           
           </div>
           
-          <!-- Glow effect behind laptop -->
-          <div class="absolute inset-0 -z-10 blur-3xl opacity-30">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[300px] bg-gradient-to-r from-fortu-medium/40 via-fortu-light/30 to-fortu-medium/40 rounded-full"></div>
-          </div>
+          
         </div>
 
         <!-- Animated data flow particles -->
@@ -390,37 +398,150 @@ onMounted(async () => {
   }
 }
 
-/* Connection lines - using brand colors */
+/* Connection lines - L-shaped dashed lines */
 .connection-line {
   position: absolute;
-  background: linear-gradient(90deg, transparent, rgba(191, 191, 191, 0.1), transparent);
-  height: 2px;
-  transform-origin: left center;
+  pointer-events: none;
 }
 
+/* Connection 1 - Top Left: goes right then down */
 .connection-1 {
-  width: 200px;
   top: 50%;
-  right: -200px;
-  transform: rotate(25deg);
-  background: linear-gradient(90deg, rgba(191, 191, 191, 0.3), rgba(191, 191, 191, 0.1), transparent);
+  left: 100%;
 }
 
-.connection-2 {
-  width: 200px;
-  top: 50%;
-  left: -200px;
-  transform: rotate(-25deg);
-  background: linear-gradient(270deg, rgba(191, 191, 191, 0.3), rgba(191, 191, 191, 0.1), transparent);
+.connection-1 .line-horizontal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 2px;
+  border-top: 2px dashed rgba(191, 191, 191, 0.4);
 }
 
-.connection-3 {
+.connection-1 .line-vertical {
+  position: absolute;
+  top: 0;
+  left: 120px;
   width: 2px;
-  height: 150px;
-  top: -150px;
+  height: 180px;
+  border-left: 2px dashed rgba(191, 191, 191, 0.4);
+}
+
+/* Connection 2 - Top Right: goes left then down */
+.connection-2 {
+  top: 50%;
+  right: 100%;
+}
+
+.connection-2 .line-horizontal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 2px;
+  border-top: 2px dashed rgba(191, 191, 191, 0.4);
+}
+
+.connection-2 .line-vertical {
+  position: absolute;
+  top: 0;
+  right: 120px;
+  width: 2px;
+  height: 180px;
+  border-left: 2px dashed rgba(191, 191, 191, 0.4);
+}
+
+/* Connection 3 - Bottom Center: goes straight up */
+.connection-3 {
+  bottom: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background: linear-gradient(180deg, transparent, rgba(191, 191, 191, 0.1), rgba(191, 191, 191, 0.3));
+}
+
+.connection-3 .line-vertical-up {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  height: 150px;
+  border-left: 2px dashed rgba(191, 191, 191, 0.4);
+}
+
+/* Pulsing dots that travel along the path */
+.pulse-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #F9F9F9;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(249, 249, 249, 0.8), 0 0 20px rgba(249, 249, 249, 0.4);
+}
+
+/* Pulse animation for connection 1 - right then down */
+.pulse-1 {
+  animation: pulse1 3s ease-in-out infinite;
+}
+
+@keyframes pulse1 {
+  0% {
+    top: -4px;
+    left: -4px;
+    opacity: 1;
+  }
+  40% {
+    top: -4px;
+    left: 116px;
+    opacity: 1;
+  }
+  100% {
+    top: 176px;
+    left: 116px;
+    opacity: 0;
+  }
+}
+
+/* Pulse animation for connection 2 - left then down */
+.pulse-2 {
+  animation: pulse2 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+@keyframes pulse2 {
+  0% {
+    top: -4px;
+    right: -4px;
+    opacity: 1;
+  }
+  40% {
+    top: -4px;
+    right: 116px;
+    opacity: 1;
+  }
+  100% {
+    top: 176px;
+    right: 116px;
+    opacity: 0;
+  }
+}
+
+/* Pulse animation for connection 3 - straight up */
+.pulse-3 {
+  animation: pulse3 3s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+@keyframes pulse3 {
+  0% {
+    bottom: -4px;
+    left: -4px;
+    opacity: 1;
+  }
+  100% {
+    bottom: 146px;
+    left: -4px;
+    opacity: 0;
+  }
 }
 
 /* CMS product rows animation */

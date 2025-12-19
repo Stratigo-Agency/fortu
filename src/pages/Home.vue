@@ -1,9 +1,8 @@
 <template>
   <div>
-    <!-- Hero Section -->
+    <!-- Hero Section (includes ClientCarousel at bottom) -->
     <Hero />
 
-    <ClientCarousel />
     <!-- CMS Demo Section -->
     <CMSDemo />
   </div>
@@ -14,7 +13,6 @@ import { ref, onMounted } from 'vue'
 import { client } from '@/sanity/client'
 import { POSTS_QUERY, type Post } from '@/sanity/queries'
 import Hero from '@/components/Hero.vue'
-import ClientCarousel from '@/components/ClientCarousel.vue'
 import CMSDemo from '@/components/CMSDemo.vue'
 
 const posts = ref<Post[]>([])
