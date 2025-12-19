@@ -19,7 +19,7 @@ const toggleMenu = () => {
 
 <template>
   <nav class="fixed top-0 left-0 right-0 z-50 bg-transparent">
-    <div class="mx-auto px-16 py-4">
+    <div class="mx-auto px-4 md:px-16 py-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
         <RouterLink to="/" class="flex items-center hover:opacity-80 transition-opacity">

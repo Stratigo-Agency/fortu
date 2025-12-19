@@ -81,6 +81,21 @@ export interface CMSDemo {
   isActive?: boolean
 }
 
+export interface ClientLogo {
+  _id: string
+  name: string
+  logo: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  url?: string
+  order?: number
+  isActive?: boolean
+}
+
 // Queries
 export const POSTS_QUERY = defineQuery(/* groq */ `
   *[_type == "post"] | order(_createdAt desc) {
@@ -155,6 +170,22 @@ export const CMS_DEMO_QUERY = defineQuery(/* groq */ `
       title,
       description
     },
+    isActive
+  }
+`)
+
+export const CLIENT_LOGOS_QUERY = defineQuery(/* groq */ `
+  *[_type == "clientLogo" && isActive == true] | order(order asc) {
+    _id,
+    name,
+    logo {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    url,
+    order,
     isActive
   }
 `)
