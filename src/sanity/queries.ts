@@ -18,12 +18,12 @@ export interface Hero {
   title: string
   subtitle?: string
   description?: string
-  backgroundImage?: {
+  backgroundVideo?: {
     asset: {
       _ref: string
       _type: string
+      url?: string
     }
-    alt?: string
   }
   ctaButtons?: CTAButton[]
   alignment?: 'left' | 'center' | 'right'
@@ -45,9 +45,11 @@ export const HERO_QUERY = defineQuery(/* groq */ `
     title,
     subtitle,
     description,
-    backgroundImage {
-      asset,
-      alt
+    backgroundVideo {
+      asset-> {
+        _id,
+        url
+      }
     },
     ctaButtons[] {
       label,

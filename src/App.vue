@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { client } from '@/sanity/client'
 import { POSTS_QUERY, type Post } from '@/sanity/queries'
+import Navbar from '@/components/Navbar.vue'
 import Hero from '@/components/Hero.vue'
 
 const posts = ref<Post[]>([])
@@ -20,6 +21,7 @@ onMounted(async () => {
 </script>
 
 <template>
+  <Navbar />
   <main>
     <!-- Hero Section -->
     <Hero />
@@ -48,7 +50,7 @@ onMounted(async () => {
 
 <style>
 :root {
-  --bg: #0f0f0f;
+  --bg: #fafafa;
   --fg: #fafafa;
   --accent: #f43f5e;
   --muted: #71717a;
@@ -62,7 +64,7 @@ onMounted(async () => {
 }
 
 body {
-  font-family: 'Geist', system-ui, -apple-system, sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--fg);
   min-height: 100vh;

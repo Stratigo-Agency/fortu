@@ -24,20 +24,13 @@ export default defineType({
       rows: 4,
     }),
     defineField({
-      name: 'backgroundImage',
-      title: 'Background Image',
-      type: 'image',
+      name: 'backgroundVideo',
+      title: 'Background Video',
+      type: 'file',
       options: {
-        hotspot: true,
+        accept: 'video/*',
       },
-      fields: [
-        {
-          name: 'alt',
-          type: 'string',
-          title: 'Alternative Text',
-          validation: (Rule) => Rule.required(),
-        },
-      ],
+      description: 'Upload a video file for the hero background (MP4, WebM, etc.)',
     }),
     defineField({
       name: 'ctaButtons',
@@ -107,7 +100,6 @@ export default defineType({
     select: {
       title: 'title',
       subtitle: 'subtitle',
-      media: 'backgroundImage',
     },
   },
 })
