@@ -34,7 +34,7 @@ const buttonClasses = computed(() => {
     primary: 'bg-fortu-dark text-fortu-off-white hover:bg-opacity-90 focus:ring-fortu-dark',
     secondary: 'bg-fortu-off-white text-fortu-dark hover:text-fortu-off-white hover:bg-transparent border-2 border-fortu-off-white focus:ring-fortu-medium',
     light: 'bg-fortu-light text-fortu-dark hover:bg-opacity-80 focus:ring-fortu-light',
-    outline: 'bg-transparent border-2 border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white focus:ring-fortu-dark',
+    outline: 'bg-transparent text-fortu-off-white hover:text-fortu-dark hover:bg-fortu-off-white border-2 border-fortu-off-white focus:ring-fortu-medium',
   }
   
   const sizeClasses = {

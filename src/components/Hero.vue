@@ -73,7 +73,7 @@ onMounted(async () => {
             v-for="(button, index) in hero.ctaButtons"
             :key="index"
             :href="button.link"
-            variant="secondary"
+            :variant="button.variant"
             size="lg"
             class="w-full md:w-auto"
           >

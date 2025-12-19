@@ -96,6 +96,36 @@ export interface ClientLogo {
   isActive?: boolean
 }
 
+export interface UseCaseItem {
+  _key?: string
+  mediaType: 'image' | 'video'
+  image?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  video?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  alt?: string
+  caption?: string
+  size?: 'short' | 'medium' | 'tall'
+}
+
+export interface UseCaseSection {
+  _id: string
+  heading: string
+  description: string
+  items: UseCaseItem[]
+  isActive?: boolean
+}
+
 // Queries
 export const POSTS_QUERY = defineQuery(/* groq */ `
   *[_type == "post"] | order(_createdAt desc) {
@@ -186,6 +216,34 @@ export const CLIENT_LOGOS_QUERY = defineQuery(/* groq */ `
     },
     url,
     order,
+    isActive
+  }
+`)
+
+export const USE_CASE_SECTION_QUERY = defineQuery(/* groq */ `
+  *[_type == "useCaseSection" && isActive == true] | order(_createdAt desc) [0] {
+    _id,
+    heading,
+    description,
+    items[] {
+      _key,
+      mediaType,
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      video {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      alt,
+      caption,
+      size
+    },
     isActive
   }
 `)

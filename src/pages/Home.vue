@@ -5,6 +5,9 @@
 
     <!-- CMS Demo Section -->
     <CMSDemo />
+
+    <!-- Use Case Section -->
+    <UseCaseSection />
   </div>
 </template>
 
@@ -14,6 +17,7 @@ import { client } from '@/sanity/client'
 import { POSTS_QUERY, type Post } from '@/sanity/queries'
 import Hero from '@/components/Hero.vue'
 import CMSDemo from '@/components/CMSDemo.vue'
+import UseCaseSection from '@/components/UseCaseSection.vue'
 
 const posts = ref<Post[]>([])
 const loading = ref(true)
