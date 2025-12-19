@@ -1,36 +1,38 @@
-<script setup lang="ts">
-import Navbar from '@/components/Navbar.vue'
-</script>
-
 <template>
-  <Navbar />
-  <main>
-    <RouterView />
-  </main>
+  <div>
+    <!-- Hero Section -->
+    <Hero />
+
+    <!-- CMS Demo Section -->
+    <CMSDemo />
+
+
+  </div>
 </template>
 
-<style>
-:root {
-  --bg: #F9F9F9;
-  --fg: #fafafa;
-  --accent: #f43f5e;
-  --muted: #71717a;
-  --card: #1a1a1a;
-}
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { client } from '@/sanity/client'
+import { POSTS_QUERY, type Post } from '@/sanity/queries'
+import Hero from '@/components/Hero.vue'
+import CMSDemo from '@/components/CMSDemo.vue'
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+const posts = ref<Post[]>([])
+const loading = ref(true)
+const error = ref<string | null>(null)
 
-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--fg);
-  min-height: 100vh;
-}
+onMounted(async () => {
+  try {
+    posts.value = await client.fetch(POSTS_QUERY)
+  } catch (e) {
+    error.value = e instanceof Error ? e.message : 'Failed to fetch posts'
+  } finally {
+    loading.value = false
+  }
+})
+</script>
 
+<style scoped>
 .container {
   max-width: 640px;
   margin: 0 auto;

@@ -32,7 +32,7 @@ onMounted(async () => {
 <template>
   <section 
     v-if="hero && !loading" 
-    class="relative h-screen flex items-center justify-center bg-[var(--card)] px-16 py-4 mb-16 overflow-hidden"
+    class="relative h-screen flex items-center justify-center bg-[var(--card)] px-16 py-4 overflow-hidden"
     :class="{
       'text-left': heroAlignment === 'left',
       'text-center': heroAlignment === 'center',

@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import Button from '@/reusables/Button.vue'
 
 const isMenuOpen = ref(false)
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Products', href: '/products' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Home', to: '/' },
+  { label: 'Products', to: '/products' },
+  { label: 'About', to: '/about' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 const toggleMenu = () => {
@@ -21,20 +22,21 @@ const toggleMenu = () => {
     <div class="mx-auto px-16 py-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <a href="/" class=" flex items-center hover:opacity-80 transition-opacity">
+        <RouterLink to="/" class="flex items-center hover:opacity-80 transition-opacity">
           <img src="/logo.png" alt="FORTU DIGITAL" class="h-12 md:h-16 w-auto" />
-        </a>
+        </RouterLink>
 
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center gap-12">
-          <a
+          <RouterLink
             v-for="link in navLinks"
-            :key="link.href"
-            :href="link.href"
+            :key="link.to"
+            :to="link.to"
             class="text-lg tracking-tight text-fortu-off-white hover:text-fortu-light transition-colors"
+            active-class="text-fortu-off-white"
           >
             {{ link.label }}
-          </a>
+          </RouterLink>
         </div>
 
         <!-- Desktop CTA -->
@@ -65,15 +67,16 @@ const toggleMenu = () => {
         class="md:hidden mt-4 py-4 border-t border-[#7D7D7D]/30"
       >
         <div class="flex flex-col gap-4">
-          <a
+          <RouterLink
             v-for="link in navLinks"
-            :key="link.href"
-            :href="link.href"
+            :key="link.to"
+            :to="link.to"
             class="text-base font-medium text-[#BFBFBF] hover:text-[#F9F9F9] transition-colors"
+            active-class="text-[#F9F9F9]"
             @click="isMenuOpen = false"
           >
             {{ link.label }}
-          </a>
+          </RouterLink>
           <Button variant="primary" size="sm" href="/shop" class="mt-2 border-[#F9F9F9] text-[#F9F9F9] hover:bg-[#F9F9F9] hover:text-[#101111]">
             Shop Now
           </Button>

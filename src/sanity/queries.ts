@@ -30,6 +30,57 @@ export interface Hero {
   isActive?: boolean
 }
 
+export interface CMSDemoProduct {
+  _key?: string
+  product?: {
+    _id: string
+    name: string
+    price: number
+    currency?: string
+    images?: Array<{
+      asset: {
+        _ref: string
+        _type: string
+        url?: string
+      }
+      alt?: string
+    }>
+  }
+  customProduct?: {
+    name: string
+    price: number
+    image: {
+      asset: {
+        _ref: string
+        _type: string
+        url?: string
+      }
+      alt?: string
+    }
+  }
+  position: 'top-left' | 'top-right' | 'bottom-center'
+}
+
+export interface CMSDemoFeature {
+  _key?: string
+  icon: 'lightning' | 'dashboard' | 'shield'
+  title: string
+  description: string
+}
+
+export interface CMSDemo {
+  _id: string
+  badge: string
+  heading: {
+    line1: string
+    line2: string
+  }
+  description: string
+  products: CMSDemoProduct[]
+  features: CMSDemoFeature[]
+  isActive?: boolean
+}
+
 // Queries
 export const POSTS_QUERY = defineQuery(/* groq */ `
   *[_type == "post"] | order(_createdAt desc) {
@@ -57,6 +108,53 @@ export const HERO_QUERY = defineQuery(/* groq */ `
       variant
     },
     alignment,
+    isActive
+  }
+`)
+
+export const CMS_DEMO_QUERY = defineQuery(/* groq */ `
+  *[_type == "cmsDemo" && isActive == true] | order(_createdAt desc) [0] {
+    _id,
+    badge,
+    heading {
+      line1,
+      line2
+    },
+    description,
+    products[] {
+      _key,
+      position,
+      product-> {
+        _id,
+        name,
+        price,
+        currency,
+        images[] {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      },
+      customProduct {
+        name,
+        price,
+        image {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      }
+    },
+    features[] {
+      _key,
+      icon,
+      title,
+      description
+    },
     isActive
   }
 `)
