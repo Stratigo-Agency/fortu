@@ -408,3 +408,57 @@ export const PRODUCTS_QUERY = defineQuery(/* groq */ `
   }
 `)
 
+// Site Settings
+export interface SocialMedia {
+  twitter?: string
+  instagram?: string
+  linkedin?: string
+  facebook?: string
+  youtube?: string
+  tiktok?: string
+}
+
+export interface SiteSettings {
+  _id: string
+  companyName: string
+  tagline?: string
+  logo?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  address?: string
+  phone?: string
+  email?: string
+  whatsapp?: string
+  socialMedia?: SocialMedia
+}
+
+export const SITE_SETTINGS_QUERY = defineQuery(/* groq */ `
+  *[_type == "siteSettings"][0] {
+    _id,
+    companyName,
+    tagline,
+    logo {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    address,
+    phone,
+    email,
+    whatsapp,
+    socialMedia {
+      twitter,
+      instagram,
+      linkedin,
+      facebook,
+      youtube,
+      tiktok
+    }
+  }
+`)
+
