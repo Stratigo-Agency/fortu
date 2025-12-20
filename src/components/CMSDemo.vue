@@ -1,10 +1,7 @@
 <template>
-  <section v-if="cmsDemo && !loading" class="cms-demo-section relative overflow-hidden pt-0 pb-32 bg-fortu-dark">
+  <section v-if="cmsDemo && !loading" class="cms-demo-section h-screen relative overflow-hidden pt-0 pb-32 bg-fortu-dark">
     <!-- Background gradient effects -->
-    <div class="absolute inset-0 overflow-hidden">
-      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-fortu-medium/10 to-fortu-light/10 rounded-full blur-3xl"></div>
-      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-fortu-light/8 to-fortu-off-white/5 rounded-full blur-3xl"></div>
-    </div>
+   
 
     <!-- Grid pattern overlay -->
     <div class="absolute inset-0 opacity-[0.02]" style="background-image: linear-gradient(#BFBFBF 1px, transparent 1px), linear-gradient(90deg, #BFBFBF 1px, transparent 1px); background-size: 60px 60px;"></div>
@@ -27,7 +24,7 @@
       </div>
 
       <!-- Main visualization container -->
-      <div class="relative max-w-6xl mx-auto h-[200px] md:h-[780px] flex items-center justify-center">
+      <div class="relative max-w-6xl mx-auto h-[200px] mt-48 md:h-[780px] flex items-center justify-center">
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
@@ -93,14 +90,14 @@
         </div>
 
         <!-- Product 3 - Bottom Center -->
-        <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute bottom-0 left-1/2 -translate-x-1/2">
+        <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute top-[-150px] left-1/2">
           <div class="relative group">
-            <!-- Connection line - straight up -->
+            
+            <!-- Connection line - straight down -->
             <div class="connection-line connection-3">
-              <div class="line-vertical-up"></div>
+              <div class="line-vertical-down"></div>
               <div class="pulse-dot pulse-3"></div>
             </div>
-            
             <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
                 <img 
@@ -373,7 +370,9 @@ onMounted(async () => {
 }
 
 .product-3 {
+  animation: float-center 6s ease-in-out infinite;
   animation-delay: 4s;
+  animation-fill-mode: backwards;
 }
 
 @keyframes float {
@@ -383,10 +382,6 @@ onMounted(async () => {
   50% {
     transform: translateY(-15px);
   }
-}
-
-.product-3 {
-  animation-name: float-center;
 }
 
 @keyframes float-center {
@@ -452,16 +447,16 @@ onMounted(async () => {
   border-left: 2px dashed rgba(191, 191, 191, 0.4);
 }
 
-/* Connection 3 - Bottom Center: goes straight up */
+/* Connection 3 - Bottom Center: goes straight down */
 .connection-3 {
-  bottom: 100%;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
 }
 
-.connection-3 .line-vertical-up {
+.connection-3 .line-vertical-down {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 2px;
   height: 150px;
@@ -525,7 +520,7 @@ onMounted(async () => {
   }
 }
 
-/* Pulse animation for connection 3 - straight up */
+/* Pulse animation for connection 3 - straight down */
 .pulse-3 {
   animation: pulse3 3s ease-in-out infinite;
   animation-delay: 2s;
@@ -533,12 +528,12 @@ onMounted(async () => {
 
 @keyframes pulse3 {
   0% {
-    bottom: -4px;
+    top: -4px;
     left: -4px;
     opacity: 1;
   }
   100% {
-    bottom: 146px;
+    top: 146px;
     left: -4px;
     opacity: 0;
   }

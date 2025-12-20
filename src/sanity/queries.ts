@@ -153,6 +153,61 @@ export interface ProductSlide {
   isActive?: boolean
 }
 
+export interface ProductVariant {
+  _key: string
+  name: string
+  sku?: string
+  colorHex?: string
+  image?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+    alt?: string
+  }
+  images?: Array<{
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+    alt?: string
+  }>
+  price?: number
+  compareAtPrice?: number
+  inStock?: boolean
+  stockQuantity?: number
+}
+
+export interface Product {
+  _id: string
+  name: string
+  slug: { current: string }
+  sku?: string
+  description?: string
+  images?: Array<{
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+    alt?: string
+  }>
+  price: number
+  currency?: string
+  compareAtPrice?: number
+  hasVariants?: boolean
+  variantType?: 'color' | 'size' | 'material' | 'style' | 'custom'
+  variants?: ProductVariant[]
+  category?: string
+  tags?: string[]
+  inStock?: boolean
+  stockQuantity?: number
+  featured?: boolean
+  status?: 'active' | 'draft' | 'archived'
+}
+
 // Queries
 export const POSTS_QUERY = defineQuery(/* groq */ `
   *[_type == "post"] | order(_createdAt desc) {
@@ -298,6 +353,58 @@ export const PRODUCT_SLIDES_QUERY = defineQuery(/* groq */ `
     ctaLink,
     order,
     isActive
+  }
+`)
+
+export const PRODUCTS_QUERY = defineQuery(/* groq */ `
+  *[_type == "product" && status == "active"] | order(_createdAt desc) {
+    _id,
+    name,
+    slug,
+    sku,
+    description,
+    images[] {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    price,
+    currency,
+    compareAtPrice,
+    hasVariants,
+    variantType,
+    variants[] {
+      _key,
+      name,
+      sku,
+      colorHex,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      images[] {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      price,
+      compareAtPrice,
+      inStock,
+      stockQuantity
+    },
+    category,
+    tags,
+    inStock,
+    stockQuantity,
+    featured,
+    status
   }
 `)
 

@@ -4,17 +4,26 @@ export default defineType({
   name: 'product',
   title: 'Product',
   type: 'document',
+  groups: [
+    {name: 'basic', title: 'Basic Info', default: true},
+    {name: 'media', title: 'Media'},
+    {name: 'pricing', title: 'Pricing'},
+    {name: 'variants', title: 'Variants'},
+    {name: 'inventory', title: 'Inventory'},
+  ],
   fields: [
     defineField({
       name: 'name',
       title: 'Product Name',
       type: 'string',
+      group: 'basic',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
+      group: 'basic',
       options: {
         source: 'name',
         maxLength: 96,
@@ -25,18 +34,22 @@ export default defineType({
       name: 'sku',
       title: 'SKU',
       type: 'string',
+      group: 'basic',
       description: 'Stock Keeping Unit - unique product identifier',
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
+      group: 'basic',
       rows: 4,
     }),
     defineField({
       name: 'images',
       title: 'Product Images',
       type: 'array',
+      group: 'media',
+      description: 'Main product images (used when no variant is selected)',
       of: [
         {
           type: 'image',
@@ -48,28 +61,29 @@ export default defineType({
               name: 'alt',
               type: 'string',
               title: 'Alternative Text',
-              validation: (Rule) => Rule.required(),
             },
           ],
         },
       ],
-      validation: (Rule) => Rule.min(1).error('At least one product image is required'),
     }),
     defineField({
       name: 'price',
-      title: 'Price',
+      title: 'Base Price',
       type: 'number',
+      group: 'pricing',
+      description: 'Default price (can be overridden by variants)',
       validation: (Rule) => Rule.required().positive(),
     }),
     defineField({
       name: 'currency',
       title: 'Currency',
       type: 'string',
+      group: 'pricing',
       options: {
         list: [
           {title: 'USD ($)', value: 'USD'},
           {title: 'EUR (€)', value: 'EUR'},
-          {title: 'GBP (£)', value: 'GBP'},
+          {title: 'IDR (Rp)', value: 'IDR'},
         ],
       },
       initialValue: 'USD',
@@ -78,12 +92,149 @@ export default defineType({
       name: 'compareAtPrice',
       title: 'Compare At Price',
       type: 'number',
+      group: 'pricing',
       description: 'Original price if this product is on sale',
     }),
+    // VARIANTS
+    defineField({
+      name: 'hasVariants',
+      title: 'Has Variants',
+      type: 'boolean',
+      group: 'variants',
+      description: 'Enable if this product has multiple variants (e.g., colors, sizes)',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'variantType',
+      title: 'Variant Type',
+      type: 'string',
+      group: 'variants',
+      options: {
+        list: [
+          {title: 'Color', value: 'color'},
+          {title: 'Size', value: 'size'},
+          {title: 'Material', value: 'material'},
+          {title: 'Style', value: 'style'},
+          {title: 'Custom', value: 'custom'},
+        ],
+      },
+      hidden: ({parent}) => !parent?.hasVariants,
+    }),
+    defineField({
+      name: 'variants',
+      title: 'Product Variants',
+      type: 'array',
+      group: 'variants',
+      hidden: ({parent}) => !parent?.hasVariants,
+      of: [
+        {
+          type: 'object',
+          name: 'variant',
+          title: 'Variant',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Variant Name',
+              type: 'string',
+              description: 'e.g., "Red", "Large", "Cotton"',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'sku',
+              title: 'Variant SKU',
+              type: 'string',
+              description: 'Unique SKU for this variant',
+            }),
+            defineField({
+              name: 'colorHex',
+              title: 'Color (Hex)',
+              type: 'string',
+              description: 'Color code for color swatches (e.g., #FF0000)',
+              hidden: ({document}) => document?.variantType !== 'color',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Variant Image',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Alternative Text',
+                },
+              ],
+            }),
+            defineField({
+              name: 'images',
+              title: 'Additional Variant Images',
+              type: 'array',
+              of: [
+                {
+                  type: 'image',
+                  options: {
+                    hotspot: true,
+                  },
+                  fields: [
+                    {
+                      name: 'alt',
+                      type: 'string',
+                      title: 'Alternative Text',
+                    },
+                  ],
+                },
+              ],
+            }),
+            defineField({
+              name: 'price',
+              title: 'Variant Price',
+              type: 'number',
+              description: 'Leave empty to use base price',
+            }),
+            defineField({
+              name: 'compareAtPrice',
+              title: 'Compare At Price',
+              type: 'number',
+              description: 'Original price if on sale',
+            }),
+            defineField({
+              name: 'inStock',
+              title: 'In Stock',
+              type: 'boolean',
+              initialValue: true,
+            }),
+            defineField({
+              name: 'stockQuantity',
+              title: 'Stock Quantity',
+              type: 'number',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              price: 'price',
+              media: 'image',
+              inStock: 'inStock',
+            },
+            prepare({title, price, media, inStock}) {
+              return {
+                title: title || 'Untitled Variant',
+                subtitle: `${price ? `$${price}` : 'Base price'} ${inStock ? '✓' : '✗'}`,
+                media,
+              }
+            },
+          },
+        },
+      ],
+    }),
+    // INVENTORY & CATEGORIZATION
     defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
+      group: 'basic',
       options: {
         list: [
           {title: 'Electronics', value: 'electronics'},
@@ -99,6 +250,7 @@ export default defineType({
       name: 'tags',
       title: 'Tags',
       type: 'array',
+      group: 'basic',
       of: [{type: 'string'}],
       options: {
         layout: 'tags',
@@ -108,18 +260,22 @@ export default defineType({
       name: 'inStock',
       title: 'In Stock',
       type: 'boolean',
+      group: 'inventory',
+      description: 'Overall stock status (overridden by variants if enabled)',
       initialValue: true,
     }),
     defineField({
       name: 'stockQuantity',
       title: 'Stock Quantity',
       type: 'number',
-      description: 'Number of items available in stock',
+      group: 'inventory',
+      description: 'Number of items available (overridden by variants if enabled)',
     }),
     defineField({
       name: 'featured',
       title: 'Featured Product',
       type: 'boolean',
+      group: 'basic',
       description: 'Display this product in featured sections',
       initialValue: false,
     }),
@@ -127,6 +283,7 @@ export default defineType({
       name: 'status',
       title: 'Status',
       type: 'string',
+      group: 'basic',
       options: {
         list: [
           {title: 'Active', value: 'active'},
@@ -143,11 +300,14 @@ export default defineType({
       subtitle: 'price',
       media: 'images.0',
       status: 'status',
+      hasVariants: 'hasVariants',
+      variantCount: 'variants.length',
     },
-    prepare({title, subtitle, media, status}) {
+    prepare({title, subtitle, media, status, hasVariants, variantCount}) {
+      const variantText = hasVariants && variantCount ? ` (${variantCount} variants)` : ''
       return {
         title,
-        subtitle: `$${subtitle || '0.00'} - ${status || 'active'}`,
+        subtitle: `$${subtitle || '0.00'} - ${status || 'active'}${variantText}`,
         media,
       }
     },

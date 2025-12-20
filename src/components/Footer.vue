@@ -1,7 +1,7 @@
 <template>
   <footer class="bg-fortu-dark text-fortu-off-white">
     <!-- Main Footer Content -->
-    <div class="container mx-auto px-4 md:px-16 py-16">
+    <div class="mx-auto px-4 md:px-16 py-16">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
         <!-- Brand Column -->
         <div class="lg:col-span-1">
@@ -110,7 +110,7 @@
 
     <!-- Bottom Bar -->
     <div class="border-t border-fortu-medium/20">
-      <div class="container mx-auto px-4 md:px-16 py-6">
+      <div class="mx-auto px-4 md:px-16 py-6">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
           <p class="text-fortu-medium text-sm">
             © {{ currentYear }} FORTU DIGITAL. All rights reserved.

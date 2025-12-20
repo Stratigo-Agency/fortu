@@ -1,25 +1,20 @@
 <template>
-  <div class="container">
-    <h1>Products</h1>
-    <p>Products page content coming soon...</p>
+  <div class="products-page bg-fortu-off-white min-h-screen pt-24">
+    <div class="container mx-auto px-4 md:px-16 py-12">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-light text-fortu-dark mb-4 tracking-tight">Our Products</h1>
+        <p class="text-fortu-medium text-lg max-w-2xl mx-auto">
+          Discover our collection of premium products with multiple variants.
+        </p>
+      </div>
+
+      <!-- Product Catalog -->
+      <ProductCatalog />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import ProductCatalog from '@/components/ProductCatalog.vue'
 </script>
-
-<style scoped>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  letter-spacing: -0.02em;
-}
-</style>
-
