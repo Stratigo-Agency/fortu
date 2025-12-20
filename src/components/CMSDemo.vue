@@ -52,7 +52,6 @@
                   <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium">{{ getProductName('top-left') }}</h4>
-                <p class="text-fortu-medium text-sm">{{ formatPrice('top-left') }}</p>
               </div>
             </div>
           </div>
@@ -83,7 +82,6 @@
                   <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium">{{ getProductName('top-right') }}</h4>
-                <p class="text-fortu-medium text-sm">{{ formatPrice('top-right') }}</p>
               </div>
             </div>
           </div>
@@ -113,7 +111,6 @@
                   <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium">{{ getProductName('bottom-center') }}</h4>
-                <p class="text-fortu-medium text-sm">{{ formatPrice('bottom-center') }}</p>
               </div>
             </div>
           </div>
@@ -186,7 +183,6 @@
                         </div>
                         <div class="flex-1 min-w-0">
                           <p class="text-fortu-off-white text-xs truncate">{{ getProductNameForCMS(product) }}</p>
-                          <p class="text-fortu-medium text-xs">{{ formatPriceForCMS(product) }}</p>
                         </div>
                         <div class="w-2 h-2 rounded-full bg-fortu-off-white animate-pulse"></div>
                       </div>
@@ -259,15 +255,11 @@ const getProductData = (position: 'top-left' | 'top-right' | 'bottom-center') =>
   if (product.product) {
     return {
       name: product.product.name,
-      price: product.product.price,
-      currency: product.product.currency || 'USD',
       image: product.product.images?.[0]
     }
   } else if (product.customProduct) {
     return {
       name: product.customProduct.name,
-      price: product.customProduct.price,
-      currency: 'USD',
       image: product.customProduct.image
     }
   }
@@ -290,15 +282,6 @@ const getProductImage = (position: 'top-left' | 'top-right' | 'bottom-center'): 
   } catch {
     return undefined
   }
-}
-
-// Helper function to format price
-const formatPrice = (position: 'top-left' | 'top-right' | 'bottom-center') => {
-  const data = getProductData(position)
-  if (!data) return ''
-  
-  const currencySymbol = data.currency === 'USD' ? '$' : data.currency === 'EUR' ? '€' : '£'
-  return `${currencySymbol}${data.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 
 // Helper functions for CMS product list
@@ -327,21 +310,6 @@ const getProductImageForCMS = (product: CMSDemoProduct): string | undefined => {
   } catch {
     return undefined
   }
-}
-
-const formatPriceForCMS = (product: CMSDemoProduct) => {
-  let price = 0
-  let currency = 'USD'
-  
-  if (product.product) {
-    price = product.product.price
-    currency = product.product.currency || 'USD'
-  } else if (product.customProduct) {
-    price = product.customProduct.price
-  }
-  
-  const currencySymbol = currency === 'USD' ? '$' : currency === 'EUR' ? '€' : '£'
-  return `${currencySymbol}${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
 }
 
 onMounted(async () => {
