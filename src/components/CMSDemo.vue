@@ -27,7 +27,7 @@
       </div>
 
       <!-- Main visualization container -->
-      <div class="relative max-w-6xl mx-auto h-[780px] flex items-center justify-center">
+      <div class="relative max-w-6xl mx-auto h-[200px] md:h-[780px] flex items-center justify-center">
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
@@ -648,24 +648,13 @@ onMounted(async () => {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .product-1,
-  .product-2 {
-    position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin-bottom: 2rem;
-  }
-  
-  .product-3 {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    transform: none;
+  .product-card {
+    display: none;
   }
   
   .laptop-container {
-    transform: scale(0.7);
+    transform: scale(0.75);
+    transform-origin: center center;
   }
   
   .connection-line {
