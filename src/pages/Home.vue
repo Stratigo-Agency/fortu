@@ -3,11 +3,16 @@
     <!-- Hero Section (includes ClientCarousel at bottom) -->
     <Hero />
 
+    <!-- Product Slides -->
+    <ProductSlides />
+
     <!-- CMS Demo Section -->
     <CMSDemo />
 
     <!-- Use Case Section -->
     <UseCaseSection />
+
+
   </div>
 </template>
 
@@ -18,6 +23,7 @@ import { POSTS_QUERY, type Post } from '@/sanity/queries'
 import Hero from '@/components/Hero.vue'
 import CMSDemo from '@/components/CMSDemo.vue'
 import UseCaseSection from '@/components/UseCaseSection.vue'
+import ProductSlides from '@/components/ProductSlides.vue'
 
 const posts = ref<Post[]>([])
 const loading = ref(true)

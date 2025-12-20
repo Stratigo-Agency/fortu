@@ -126,6 +126,33 @@ export interface UseCaseSection {
   isActive?: boolean
 }
 
+export interface ProductSlideFeature {
+  _key?: string
+  text: string
+  icon?: string
+}
+
+export interface ProductSlide {
+  _id: string
+  name: string
+  tagline: string
+  slideImage: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  features?: ProductSlideFeature[]
+  product?: {
+    _id: string
+    name: string
+  }
+  ctaLink?: string
+  order?: number
+  isActive?: boolean
+}
+
 // Queries
 export const POSTS_QUERY = defineQuery(/* groq */ `
   *[_type == "post"] | order(_createdAt desc) {
@@ -244,6 +271,32 @@ export const USE_CASE_SECTION_QUERY = defineQuery(/* groq */ `
       caption,
       size
     },
+    isActive
+  }
+`)
+
+export const PRODUCT_SLIDES_QUERY = defineQuery(/* groq */ `
+  *[_type == "productSlide" && isActive == true] | order(order asc) {
+    _id,
+    name,
+    tagline,
+    slideImage {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    features[] {
+      _key,
+      text,
+      icon
+    },
+    product-> {
+      _id,
+      name
+    },
+    ctaLink,
+    order,
     isActive
   }
 `)
