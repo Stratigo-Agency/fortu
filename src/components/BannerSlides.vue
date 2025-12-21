@@ -10,20 +10,20 @@
           class="absolute inset-0"
         >
           <!-- Mobile Layout: Stacked content + image -->
-          <div class="flex flex-col h-full md:hidden pb-6">
+          <div class="flex flex-col h-full md:hidden pb-16 text-center">
             <!-- Mobile Content Section -->
             <div class="bg-fortu-off-white px-6 pt-20 pb-6">
               <!-- Mobile Product Tabs -->
               <div class="flex mb-4">
-                <div class="flex rounded-md overflow-hidden bg-fortu-dark">
+                <div class="flex rounded-md mx-auto overflow-hidden bg-fortu-dark border-8 border-fortu-dark">
                   <button
                     v-for="(prod, idx) in productSlides"
                     :key="`mobile-tab-${prod._id}`"
                     @click="goToSlide(idx)"
-                    class="px-4 py-2 text-xs font-medium transition-all duration-300"
+                    class="px-3 py-2.5 text-xs font-medium transition-all duration-300"
                     :class="currentIndex === idx 
                       ? 'bg-fortu-off-white text-fortu-dark' 
-                      : 'bg-fortu-dark text-fortu-off-white'"
+                      : 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-off-white/20'"
                   >
                     {{ prod.name }}
                   </button>
@@ -31,21 +31,19 @@
               </div>
 
               <!-- Tagline -->
-              <h2 class="text-3xl font-medium text-fortu-dark mb-3 tracking-tight">
+              <h2 class="text-4xl text- font-medium text-fortu-dark mb-3 tracking-tight">
                 {{ product.tagline || product.name }}
               </h2>
               
               <!-- Feature Tags -->
-              <div v-if="product.features && product.features.length > 0" class="flex flex-wrap gap-2 mb-4">
-                <span 
-                  v-for="(feature, fIndex) in product.features" 
-                  :key="feature._key || fIndex"
-                  class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-fortu-dark text-xs"
-                >
-                  <FeatureIcon v-if="feature.icon" :icon="feature.icon" class="w-3.5 h-3.5" />
-                  <span v-else>+</span>
-                  {{ feature.text }}
-                </span>
+              <div v-if="product.features && product.features.length > 0" class="flex flex-wrap gap-2 mb-4 flex justify-center">
+                <div v-for="(feature, fIndex) in product.features" :key="feature._key || fIndex">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-fortu-dark text-xs">
+                    <FeatureIcon v-if="feature.icon" :icon="feature.icon" class="w-3.5 h-3.5" />
+                    <span v-else>+</span>
+                    {{ feature.text }}
+                  </span>
+                </div>
               </div>
 
               <!-- Mobile CTA Button -->
@@ -209,6 +207,7 @@
     <!-- Auto-progress indicator -->
     <div class="absolute bottom-0 left-0 right-0 h-1 bg-fortu-light/20 z-10">
       <div 
+        :key="`progress-${currentIndex}`"
         class="h-full bg-fortu-dark/40 transition-all"
         :class="isAutoPlaying ? 'progress-bar' : ''"
         :style="{ animationDuration: `${autoPlayInterval}ms` }"
