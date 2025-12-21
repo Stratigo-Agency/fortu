@@ -82,9 +82,47 @@ defineProps<{
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11"/>
   </svg>
 
+  <!-- Microphone -->
+  <svg v-else-if="icon === 'microphone'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+  </svg>
+
+  <!-- Rotatable -->
+  <svg v-else-if="icon === 'rotatable'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+  </svg>
+
+  <!-- Adjustable -->
+  <svg v-else-if="icon === 'adjustable'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+  </svg>
+
+  <!-- Recording -->
+  <svg v-else-if="icon === 'recording'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+    <circle cx="12" cy="12" r="4" fill="currentColor"/>
+  </svg>
+
+  <!-- Panel Type -->
+  <svg v-else-if="icon === 'panel'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 9h16M9 4v16"/>
+  </svg>
+
+  <!-- Wheel -->
+  <svg v-else-if="icon === 'wheel'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="9" stroke-width="1.5"/>
+    <circle cx="12" cy="12" r="3" stroke-width="1.5"/>
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v6m0 6v6M3 12h6m6 0h6"/>
+  </svg>
+
+  <!-- Audio -->
+  <svg v-else-if="icon === 'audio'" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+  </svg>
+
   <!-- Check (default) -->
   <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/>
   </svg>
 </template>
-

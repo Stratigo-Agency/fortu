@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'light' | 'outline'
+  variant?: 'primary' | 'secondary' | 'light' | 'outline' | 'inverted'
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
@@ -35,6 +35,7 @@ const buttonClasses = computed(() => {
     secondary: 'bg-fortu-off-white text-fortu-dark hover:text-fortu-off-white hover:bg-transparent border-2 border-fortu-off-white focus:ring-fortu-medium',
     light: 'bg-fortu-light text-fortu-dark hover:bg-opacity-80 focus:ring-fortu-light',
     outline: 'bg-transparent text-fortu-off-white hover:text-fortu-dark hover:bg-fortu-off-white border-2 border-fortu-off-white focus:ring-fortu-medium',
+    inverted: 'bg-fortu-off-white text-fortu-dark hover:bg-fortu-light focus:ring-fortu-light',
   }
   
   const sizeClasses = {

@@ -150,6 +150,13 @@ export interface ProductSlide {
   isActive?: boolean
 }
 
+export interface ProductSpec {
+  _key?: string
+  icon?: string
+  label: string
+  value?: string
+}
+
 export interface ProductVariant {
   _key: string
   name: string
@@ -194,6 +201,7 @@ export interface Product {
   price: number
   currency?: string
   compareAtPrice?: number
+  specs?: ProductSpec[]
   hasVariants?: boolean
   variantType?: 'color' | 'size' | 'material' | 'style' | 'custom'
   variants?: ProductVariant[]
@@ -350,12 +358,12 @@ export const PRODUCT_SLIDES_QUERY = defineQuery(/* groq */ `
   }
 `)
 
+// Products query for catalog (essential fields only)
 export const PRODUCTS_QUERY = defineQuery(/* groq */ `
   *[_type == "product" && status == "active"] | order(_createdAt desc) {
     _id,
     name,
     slug,
-    sku,
     description,
     images[] {
       asset-> {
@@ -372,7 +380,6 @@ export const PRODUCTS_QUERY = defineQuery(/* groq */ `
     variants[] {
       _key,
       name,
-      sku,
       colorHex,
       image {
         asset-> {
@@ -381,24 +388,12 @@ export const PRODUCTS_QUERY = defineQuery(/* groq */ `
         },
         alt
       },
-      images[] {
-        asset-> {
-          _id,
-          url
-        },
-        alt
-      },
       price,
       compareAtPrice,
-      inStock,
-      stockQuantity
+      inStock
     },
-    category,
-    tags,
     inStock,
-    stockQuantity,
-    featured,
-    status
+    featured
   }
 `)
 
@@ -536,34 +531,11 @@ export const PAGE_HERO_QUERY = defineQuery(/* groq */ `
   }
 `)
 
-// Product Compare
-export interface ProductCompareSpec {
-  _key?: string
-  icon?: string
-  label: string
-  subLabel?: string
-}
-
+// Product Compare - specs now come from product
 export interface ProductCompareItem {
   _key?: string
-  product: {
-    _id: string
-    name: string
-    description?: string
-    images?: Array<{
-      asset: {
-        _ref: string
-        _type: string
-        url?: string
-      }
-      alt?: string
-    }>
-    price: number
-    currency?: string
-    compareAtPrice?: number
-  }
+  product: Product  // Full product with specs
   highlightLabel?: string
-  specs?: ProductCompareSpec[]
   ctaLabel?: string
   ctaLink?: string
 }
@@ -597,15 +569,15 @@ export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
         },
         price,
         currency,
-        compareAtPrice
+        compareAtPrice,
+        specs[] {
+          _key,
+          icon,
+          label,
+          value
+        }
       },
       highlightLabel,
-      specs[] {
-        _key,
-        icon,
-        label,
-        subLabel
-      },
       ctaLabel,
       ctaLink
     },
@@ -613,4 +585,3 @@ export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
     isActive
   }
 `)
-

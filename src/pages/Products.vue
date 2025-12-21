@@ -8,9 +8,8 @@
 
     <!-- Product Catalog -->
      <div class="">
-        <ProductCatalog class="py-12 px-16" />
-
         <Compare />
+        <ProductCatalog class="py-12 px-16" />
      </div>
    
   </div>

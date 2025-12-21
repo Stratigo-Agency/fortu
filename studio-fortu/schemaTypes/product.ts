@@ -8,6 +8,7 @@ export default defineType({
     {name: 'basic', title: 'Basic Info', default: true},
     {name: 'media', title: 'Media'},
     {name: 'pricing', title: 'Pricing'},
+    {name: 'specs', title: 'Specifications'},
     {name: 'variants', title: 'Variants'},
     {name: 'inventory', title: 'Inventory'},
   ],
@@ -94,6 +95,72 @@ export default defineType({
       type: 'number',
       group: 'pricing',
       description: 'Original price if this product is on sale',
+    }),
+    // SPECIFICATIONS
+    defineField({
+      name: 'specs',
+      title: 'Specifications',
+      type: 'array',
+      group: 'specs',
+      description: 'Product specifications for comparison and detail pages',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'icon',
+              title: 'Icon',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Display', value: 'display'},
+                  {title: 'Chip/Processor', value: 'chip'},
+                  {title: 'Camera', value: 'camera'},
+                  {title: 'Battery', value: 'battery'},
+                  {title: 'Storage', value: 'storage'},
+                  {title: 'Connectivity', value: 'connectivity'},
+                  {title: 'WiFi', value: 'wifi'},
+                  {title: 'Weight', value: 'weight'},
+                  {title: 'Dimensions', value: 'dimensions'},
+                  {title: 'Material', value: 'material'},
+                  {title: 'Warranty', value: 'warranty'},
+                  {title: 'Brightness', value: 'brightness'},
+                  {title: 'Operating System', value: 'os'},
+                  {title: 'Touchscreen', value: 'touchscreen'},
+                  {title: 'Microphone', value: 'microphone'},
+                  {title: 'Rotatable', value: 'rotatable'},
+                  {title: 'Adjustable', value: 'adjustable'},
+                  {title: 'Recording', value: 'recording'},
+                  {title: 'Panel Type', value: 'panel'},
+                  {title: 'Wheel', value: 'wheel'},
+                  {title: 'Audio', value: 'audio'},
+                  {title: 'Check', value: 'check'},
+                  {title: 'Star', value: 'star'},
+                ],
+              },
+            }),
+            defineField({
+              name: 'label',
+              title: 'Spec Label',
+              type: 'string',
+              description: 'Main spec text (e.g., "M5 chip", "12MP Camera")',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'value',
+              title: 'Spec Value',
+              type: 'string',
+              description: 'Optional value or detail',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'label',
+              subtitle: 'value',
+            },
+          },
+        },
+      ],
     }),
     // VARIANTS
     defineField({
@@ -313,5 +380,3 @@ export default defineType({
     },
   },
 })
-
-

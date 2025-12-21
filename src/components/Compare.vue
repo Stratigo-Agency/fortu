@@ -121,27 +121,15 @@
               {{ item.product.description }}
             </p>
             
-            <p 
-              class="text-sm mb-4"
-              :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
-            >
-              From {{ formatPrice(item.product.price, item.product.currency) }}
-              <span v-if="item.product.compareAtPrice" class="ml-2 line-through opacity-60">
-                {{ formatPrice(item.product.compareAtPrice, item.product.currency) }}
-              </span>
-            </p>
-
             <div class="flex justify-center gap-3">
-              <a
+              <Button
                 v-if="item.ctaLink"
                 :href="item.ctaLink"
-                class="px-5 py-2 rounded-full text-sm font-medium transition-all"
-                :class="compare.backgroundColor === 'light' 
-                  ? 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-medium' 
-                  : 'bg-fortu-off-white text-fortu-dark hover:bg-fortu-light'"
+                :variant="compare.backgroundColor === 'light' ? 'primary' : 'inverted'"
+                size="sm"
               >
                 {{ item.ctaLabel || 'Learn more' }}
-              </a>
+              </Button>
             </div>
           </div>
 
@@ -151,16 +139,16 @@
             :class="compare.backgroundColor === 'light' ? 'border-fortu-light/50' : 'border-fortu-medium/30'"
           />
 
-          <!-- Specifications -->
-          <div v-if="item.specs && item.specs.length > 0" class="space-y-6">
+          <!-- Specifications (from product) -->
+          <div v-if="item.product.specs && item.product.specs.length > 0" class="space-y-6">
             <div 
-              v-for="(spec, specIndex) in item.specs" 
+              v-for="(spec, specIndex) in item.product.specs" 
               :key="spec._key || specIndex"
               class="spec-item"
             >
               <div class="flex justify-center mb-2">
                 <div 
-                  class="w-10 h-10 rounded-full flex items-center justify-center"
+                  class="w-12 h-12 rounded-full flex items-center justify-center"
                   :class="compare.backgroundColor === 'light' ? 'bg-fortu-light/30' : 'bg-fortu-medium/20'"
                 >
                   <CompareIcon 
@@ -171,17 +159,17 @@
               </div>
               
               <p 
-                class="font-medium text-sm"
+                class="font-medium text-md"
                 :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
               >
                 {{ spec.label }}
               </p>
               <p 
-                v-if="spec.subLabel" 
-                class="text-xs mt-1"
+                v-if="spec.value" 
+                class="text-sm mt-1"
                 :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
               >
-                {{ spec.subLabel }}
+                {{ spec.value }}
               </p>
             </div>
           </div>
@@ -240,24 +228,17 @@
                 {{ compare.products[selectedIdx].product.name }}
               </h3>
               
-              <p 
-                class="text-xs mb-2"
-                :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
-              >
-                From {{ formatPrice(compare.products[selectedIdx].product.price, compare.products[selectedIdx].product.currency) }}
-              </p>
+           
 
               <div class="flex justify-center">
-                <a
+                <Button
                   v-if="compare.products[selectedIdx].ctaLink"
                   :href="compare.products[selectedIdx].ctaLink"
-                  class="px-3 py-1.5 rounded-full text-xs font-medium transition-all"
-                  :class="compare.backgroundColor === 'light' 
-                    ? 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-medium' 
-                    : 'bg-fortu-off-white text-fortu-dark hover:bg-fortu-light'"
+                  :variant="compare.backgroundColor === 'light' ? 'primary' : 'inverted'"
+                  size="sm"
                 >
                   {{ compare.products[selectedIdx].ctaLabel || 'Learn more' }}
-                </a>
+                </Button>
               </div>
             </div>
 
@@ -267,10 +248,10 @@
               :class="compare.backgroundColor === 'light' ? 'border-fortu-light/50' : 'border-fortu-medium/30'"
             />
 
-            <!-- Specifications -->
-            <div v-if="compare.products[selectedIdx].specs && compare.products[selectedIdx].specs.length > 0" class="space-y-4">
+            <!-- Specifications (from product) -->
+            <div v-if="compare.products[selectedIdx].product.specs && compare.products[selectedIdx].product.specs.length > 0" class="space-y-4">
               <div 
-                v-for="(spec, specIndex) in compare.products[selectedIdx].specs" 
+                v-for="(spec, specIndex) in compare.products[selectedIdx].product.specs" 
                 :key="spec._key || specIndex"
                 class="spec-item"
               >
@@ -311,10 +292,10 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { client } from '@/sanity/client'
-import { urlFor } from '@/sanity/client'
+import { client, urlFor } from '@/sanity/client'
 import { PRODUCT_COMPARE_QUERY, type ProductCompare, type ProductCompareItem } from '@/sanity/queries'
 import CompareIcon from '@/components/CompareIcon.vue'
+import Button from '@/reusables/Button.vue'
 
 const compare = ref<ProductCompare | null>(null)
 const loading = ref(true)
@@ -356,10 +337,6 @@ const getProductImage = (item: ProductCompareItem, imageIndex: number): string |
   }
 }
 
-const formatPrice = (price: number, currency?: string): string => {
-  const symbol = currency === 'EUR' ? '€' : currency === 'IDR' ? 'Rp' : '$'
-  return `${symbol}${price.toLocaleString()}`
-}
 
 onMounted(async () => {
   try {

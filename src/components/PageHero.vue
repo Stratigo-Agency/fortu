@@ -38,10 +38,10 @@
         'text-right': pageHero.alignment === 'right'
       }"
     >
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight">
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight hero-title">
         {{ pageHero.title }}
       </h1>
-      <p v-if="pageHero.subtitle" class="text-lg md:text-xl text-fortu-light max-w-2xl" :class="{ 'mx-auto': pageHero.alignment === 'center' }">
+      <p v-if="pageHero.subtitle" class="text-lg md:text-xl text-fortu-light max-w-2xl hero-subtitle" :class="{ 'mx-auto': pageHero.alignment === 'center' }">
         {{ pageHero.subtitle }}
       </p>
     </div>
@@ -53,15 +53,38 @@
     class="relative h-[50vh] min-h-[400px] flex items-center justify-center bg-fortu-dark"
   >
     <div class="relative z-10 text-center px-4">
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight">
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight hero-title">
         {{ fallbackTitle }}
       </h1>
-      <p v-if="fallbackSubtitle" class="text-lg md:text-xl text-fortu-light">
+      <p v-if="fallbackSubtitle" class="text-lg md:text-xl text-fortu-light hero-subtitle">
         {{ fallbackSubtitle }}
       </p>
     </div>
   </section>
 </template>
+
+<style scoped>
+.hero-title {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.hero-subtitle {
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'

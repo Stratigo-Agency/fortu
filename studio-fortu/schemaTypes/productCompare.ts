@@ -22,6 +22,7 @@ export default defineType({
       name: 'products',
       title: 'Products to Compare',
       type: 'array',
+      description: 'Select products to compare. Specs will be pulled from each product.',
       of: [
         {
           type: 'object',
@@ -38,62 +39,6 @@ export default defineType({
               title: 'Highlight Label',
               type: 'string',
               description: 'Optional badge label (e.g., "New", "Best Seller", "Popular")',
-            }),
-            defineField({
-              name: 'specs',
-              title: 'Specification Items',
-              type: 'array',
-              of: [
-                {
-                  type: 'object',
-                  fields: [
-                    defineField({
-                      name: 'icon',
-                      title: 'Icon',
-                      type: 'string',
-                      options: {
-                        list: [
-                          {title: 'Display', value: 'display'},
-                          {title: 'Chip/Processor', value: 'chip'},
-                          {title: 'Camera', value: 'camera'},
-                          {title: 'Battery', value: 'battery'},
-                          {title: 'Storage', value: 'storage'},
-                          {title: 'Connectivity', value: 'connectivity'},
-                          {title: 'WiFi', value: 'wifi'},
-                          {title: 'Weight', value: 'weight'},
-                          {title: 'Dimensions', value: 'dimensions'},
-                          {title: 'Material', value: 'material'},
-                          {title: 'Warranty', value: 'warranty'},
-                          {title: 'Brightness', value: 'brightness'},
-                          {title: 'Operating System', value: 'os'},
-                          {title: 'Touchscreen', value: 'touchscreen'},
-                          {title: 'Check', value: 'check'},
-                          {title: 'Star', value: 'star'},
-                        ],
-                      },
-                    }),
-                    defineField({
-                      name: 'label',
-                      title: 'Spec Label',
-                      type: 'string',
-                      description: 'Main spec text (e.g., "M5 chip", "12MP Camera")',
-                      validation: (Rule) => Rule.required(),
-                    }),
-                    defineField({
-                      name: 'subLabel',
-                      title: 'Sub Label',
-                      type: 'string',
-                      description: 'Secondary text below the main label',
-                    }),
-                  ],
-                  preview: {
-                    select: {
-                      title: 'label',
-                      subtitle: 'subLabel',
-                    },
-                  },
-                },
-              ],
             }),
             defineField({
               name: 'ctaLabel',
@@ -162,4 +107,3 @@ export default defineType({
     },
   },
 })
-
