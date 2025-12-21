@@ -1,7 +1,7 @@
 <template>
-  <section v-if="productSlides && productSlides.length > 0 && !loading" class="product-slides-section relative md:h-[95vh] bg-fortu-off-white overflow-hidden">
+  <section v-if="productSlides && productSlides.length > 0 && !loading" class="product-slides-section relative min-h-screen md:h-[95vh] bg-fortu-off-white overflow-hidden">
     <!-- Slides -->
-    <div class="relative h-full">
+    <div class="relative h-full min-h-screen md:min-h-0">
       <TransitionGroup name="slide">
         <div
           v-for="(product, index) in productSlides"
@@ -20,20 +20,20 @@
           </div>
 
           <!-- Mobile Layout: Stacked content + image -->
-          <div class="flex flex-col h-full md:hidden">
+          <div class="flex flex-col h-full md:hidden pb-6">
             <!-- Mobile Content Section -->
             <div class="bg-fortu-off-white px-6 pt-20 pb-6">
               <!-- Mobile Product Tabs -->
               <div class="flex mb-4">
-                <div class="flex rounded-md border-4 border-fortu-off-white overflow-hidden bg-fortu-off-white">
+                <div class="flex rounded-md overflow-hidden bg-fortu-dark">
                   <button
                     v-for="(prod, idx) in productSlides"
                     :key="`mobile-tab-${prod._id}`"
                     @click="goToSlide(idx)"
-                    class="px-4 py-2 text-xs font-medium rounded-md transition-all duration-300"
+                    class="px-4 py-2 text-xs font-medium transition-all duration-300"
                     :class="currentIndex === idx 
-                      ? 'bg-white text-fortu-dark' 
-                      : 'bg-fortu-off-white text-fortu-dark'"
+                      ? 'bg-fortu-off-white text-fortu-dark' 
+                      : 'bg-fortu-dark text-fortu-off-white'"
                   >
                     {{ prod.name }}
                   </button>
@@ -157,15 +157,15 @@
 
     <!-- Product Tabs (Desktop only) -->
     <div class="hidden md:block absolute top-16 right-16 z-20">
-      <div class="flex rounded-md border-8 border-fortu-off-white overflow-hidden bg-fortu-off-white">
+      <div class="flex rounded-md overflow-hidden bg-fortu-dark">
         <button
           v-for="(product, index) in productSlides"
           :key="product._id"
           @click="goToSlide(index)"
-          class="px-6 py-2.5 text-sm font-medium rounded-md transition-all duration-300"
+          class="px-6 py-2.5 text-sm font-medium transition-all duration-300"
           :class="currentIndex === index 
-            ? 'bg-white text-fortu-dark' 
-            : 'bg-fortu-off-white text-fortu-dark hover:bg-fortu-off-white/10'"
+            ? 'bg-fortu-off-white text-fortu-dark' 
+            : 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-medium'"
         >
           {{ product.name }}
         </button>

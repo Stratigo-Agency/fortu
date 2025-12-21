@@ -1,16 +1,14 @@
 <template>
-  <div class="products-page bg-fortu-dark min-h-screen">
+  <div class="products-page min-h-screen bg-fortu-off-white">
     <PageHero 
       pageName="products" 
       fallbackTitle="Discover Fortu"
       fallbackSubtitle="Explore our collection of premium products"
     />
 
-    <!-- Product Catalog -->
-     <div class="">
-        <Compare />
-        <ProductCatalog class="py-12 px-16" />
-     </div>
+    <ProductCatalog class="py-12" />
+    <Compare />
+    <CTA variant="dark" />
    
   </div>
 </template>
@@ -19,4 +17,5 @@
 import PageHero from '@/components/PageHero.vue'
 import ProductCatalog from '@/components/ProductCatalog.vue'
 import Compare from '@/components/Compare.vue'
+import CTA from '@/components/CTA.vue'
 </script>

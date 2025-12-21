@@ -1,0 +1,205 @@
+<template>
+  <!-- Product Hero with Background -->
+  <section 
+    v-if="hasBackground" 
+    class="relative h-[70vh] min-h-[500px] flex items-end overflow-hidden"
+  >
+    <!-- Background Video -->
+    <video
+      v-if="videoUrl"
+      :src="videoUrl"
+      autoplay
+      loop
+      muted
+      playsinline
+      class="absolute inset-0 w-full h-full object-cover"
+    ></video>
+    
+    <!-- Background Image -->
+    <img
+      v-else-if="imageUrl"
+      :src="imageUrl"
+      :alt="productName"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-fortu-dark/40"></div>
+    
+    <!-- Content -->
+    <div class="relative z-10 w-full px-4 md:px-16 pb-12 md:pb-16">
+      <!-- Breadcrumb -->
+      <nav class="text-sm text-fortu-light/80 mb-4">
+        <router-link to="/products" class="hover:text-fortu-off-white transition-colors">Products</router-link>
+        <span class="mx-2">/</span>
+        <span class="text-fortu-off-white">{{ productName }}</span>
+      </nav>
+
+      <h1 class="text-4xl md:text-5xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight hero-title">
+        {{ productName }}
+      </h1>
+      
+      <p v-if="description" class="text-lg md:text-xl text-fortu-light max-w-3xl hero-subtitle">
+        {{ description }}
+      </p>
+
+      <!-- Price -->
+      <div v-if="price" class="flex items-center gap-3 mt-6">
+        <span class="text-2xl md:text-3xl font-medium text-fortu-off-white">
+          {{ formattedPrice }}
+        </span>
+        <span v-if="compareAtPrice" class="text-lg text-fortu-light/70 line-through">
+          {{ formattedCompareAtPrice }}
+        </span>
+        <span 
+          v-if="compareAtPrice" 
+          class="px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full"
+        >
+          Sale
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fallback: No background media -->
+  <section 
+    v-else 
+    class="relative h-[40vh] min-h-[300px] flex items-end bg-fortu-dark overflow-hidden"
+  >
+    <!-- Subtle pattern background -->
+    <div class="absolute inset-0 opacity-5">
+      <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <defs>
+          <pattern id="product-grid" width="10" height="10" patternUnits="userSpaceOnUse">
+            <path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="100" height="100" fill="url(#product-grid)"/>
+      </svg>
+    </div>
+
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 bg-gradient-to-t from-fortu-dark via-fortu-dark/80 to-fortu-dark/60"></div>
+    
+    <!-- Content -->
+    <div class="relative z-10 w-full px-4 md:px-16 pb-12 md:pb-16">
+      <!-- Breadcrumb -->
+      <nav class="text-sm text-fortu-light/80 mb-4">
+        <router-link to="/products" class="hover:text-fortu-off-white transition-colors">Products</router-link>
+        <span class="mx-2">/</span>
+        <span class="text-fortu-off-white">{{ productName }}</span>
+      </nav>
+
+      <h1 class="text-4xl md:text-5xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight hero-title">
+        {{ productName }}
+      </h1>
+      
+      <p v-if="description" class="text-lg md:text-xl text-fortu-light max-w-3xl hero-subtitle">
+        {{ description }}
+      </p>
+
+      <!-- Price -->
+      <div v-if="price" class="flex items-center gap-3 mt-6">
+        <span class="text-2xl md:text-3xl font-medium text-fortu-off-white">
+          {{ formattedPrice }}
+        </span>
+        <span v-if="compareAtPrice" class="text-lg text-fortu-light/70 line-through">
+          {{ formattedCompareAtPrice }}
+        </span>
+        <span 
+          v-if="compareAtPrice" 
+          class="px-2 py-1 bg-red-500 text-white text-xs font-medium rounded-full"
+        >
+          Sale
+        </span>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { urlFor } from '@/sanity/client'
+
+interface HeroAsset {
+  asset?: {
+    _ref?: string
+    _type?: string
+    url?: string
+  }
+}
+
+const props = defineProps<{
+  productName: string
+  description?: string
+  heroImage?: HeroAsset
+  heroVideo?: HeroAsset
+  price?: number
+  compareAtPrice?: number
+  currency?: string
+}>()
+
+const videoUrl = computed(() => {
+  if (props.heroVideo?.asset?.url) {
+    return props.heroVideo.asset.url
+  }
+  return null
+})
+
+const imageUrl = computed(() => {
+  if (props.heroImage?.asset) {
+    if (props.heroImage.asset.url) {
+      return props.heroImage.asset.url
+    }
+    if (props.heroImage.asset._ref) {
+      try {
+        return urlFor(props.heroImage.asset).width(1920).url()
+      } catch {
+        return null
+      }
+    }
+  }
+  return null
+})
+
+const hasBackground = computed(() => {
+  return videoUrl.value || imageUrl.value
+})
+
+const formatPrice = (price: number): string => {
+  const symbol = props.currency === 'EUR' ? '€' : props.currency === 'IDR' ? 'Rp' : '$'
+  return `${symbol}${price.toLocaleString()}`
+}
+
+const formattedPrice = computed(() => {
+  return props.price ? formatPrice(props.price) : ''
+})
+
+const formattedCompareAtPrice = computed(() => {
+  return props.compareAtPrice ? formatPrice(props.compareAtPrice) : ''
+})
+</script>
+
+<style scoped>
+.hero-title {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.hero-subtitle {
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+

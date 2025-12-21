@@ -274,6 +274,13 @@
                 >
                   {{ spec.label }}
                 </p>
+                <p 
+                  v-if="spec.value" 
+                  class="text-xs mt-0.5"
+                  :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
+                >
+                  {{ spec.value }}
+                </p>
               </div>
             </div>
           </template>

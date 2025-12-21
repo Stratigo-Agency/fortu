@@ -200,15 +200,6 @@
             © {{ currentYear }} {{ settings?.companyName || 'FORTU DIGITAL' }}. All rights reserved.
           </p>
           <div class="flex gap-6">
-            <a href="#" class="text-fortu-medium hover:text-fortu-off-white transition-colors text-sm">
-              Privacy Policy
-            </a>
-            <a href="#" class="text-fortu-medium hover:text-fortu-off-white transition-colors text-sm">
-              Terms of Service
-            </a>
-            <a href="#" class="text-fortu-medium hover:text-fortu-off-white transition-colors text-sm">
-              Cookies
-            </a>
           </div>
         </div>
       </div>

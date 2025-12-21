@@ -1,5 +1,5 @@
 <template>
-  <section v-if="useCaseSection && !loading" class="use-case-section py-24 bg-fortu-off-white overflow-hidden">
+  <section v-if="useCaseSection && !loading" class="use-case-section pb-12 bg-fortu-off-white overflow-hidden">
     <div class="container mx-auto px-4 md:px-4">
       <!-- Section header -->
       <div class="text-center mb-16 max-w-2xl mx-auto">

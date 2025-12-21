@@ -46,6 +46,26 @@ export default defineType({
       rows: 4,
     }),
     defineField({
+      name: 'heroImage',
+      title: 'Hero Background Image',
+      type: 'image',
+      group: 'media',
+      description: 'Large background image for the product hero section',
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
+      name: 'heroVideo',
+      title: 'Hero Background Video',
+      type: 'file',
+      group: 'media',
+      description: 'Background video for the product hero (overrides image)',
+      options: {
+        accept: 'video/*',
+      },
+    }),
+    defineField({
       name: 'images',
       title: 'Product Images',
       type: 'array',
@@ -73,7 +93,7 @@ export default defineType({
       type: 'number',
       group: 'pricing',
       description: 'Default price (can be overridden by variants)',
-      validation: (Rule) => Rule.required().positive(),
+      validation: (Rule) => Rule.positive(),
     }),
     defineField({
       name: 'currency',
@@ -157,6 +177,176 @@ export default defineType({
             select: {
               title: 'label',
               subtitle: 'value',
+            },
+          },
+        },
+      ],
+    }),
+    // FEATURE SECTIONS
+    defineField({
+      name: 'features',
+      title: 'Feature Sections',
+      type: 'array',
+      group: 'media',
+      description: 'Rich feature sections with images/videos for the product detail page',
+      of: [
+        {
+          type: 'object',
+          name: 'featureSection',
+          title: 'Feature Section',
+          fields: [
+            defineField({
+              name: 'eyebrow',
+              title: 'Eyebrow Text',
+              type: 'string',
+              description: 'Small text above the heading (e.g., "Design.")',
+            }),
+            defineField({
+              name: 'heading',
+              title: 'Heading',
+              type: 'string',
+              description: 'Main heading (e.g., "A powerhouse of portability.")',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 4,
+              description: 'Feature description text',
+            }),
+            defineField({
+              name: 'highlightText',
+              title: 'Highlight Text',
+              type: 'string',
+              description: 'Bold/highlighted text within description (e.g., "50 percent charge in around 30 minutes.")',
+            }),
+            defineField({
+              name: 'mediaType',
+              title: 'Media Type',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Image', value: 'image'},
+                  {title: 'Video', value: 'video'},
+                ],
+                layout: 'radio',
+              },
+              initialValue: 'image',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Feature Image',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              hidden: ({parent}) => parent?.mediaType === 'video',
+            }),
+            defineField({
+              name: 'video',
+              title: 'Feature Video',
+              type: 'file',
+              options: {
+                accept: 'video/*',
+              },
+              hidden: ({parent}) => parent?.mediaType !== 'video',
+            }),
+            defineField({
+              name: 'backgroundColor',
+              title: 'Background Color',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Dark (Black)', value: 'dark'},
+                  {title: 'Light (Off-White)', value: 'light'},
+                ],
+              },
+              initialValue: 'dark',
+            }),
+            defineField({
+              name: 'textAlignment',
+              title: 'Text Alignment',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Center', value: 'center'},
+                  {title: 'Left', value: 'left'},
+                  {title: 'Right', value: 'right'},
+                ],
+              },
+              initialValue: 'center',
+            }),
+            defineField({
+              name: 'highlights',
+              title: 'Highlight Items',
+              type: 'array',
+              description: 'Icon and text pairs displayed below the description',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'icon',
+                      title: 'Icon',
+                      type: 'string',
+                      options: {
+                        list: [
+                          {title: 'Display', value: 'display'},
+                          {title: 'Chip/Processor', value: 'chip'},
+                          {title: 'Camera', value: 'camera'},
+                          {title: 'Battery', value: 'battery'},
+                          {title: 'Storage', value: 'storage'},
+                          {title: 'Connectivity', value: 'connectivity'},
+                          {title: 'WiFi', value: 'wifi'},
+                          {title: 'Weight', value: 'weight'},
+                          {title: 'Dimensions', value: 'dimensions'},
+                          {title: 'Material', value: 'material'},
+                          {title: 'Warranty', value: 'warranty'},
+                          {title: 'Brightness', value: 'brightness'},
+                          {title: 'Operating System', value: 'os'},
+                          {title: 'Touchscreen', value: 'touchscreen'},
+                          {title: 'Microphone', value: 'microphone'},
+                          {title: 'Rotatable', value: 'rotatable'},
+                          {title: 'Adjustable', value: 'adjustable'},
+                          {title: 'Recording', value: 'recording'},
+                          {title: 'Panel Type', value: 'panel'},
+                          {title: 'Wheel', value: 'wheel'},
+                          {title: 'Audio', value: 'audio'},
+                          {title: 'Star', value: 'star'},
+                          {title: 'Check', value: 'check'},
+                        ],
+                      },
+                    }),
+                    defineField({
+                      name: 'text',
+                      title: 'Text',
+                      type: 'string',
+                      validation: (Rule) => Rule.required(),
+                    }),
+                  ],
+                  preview: {
+                    select: {
+                      title: 'text',
+                      subtitle: 'icon',
+                    },
+                  },
+                },
+              ],
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'heading',
+              subtitle: 'eyebrow',
+              media: 'image',
+            },
+            prepare({title, subtitle, media}) {
+              return {
+                title: title || 'Untitled Feature',
+                subtitle: subtitle || 'Feature Section',
+                media,
+              }
             },
           },
         },

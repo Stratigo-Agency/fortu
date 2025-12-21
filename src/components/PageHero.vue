@@ -38,7 +38,7 @@
         'text-right': pageHero.alignment === 'right'
       }"
     >
-      <h1 class="text-4xl md:text-6xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight hero-title">
+      <h1 class="text-5xl md:text-6xl lg:text-7xl font-medium text-fortu-off-white mb-4 tracking-tight hero-title">
         {{ pageHero.title }}
       </h1>
       <p v-if="pageHero.subtitle" class="text-lg md:text-xl text-fortu-light max-w-2xl hero-subtitle" :class="{ 'mx-auto': pageHero.alignment === 'center' }">

@@ -157,6 +157,38 @@ export interface ProductSpec {
   value?: string
 }
 
+export interface FeatureHighlight {
+  _key?: string
+  icon?: string
+  text: string
+}
+
+export interface ProductFeature {
+  _key?: string
+  eyebrow?: string
+  heading: string
+  description?: string
+  highlightText?: string
+  mediaType?: 'image' | 'video'
+  image?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  video?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  backgroundColor?: 'dark' | 'light'
+  textAlignment?: 'center' | 'left' | 'right'
+  highlights?: FeatureHighlight[]
+}
+
 export interface ProductVariant {
   _key: string
   name: string
@@ -190,6 +222,20 @@ export interface Product {
   slug: { current: string }
   sku?: string
   description?: string
+  heroImage?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  heroVideo?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
   images?: Array<{
     asset: {
       _ref: string
@@ -198,10 +244,11 @@ export interface Product {
     }
     alt?: string
   }>
-  price: number
+  price?: number
   currency?: string
   compareAtPrice?: number
   specs?: ProductSpec[]
+  features?: ProductFeature[]
   hasVariants?: boolean
   variantType?: 'color' | 'size' | 'material' | 'style' | 'custom'
   variants?: ProductVariant[]
@@ -583,5 +630,102 @@ export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
     },
     backgroundColor,
     isActive
+  }
+`)
+
+// Single Product by Slug
+export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
+  *[_type == "product" && slug.current == $slug && status == "active"][0] {
+    _id,
+    name,
+    slug,
+    sku,
+    description,
+    heroImage {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    heroVideo {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    images[] {
+      asset-> {
+        _id,
+        url
+      },
+      alt
+    },
+    price,
+    currency,
+    compareAtPrice,
+    specs[] {
+      _key,
+      icon,
+      label,
+      value
+    },
+    features[] {
+      _key,
+      eyebrow,
+      heading,
+      description,
+      highlightText,
+      mediaType,
+      image {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      video {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      backgroundColor,
+      textAlignment,
+      highlights[] {
+        _key,
+        icon,
+        text
+      }
+    },
+    hasVariants,
+    variantType,
+    variants[] {
+      _key,
+      name,
+      sku,
+      colorHex,
+      image {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      images[] {
+        asset-> {
+          _id,
+          url
+        },
+        alt
+      },
+      price,
+      compareAtPrice,
+      inStock,
+      stockQuantity
+    },
+    category,
+    tags,
+    inStock,
+    stockQuantity,
+    featured
   }
 `)

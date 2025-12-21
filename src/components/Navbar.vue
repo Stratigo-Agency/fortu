@@ -1,12 +1,21 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import Button from '@/reusables/Button.vue'
 
+const route = useRoute()
 const isMenuOpen = ref(false)
 const isVisible = ref(true)
-const isInHero = ref(true)
+const isInHeroSection = ref(true)
 const lastScrollY = ref(0)
+
+const isInHero = computed(() => {
+  // Force solid background when mobile menu is open
+  if (isMenuOpen.value) {
+    return false
+  }
+  return isInHeroSection.value
+})
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -23,8 +32,8 @@ const handleScroll = () => {
   const currentScrollY = window.scrollY
   const heroHeight = window.innerHeight * 0.8 // Consider "in hero" for 80% of viewport height
   
-  // Determine if we're in the hero section
-  isInHero.value = currentScrollY < heroHeight
+  // Determine if we're in the hero section (for scroll-based transparency)
+  isInHeroSection.value = currentScrollY < heroHeight
   
   // Determine scroll direction and visibility
   if (currentScrollY < 100) {
@@ -41,6 +50,13 @@ const handleScroll = () => {
   
   lastScrollY.value = currentScrollY
 }
+
+// Reset scroll state on route change
+watch(() => route.path, () => {
+  lastScrollY.value = 0
+  isInHeroSection.value = true
+  handleScroll()
+})
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
@@ -95,7 +111,7 @@ onUnmounted(() => {
           <Button 
             :variant="isInHero ? 'secondary' : 'primary'" 
             size="sm" 
-            href="/shop"
+            href="/products"
             :class="!isInHero ? 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white' : ''"
           >
             Shop Now
@@ -141,7 +157,7 @@ onUnmounted(() => {
           <Button 
             variant="primary" 
             size="sm" 
-            href="/shop" 
+            href="/products" 
             class="mt-2"
             :class="isInHero 
               ? 'border-fortu-off-white text-fortu-off-white hover:bg-fortu-off-white hover:text-fortu-dark' 

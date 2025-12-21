@@ -1,5 +1,5 @@
 <template>
-  <section v-if="cmsDemo && !loading" class="cms-demo-section h-screen relative overflow-hidden pt-0 pb-32 bg-fortu-dark">
+  <section v-if="cmsDemo && !loading" class="cms-demo-section min-h-screen md:h-screen relative overflow-hidden pt-0 pb-16 md:pb-32 bg-fortu-dark">
     <!-- Background gradient effects -->
    
 
@@ -8,27 +8,27 @@
 
     <div class="container mx-auto px-6 relative z-10">
       <!-- Section header -->
-      <div class="text-center mb-20">
+      <div class="text-center mb-10 md:mb-20">
         <span class="inline-block px-4 py-2 rounded-full bg-fortu-off-white border text-fortu-dark font-light text-md tracking-wide uppercase mb-6">
           {{ cmsDemo.badge }}
         </span>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-fortu-off-white mb-6 tracking-tight">
+        <h2 class="text-2xl md:text-5xl lg:text-6xl font-light text-fortu-off-white mb-4 md:mb-6 tracking-tight">
           {{ cmsDemo.heading.line1 }}
-          <span class="block mt-2 text-fortu-light">
+          <span class="block mt-1 md:mt-2 text-fortu-light">
             {{ cmsDemo.heading.line2 }}
           </span>
         </h2>
-        <p class="text-fortu-medium text-lg max-w-2xl mx-auto leading-relaxed">
+        <p class="text-fortu-medium text-sm md:text-lg max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
           {{ cmsDemo.description }}
         </p>
       </div>
 
       <!-- Main visualization container -->
-      <div class="relative max-w-6xl mx-auto h-[200px] mt-48 md:h-[780px] flex items-center justify-center">
+      <div class="relative max-w-6xl mx-auto h-[420px] mt-16 md:mt-48 md:h-[780px] flex items-center justify-center">
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
-        <div v-if="getProductByPosition('top-left')" class="product-card product-1 absolute top-0 left-0 md:left-12 lg:left-24">
+        <div v-if="getProductByPosition('top-left')" class="product-card product-1 absolute top-0 left-2 md:left-12 lg:left-24">
           <div class="relative group">
             <!-- Connection line - L-shaped: right then down -->
             <div class="connection-line connection-1">
@@ -37,8 +37,8 @@
               <div class="pulse-dot pulse-1"></div>
             </div>
             
-            <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
-              <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
+            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+              <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-left')"
                   :src="getProductImage('top-left')" 
@@ -46,19 +46,19 @@
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
-              <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-[green] animate-pulse"></div>
-                  <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
+              <div class="space-y-1 md:space-y-2">
+                <div class="flex items-center gap-1 md:gap-2">
+                  <div class="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[green] animate-pulse"></div>
+                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
-                <h4 class="text-fortu-off-white font-medium">{{ getProductName('top-left') }}</h4>
+                <h4 class="text-fortu-off-white font-medium text-xs md:text-base truncate">{{ getProductName('top-left') }}</h4>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Product 2 - Top Right -->
-        <div v-if="getProductByPosition('top-right')" class="product-card product-2 absolute top-0 right-0 md:right-12 lg:right-24">
+        <div v-if="getProductByPosition('top-right')" class="product-card product-2 absolute top-0 right-2 md:right-12 lg:right-24">
           <div class="relative group">
             <!-- Connection line - L-shaped: left then down -->
             <div class="connection-line connection-2">
@@ -67,8 +67,8 @@
               <div class="pulse-dot pulse-2"></div>
             </div>
             
-            <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
-              <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
+            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+              <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-right')"
                   :src="getProductImage('top-right')" 
@@ -76,19 +76,19 @@
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
-              <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-[green] animate-pulse"></div>
-                  <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
+              <div class="space-y-1 md:space-y-2">
+                <div class="flex items-center gap-1 md:gap-2">
+                  <div class="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[green] animate-pulse"></div>
+                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
-                <h4 class="text-fortu-off-white font-medium">{{ getProductName('top-right') }}</h4>
+                <h4 class="text-fortu-off-white font-medium text-xs md:text-base truncate">{{ getProductName('top-right') }}</h4>
               </div>
             </div>
           </div>
         </div>
 
         <!-- Product 3 - Bottom Center -->
-        <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute top-[-150px] left-1/2">
+        <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute top-[-80px] md:top-[-150px] left-1/2">
           <div class="relative group">
             
             <!-- Connection line - straight down -->
@@ -96,8 +96,8 @@
               <div class="line-vertical-down"></div>
               <div class="pulse-dot pulse-3"></div>
             </div>
-            <div class="w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-2xl border border-fortu-light/10 p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
-              <div class="aspect-square rounded-xl overflow-hidden mb-4 bg-fortu-dark">
+            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+              <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('bottom-center')"
                   :src="getProductImage('bottom-center')" 
@@ -105,12 +105,12 @@
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
-              <div class="space-y-2">
-                <div class="flex items-center gap-2">
-                  <div class="w-2 h-2 rounded-full bg-[green] animate-pulse"></div>
-                  <span class="text-xs text-fortu-light uppercase tracking-wider">Synced</span>
+              <div class="space-y-1 md:space-y-2">
+                <div class="flex items-center gap-1 md:gap-2">
+                  <div class="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[green] animate-pulse"></div>
+                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Synced</span>
                 </div>
-                <h4 class="text-fortu-off-white font-medium">{{ getProductName('bottom-center') }}</h4>
+                <h4 class="text-fortu-off-white font-medium text-xs md:text-base truncate">{{ getProductName('bottom-center') }}</h4>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@
           <!-- Laptop frame -->
           <div class="laptop-frame relative">
             <!-- Screen bezel -->
-            <div class="w-[500px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 to-fortu-medium/40 rounded-2xl p-3 shadow-2xl">
+            <div class="w-[500px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 to-fortu-medium/40 rounded-2xl p-3">
               
               <!-- Screen content -->
               <div class="bg-fortu-dark rounded-lg overflow-hidden aspect-[16/10]">
@@ -611,17 +611,46 @@ onMounted(async () => {
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  .product-card {
-    display: none;
-  }
-  
   .laptop-container {
-    transform: scale(0.75);
+    transform: scale(0.55);
     transform-origin: center center;
   }
   
   .connection-line {
     display: none;
+  }
+  
+  .product-1 {
+    animation: float-mobile 6s ease-in-out infinite;
+  }
+  
+  .product-2 {
+    animation: float-mobile 6s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+  
+  .product-3 {
+    animation: float-center-mobile 6s ease-in-out infinite;
+    animation-delay: 4s;
+    animation-fill-mode: backwards;
+  }
+}
+
+@keyframes float-mobile {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float-center-mobile {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-8px);
   }
 }
 </style>
