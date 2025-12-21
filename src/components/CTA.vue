@@ -57,7 +57,7 @@ interface Props {
   variant?: 'dark' | 'light'
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   heading: 'Ready to Get Started?',
   description: 'Have questions or want to purchase? Reach out to us directly on WhatsApp for a quick response.',
   buttonLabel: 'Chat on WhatsApp',
