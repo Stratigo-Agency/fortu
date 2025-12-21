@@ -38,7 +38,7 @@
       :selected-variant-key="selectedVariant?._key"
       :selected-variant-name="selectedVariant?.name"
       @select-variant="selectVariant"
-      class="bg-fortu-dark"
+      class="bg-fortu-dark pt-12"
     />
 
     <!-- Feature Sections -->
@@ -51,11 +51,11 @@
     <!-- Specifications Section -->
     <section v-if="product.specs && product.specs.length > 0" class="py-16 px-4 md:px-16 bg-white">
       <div>
-        <h2 class="text-2xl md:text-6xl font-medium text-fortu-dark mb-10 tracking-tight">
+        <h2 class="text-4xl md:text-6xl font-medium text-fortu-dark mb-10 tracking-tight">
           Specifications
         </h2>
         
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
           <div 
             v-for="(spec, index) in product.specs" 
             :key="spec._key || index"

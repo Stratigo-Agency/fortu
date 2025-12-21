@@ -2,7 +2,7 @@
   <section v-if="images && images.length > 0" class="overflow-hidden">
     <div class="px-4 md:px-16">
       <!-- Section Header -->
-      <h2 class="text-3xl md:text-5xl font-medium text-fortu-dark mb-12 tracking-tight">
+      <h2 class="text-3xl md:text-4xl font-medium text-fortu-off-white mb-12 tracking-tight">
         {{ heading || '' }}
       </h2>
     </div>
