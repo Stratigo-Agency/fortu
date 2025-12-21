@@ -23,7 +23,7 @@
         class="product-card bg-white rounded-2xl overflow-hidden duration-300"
       >
         <!-- Product Image -->
-        <div class="relative aspect-square bg-fortu-light/10">
+        <div class="relative aspect-square">
           <img 
             v-if="getProductImage(product)"
             :src="getProductImage(product)"

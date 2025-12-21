@@ -73,12 +73,6 @@ export default defineType({
                   validation: (Rule) => Rule.required(),
                 },
                 {
-                  name: 'price',
-                  title: 'Price',
-                  type: 'number',
-                  validation: (Rule) => Rule.required().positive(),
-                },
-                {
                   name: 'image',
                   title: 'Product Image',
                   type: 'image',

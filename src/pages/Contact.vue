@@ -1,25 +1,18 @@
 <template>
-  <div class="container">
-    <h1>Contact</h1>
-    <p>Contact page content coming soon...</p>
+  <div class="contact-page bg-fortu-off-white min-h-screen">
+    <PageHero 
+      pageName="contact" 
+      fallbackTitle="Contact Us"
+      fallbackSubtitle="We'd love to hear from you"
+    />
+
+    <!-- Contact Content -->
+    <div class="px-4 md:px-16 py-16">
+      <p class="text-fortu-medium text-lg">Contact page content coming soon...</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import PageHero from '@/components/PageHero.vue'
 </script>
-
-<style scoped>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 2rem;
-  letter-spacing: -0.02em;
-}
-</style>
-

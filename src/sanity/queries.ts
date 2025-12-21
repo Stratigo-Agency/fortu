@@ -35,8 +35,6 @@ export interface CMSDemoProduct {
   product?: {
     _id: string
     name: string
-    price: number
-    currency?: string
     images?: Array<{
       asset: {
         _ref: string
@@ -48,7 +46,6 @@ export interface CMSDemoProduct {
   }
   customProduct?: {
     name: string
-    price: number
     image: {
       asset: {
         _ref: string
@@ -254,8 +251,6 @@ export const CMS_DEMO_QUERY = defineQuery(/* groq */ `
       product-> {
         _id,
         name,
-        price,
-        currency,
         images[] {
           asset-> {
             _id,
@@ -266,7 +261,6 @@ export const CMS_DEMO_QUERY = defineQuery(/* groq */ `
       },
       customProduct {
         name,
-        price,
         image {
           asset-> {
             _id,
@@ -459,6 +453,164 @@ export const SITE_SETTINGS_QUERY = defineQuery(/* groq */ `
       youtube,
       tiktok
     }
+  }
+`)
+
+// FAQ
+export interface FAQItem {
+  _key?: string
+  question: string
+  answer: string
+}
+
+export interface FAQ {
+  _id: string
+  heading: string
+  subheading?: string
+  items: FAQItem[]
+  order?: number
+  isActive?: boolean
+}
+
+export const FAQ_QUERY = defineQuery(/* groq */ `
+  *[_type == "faq" && isActive == true] | order(order asc) [0] {
+    _id,
+    heading,
+    subheading,
+    items[] {
+      _key,
+      question,
+      answer
+    },
+    order,
+    isActive
+  }
+`)
+
+// Page Hero
+export interface PageHero {
+  _id: string
+  pageName: 'products' | 'about' | 'contact' | 'services'
+  title: string
+  subtitle?: string
+  backgroundImage?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  backgroundVideo?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  overlayOpacity?: number
+  alignment?: 'left' | 'center' | 'right'
+  isActive?: boolean
+}
+
+export const PAGE_HERO_QUERY = defineQuery(/* groq */ `
+  *[_type == "pageHero" && pageName == $pageName && isActive == true][0] {
+    _id,
+    pageName,
+    title,
+    subtitle,
+    backgroundImage {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    backgroundVideo {
+      asset-> {
+        _id,
+        url
+      }
+    },
+    overlayOpacity,
+    alignment,
+    isActive
+  }
+`)
+
+// Product Compare
+export interface ProductCompareSpec {
+  _key?: string
+  icon?: string
+  label: string
+  subLabel?: string
+}
+
+export interface ProductCompareItem {
+  _key?: string
+  product: {
+    _id: string
+    name: string
+    description?: string
+    images?: Array<{
+      asset: {
+        _ref: string
+        _type: string
+        url?: string
+      }
+      alt?: string
+    }>
+    price: number
+    currency?: string
+    compareAtPrice?: number
+  }
+  highlightLabel?: string
+  specs?: ProductCompareSpec[]
+  ctaLabel?: string
+  ctaLink?: string
+}
+
+export interface ProductCompare {
+  _id: string
+  heading?: string
+  subheading?: string
+  products: ProductCompareItem[]
+  backgroundColor?: 'dark' | 'light'
+  isActive?: boolean
+}
+
+export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
+  *[_type == "productCompare" && isActive == true][0] {
+    _id,
+    heading,
+    subheading,
+    products[] {
+      _key,
+      product-> {
+        _id,
+        name,
+        description,
+        images[] {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        },
+        price,
+        currency,
+        compareAtPrice
+      },
+      highlightLabel,
+      specs[] {
+        _key,
+        icon,
+        label,
+        subLabel
+      },
+      ctaLabel,
+      ctaLink
+    },
+    backgroundColor,
+    isActive
   }
 `)
 
