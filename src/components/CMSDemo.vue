@@ -1,24 +1,20 @@
 <template>
-  <section v-if="cmsDemo && !loading" class="cms-demo-section min-h-screen md:h-screen relative overflow-hidden pt-0 pb-16 md:pb-32 bg-fortu-dark">
-    <!-- Background gradient effects -->
-   
-
+  <section v-if="cmsDemo && !loading" class="cms-demo-section md:h-screen relative overflow-hidden pt-0 md:pb-32 bg-fortu-dark">
     <!-- Grid pattern overlay -->
-    <div class="absolute inset-0 opacity-[0.02]" style="background-image: linear-gradient(#BFBFBF 1px, transparent 1px), linear-gradient(90deg, #BFBFBF 1px, transparent 1px); background-size: 60px 60px;"></div>
 
-    <div class="container mx-auto px-6 relative z-10">
+    <div class="py-16 md:py-24 mx-auto px-6 relative z-10">
       <!-- Section header -->
       <div class="text-center mb-10 md:mb-20">
         <span class="inline-block px-4 py-2 rounded-full bg-fortu-off-white border text-fortu-dark font-light text-md tracking-wide uppercase mb-6">
           {{ cmsDemo.badge }}
         </span>
-        <h2 class="text-2xl md:text-5xl lg:text-6xl font-light text-fortu-off-white mb-4 md:mb-6 tracking-tight">
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-fortu-off-white mb-4 md:mb-6 tracking-tight">
           {{ cmsDemo.heading.line1 }}
           <span class="block mt-1 md:mt-2 text-fortu-light">
             {{ cmsDemo.heading.line2 }}
           </span>
         </h2>
-        <p class="text-fortu-medium text-sm md:text-lg max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
+        <p class="text-fortu-medium text-md md:text-lg max-w-2xl mx-auto leading-relaxed px-4 md:px-0">
           {{ cmsDemo.description }}
         </p>
       </div>
@@ -37,7 +33,7 @@
               <div class="pulse-dot pulse-1"></div>
             </div>
             
-            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-md md:rounded-lg border border-fortu-light/10 p-2 md:p-4 transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-left')"
@@ -121,7 +117,7 @@
           <!-- Laptop frame -->
           <div class="laptop-frame relative">
             <!-- Screen bezel -->
-            <div class="w-[500px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 to-fortu-medium/40 rounded-2xl p-3">
+            <div class="w-[700px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 mt-64 md:mt-0 to-fortu-medium/40 rounded-lg p-3">
               
               <!-- Screen content -->
               <div class="bg-fortu-dark rounded-lg overflow-hidden aspect-[16/10]">
@@ -129,18 +125,18 @@
                 <div class="h-full flex">
                   <!-- Sidebar -->
                   <div class="w-14 bg-fortu-dark border-r border-fortu-medium/20 p-2 flex flex-col items-center gap-3">
-                    <div class="w-8 h-8 rounded-lg bg-fortu-off-white flex items-center justify-center text-fortu-dark text-xs font-bold">F</div>
-                    <div class="w-8 h-8 rounded-lg bg-fortu-medium/20 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-md bg-fortu-off-white flex items-center justify-center text-fortu-dark text-xs font-bold">F</div>
+                    <div class="w-8 h-8 rounded-md bg-fortu-medium/20 flex items-center justify-center">
                       <svg class="w-4 h-4 text-fortu-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                       </svg>
                     </div>
-                    <div class="w-8 h-8 rounded-lg bg-fortu-medium/10 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-md bg-fortu-medium/10 flex items-center justify-center">
                       <svg class="w-4 h-4 text-fortu-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
                       </svg>
                     </div>
-                    <div class="w-8 h-8 rounded-lg bg-fortu-medium/10 flex items-center justify-center">
+                    <div class="w-8 h-8 rounded-md bg-fortu-medium/10 flex items-center justify-center">
                       <svg class="w-4 h-4 text-fortu-medium" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                       </svg>
@@ -199,13 +195,27 @@
         </div>
 
         <!-- Animated data flow particles -->
-        <div class="particles-container absolute inset-0 pointer-events-none">
-          <div class="particle particle-1"></div>
-          <div class="particle particle-2"></div>
-          <div class="particle particle-3"></div>
-          <div class="particle particle-4"></div>
-          <div class="particle particle-5"></div>
-          <div class="particle particle-6"></div>
+        <div class="particle particle-1"></div>
+        <div class="particle particle-2"></div>
+        <div class="particle particle-3"></div>
+        <div class="particle particle-4"></div>
+        <div class="particle particle-5"></div>
+        <div class="particle particle-6"></div>
+        
+        <!-- Mobile-only L-shaped connection lines with traveling dots -->
+        <div class="mobile-connection mobile-conn-1">
+          <div class="mobile-line-horizontal"></div>
+          <div class="mobile-line-vertical"></div>
+          <div class="mobile-pulse-dot mobile-dot-1"></div>
+        </div>
+        <div class="mobile-connection mobile-conn-2">
+          <div class="mobile-line-horizontal"></div>
+          <div class="mobile-line-vertical"></div>
+          <div class="mobile-pulse-dot mobile-dot-2"></div>
+        </div>
+        <div class="mobile-connection mobile-conn-3">
+          <div class="mobile-line-vertical"></div>
+          <div class="mobile-pulse-dot mobile-dot-3"></div>
         </div>
       </div>
 
@@ -609,10 +619,15 @@ onMounted(async () => {
   }
 }
 
+/* Mobile-only connection lines - hidden on desktop */
+.mobile-connection {
+  display: none;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .laptop-container {
-    transform: scale(0.55);
+    transform: scale(0.55) translateY(140px);
     transform-origin: center center;
   }
   
@@ -633,6 +648,158 @@ onMounted(async () => {
     animation: float-center-mobile 6s ease-in-out infinite;
     animation-delay: 4s;
     animation-fill-mode: backwards;
+  }
+  
+  /* Hide desktop particles on mobile */
+  .particle {
+    display: none;
+  }
+  
+  /* Show mobile connection lines */
+  .mobile-connection {
+    display: block;
+    position: absolute;
+    pointer-events: none;
+    z-index: 15;
+  }
+  
+  /* Connection 1 - From top-left product card: right then down (L-shaped) */
+  .mobile-conn-1 {
+    top: 80px;
+    left: 120px;
+  }
+  
+  .mobile-conn-1 .mobile-line-horizontal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    border-top: 2px dashed rgba(191, 191, 191, 0.4);
+  }
+  
+  .mobile-conn-1 .mobile-line-vertical {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 2px;
+    height: 120px;
+    border-left: 2px dashed rgba(191, 191, 191, 0.4);
+  }
+  
+  /* Connection 2 - From top-right product card: left then down (L-shaped) */
+  .mobile-conn-2 {
+    top: 80px;
+    right: 120px;
+  }
+  
+  .mobile-conn-2 .mobile-line-horizontal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 2px;
+    border-top: 2px dashed rgba(191, 191, 191, 0.4);
+  }
+  
+  .mobile-conn-2 .mobile-line-vertical {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    width: 2px;
+    height: 120px;
+    border-left: 2px dashed rgba(191, 191, 191, 0.4);
+  }
+  
+  /* Connection 3 - From top-center product card: straight down */
+  .mobile-conn-3 {
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .mobile-conn-3 .mobile-line-vertical {
+    position: absolute;
+    width: 2px;
+    height: 140px;
+    border-left: 2px dashed rgba(191, 191, 191, 0.4);
+  }
+  
+  /* Mobile pulsing dots */
+  .mobile-pulse-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #F9F9F9;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(249, 249, 249, 0.8), 0 0 16px rgba(249, 249, 249, 0.4);
+  }
+  
+  /* Dot 1 - travels along L-shape from top-left: right then down */
+  .mobile-dot-1 {
+    animation: mobilePulse1 3s ease-in-out infinite;
+  }
+  
+  /* Dot 2 - travels along L-shape from top-right: left then down */
+  .mobile-dot-2 {
+    animation: mobilePulse2 3s ease-in-out infinite;
+    animation-delay: 1s;
+  }
+  
+  /* Dot 3 - travels straight down from top-center */
+  .mobile-dot-3 {
+    animation: mobilePulse3 3s ease-in-out infinite;
+    animation-delay: 2s;
+  }
+}
+
+/* Mobile pulse animations - L-shaped paths */
+@keyframes mobilePulse1 {
+  0% {
+    top: -3px;
+    left: -3px;
+    opacity: 1;
+  }
+  35% {
+    top: -3px;
+    left: 46px;
+    opacity: 1;
+  }
+  100% {
+    top: 116px;
+    left: 46px;
+    opacity: 0;
+  }
+}
+
+@keyframes mobilePulse2 {
+  0% {
+    top: -3px;
+    right: -3px;
+    opacity: 1;
+  }
+  35% {
+    top: -3px;
+    right: 46px;
+    opacity: 1;
+  }
+  100% {
+    top: 116px;
+    right: 46px;
+    opacity: 0;
+  }
+}
+
+@keyframes mobilePulse3 {
+  0% {
+    top: -3px;
+    left: -3px;
+    opacity: 1;
+  }
+  100% {
+    top: 136px;
+    left: -3px;
+    opacity: 0;
   }
 }
 

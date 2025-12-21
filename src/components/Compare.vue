@@ -115,22 +115,23 @@
             </h3>
             <p 
               v-if="item.product.description" 
-              class="text-sm mb-4 line-clamp-2"
+              class="text-sm mb-4 line-clamp-2 max-w-[20rem] mx-auto"
               :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
             >
               {{ item.product.description }}
             </p>
             
-            <div class="flex justify-center gap-3">
-              <Button
-                v-if="item.ctaLink"
-                :href="item.ctaLink"
-                :variant="compare.backgroundColor === 'light' ? 'primary' : 'inverted'"
-                size="sm"
-              >
-                {{ item.ctaLabel || 'Learn more' }}
-              </Button>
-            </div>
+              <div class="flex justify-center gap-3">
+                <Button
+                  v-if="item.ctaLink"
+                  :to="isInternalLink(item.ctaLink) ? item.ctaLink : undefined"
+                  :href="!isInternalLink(item.ctaLink) ? item.ctaLink : undefined"
+                  :variant="compare.backgroundColor === 'light' ? 'primary' : 'secondary'"
+                  size="sm"
+                >
+                  {{ item.ctaLabel || 'Learn more' }}
+                </Button>
+              </div>
           </div>
 
           <!-- Specs Divider -->
@@ -233,7 +234,8 @@
               <div class="flex justify-center">
                 <Button
                   v-if="compare.products[selectedIdx].ctaLink"
-                  :href="compare.products[selectedIdx].ctaLink"
+                  :to="isInternalLink(compare.products[selectedIdx].ctaLink!) ? compare.products[selectedIdx].ctaLink : undefined"
+                  :href="!isInternalLink(compare.products[selectedIdx].ctaLink!) ? compare.products[selectedIdx].ctaLink : undefined"
                   :variant="compare.backgroundColor === 'light' ? 'primary' : 'inverted'"
                   size="sm"
                 >
@@ -323,6 +325,10 @@ const mobileProductsToShow = computed(() => {
   }
   return mobileSelection.value
 })
+
+const isInternalLink = (link: string): boolean => {
+  return link.startsWith('/') || link.startsWith('#')
+}
 
 const getProductImage = (item: ProductCompareItem, imageIndex: number): string | null => {
   const images = item.product?.images

@@ -49,16 +49,18 @@
               </div>
 
               <!-- Mobile CTA Button -->
-              <RouterLink
+              <Button
                 v-if="getProductLink(product)"
                 :to="getProductLink(product)!"
-                class="inline-flex items-center gap-2 px-5 py-2.5 bg-fortu-dark text-fortu-off-white text-sm font-medium rounded-full hover:bg-fortu-medium transition-colors"
+                variant="primary"
+                size="sm"
+                class="gap-2"
               >
                 Learn More
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
-              </RouterLink>
+              </Button>
             </div>
 
             <!-- Mobile Image Section -->
@@ -109,7 +111,7 @@
                       class="px-6 py-2.5 text-sm font-medium transition-all duration-300"
                       :class="currentIndex === idx 
                         ? 'bg-fortu-off-white text-fortu-dark' 
-                        : 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-medium'"
+                        : 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-off-white/20'"
                     >
                       {{ prod.name }}
                     </button>
@@ -135,16 +137,18 @@
                 </div>
 
                 <!-- Desktop CTA Button -->
-                <RouterLink
+                <Button
                   v-if="getProductLink(product)"
                   :to="getProductLink(product)!"
-                  class="inline-flex items-center gap-2 px-6 py-3 bg-fortu-dark text-fortu-off-white font-medium rounded-full hover:bg-fortu-medium transition-colors"
+                  variant="primary"
+                  size="md"
+                  class="gap-2"
                 >
                   Learn More
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                   </svg>
-                </RouterLink>
+                </Button>
               </div>
 
               <!-- Bottom Section - Navigation & Indicators -->
@@ -215,11 +219,11 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
-import { RouterLink } from 'vue-router'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { PRODUCT_SLIDES_QUERY, type ProductSlide } from '@/sanity/queries'
 import FeatureIcon from '@/components/FeatureIcon.vue'
+import Button from '@/reusables/Button.vue'
 
 const getProductLink = (product: ProductSlide): string | null => {
   // First priority: linked product's slug

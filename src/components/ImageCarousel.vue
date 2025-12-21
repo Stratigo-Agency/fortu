@@ -39,7 +39,7 @@
       </div>
 
       <!-- Mobile Indicators -->
-      <div class="flex md:hidden justify-center gap-2 mt-4 px-4">
+      <div class="flex md:hidden justify-center gap-2 mt-4 px-4 pb-16">
         <button
           v-for="(_, index) in images"
           :key="index"
@@ -52,7 +52,7 @@
       </div>
 
       <!-- Navigation Arrows (Desktop) -->
-      <div class="hidden md:flex items-center justify-end gap-2 px-16 mt-6">
+      <div class="hidden md:flex items-center justify-end gap-2 px-16 mt-6 pb-12">
         <button
           @click="scrollCarousel('left')"
           :disabled="isAtStart"

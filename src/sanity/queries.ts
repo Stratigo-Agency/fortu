@@ -731,3 +731,51 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
     featured
   }
 `)
+
+// Services
+export interface ServiceItem {
+  _key?: string
+  title: string
+  description: string
+  icon?: string
+  backgroundImage?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
+  darkOverlay?: boolean
+}
+
+export interface ServiceSection {
+  _id: string
+  heading: string
+  subheading?: string
+  services: ServiceItem[]
+  order?: number
+  isActive?: boolean
+}
+
+export const SERVICE_SECTION_QUERY = defineQuery(/* groq */ `
+  *[_type == "service" && isActive == true] | order(order asc) [0] {
+    _id,
+    heading,
+    subheading,
+    services[] {
+      _key,
+      title,
+      description,
+      icon,
+      backgroundImage {
+        asset-> {
+          _id,
+          url
+        }
+      },
+      darkOverlay
+    },
+    order,
+    isActive
+  }
+`)

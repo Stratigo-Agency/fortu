@@ -1,6 +1,6 @@
 <template>
-  <section v-if="useCaseSection && !loading" class="use-case-section pb-12 bg-fortu-off-white overflow-hidden">
-    <div class="container mx-auto px-4 md:px-4">
+  <section v-if="useCaseSection && !loading" class="use-case-section bg-fortu-off-white overflow-hidden">
+    <div class="px-4 md:px-16 my-16">
       <!-- Section header -->
       <div class="text-center mb-16 max-w-2xl mx-auto">
         <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-fortu-dark mb-6 tracking-tight leading-tight">
@@ -13,7 +13,7 @@
     </div>
 
     <!-- Masonry Gallery - Static with staggered columns -->
-    <div class="gallery-container px-2 md:px-4">
+    <div class="gallery-container px-2 pb-12 md:px-16">
       <div class="gallery-grid">
         <div 
           class="gallery-column" 

@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'cmsDemo',
-  title: 'CMS Demo Section',
+  title: 'Homepage: CMS Visualization',
   type: 'document',
   fields: [
     defineField({

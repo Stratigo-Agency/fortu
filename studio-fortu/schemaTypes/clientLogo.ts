@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'clientLogo',
-  title: 'Client Logo',
+  title: 'Homepage: Client Logo Carousel',
   type: 'document',
   fields: [
     defineField({

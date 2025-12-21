@@ -71,7 +71,7 @@
       </div>
     </section>
 
-  
+    <CTA variant="dark" />
   </div>
 </template>
 
@@ -85,7 +85,7 @@ import CompareIcon from '@/components/CompareIcon.vue'
 import ImageCarousel from '@/components/ImageCarousel.vue'
 import ProductHero from '@/components/productDetail/ProductHero.vue'
 import ProductSingleFeature from '@/components/productDetail/ProductSingleFeature.vue'
-
+import CTA from '@/components/CTA.vue'
 const route = useRoute()
 const product = ref<Product | null>(null)
 const loading = ref(true)

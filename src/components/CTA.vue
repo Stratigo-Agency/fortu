@@ -10,10 +10,7 @@
     </div>
     
     <!-- Gradient Accent -->
-    <div 
-      class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[150px] pointer-events-none"
-      :class="variant === 'light' ? 'bg-fortu-dark/10' : 'bg-fortu-medium/20'"
-    ></div>
+  
     
     <!-- Content -->
     <div class="relative z-10 px-4 md:px-16 max-w-4xl mx-auto text-center">

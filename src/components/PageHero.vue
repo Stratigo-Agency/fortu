@@ -2,7 +2,7 @@
   <!-- Page Hero -->
   <section 
     v-if="pageHero && !loading" 
-    class="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden"
+    class="relative h-[70vh] min-h-[400px] flex items-center justify-center overflow-hidden"
   >
     <!-- Background Video -->
     <video

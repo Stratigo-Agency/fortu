@@ -2,7 +2,7 @@
   <footer class="bg-fortu-dark text-fortu-off-white">
     <!-- Main Footer Content -->
     <div class="mx-auto px-4 md:px-16 py-16">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         <!-- Brand Column -->
         <div class="lg:col-span-1">
           <RouterLink to="/" class="inline-block mb-6">
@@ -168,27 +168,7 @@
             </li>
           </ul>
         </div>
-
-        <!-- Newsletter -->
-        <div>
-          <h4 class="text-fortu-off-white font-medium mb-6">Stay Updated</h4>
-          <p class="text-fortu-light text-sm mb-4">
-            Subscribe to our newsletter for the latest updates and offers.
-          </p>
-          <form @submit.prevent class="flex gap-2">
-            <input 
-              type="email" 
-              placeholder="Enter your email"
-              class="flex-1 px-4 py-3 rounded-lg bg-fortu-medium/20 border border-fortu-medium/30 text-fortu-off-white placeholder-fortu-medium text-sm focus:outline-none focus:border-fortu-light transition-colors"
-            />
-            <button 
-              type="submit"
-              class="px-4 py-3 rounded-lg bg-fortu-off-white text-fortu-dark font-medium text-sm hover:bg-fortu-light transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
-        </div>
+     
       </div>
     </div>
 

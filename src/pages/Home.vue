@@ -4,19 +4,20 @@
     <Hero />
 
     <!-- Product Slides -->
-    <ProductSlides />
+    <BannerSlides />
 
     <!-- CMS Demo Section -->
     <CMSDemo />
+    <Service />
 
     <!-- Use Case Section -->
     <UseCaseSection />
+
     <!-- Product Compare Section -->
     <Compare />
-
     <!-- FAQ Section -->
     <FAQ />
-    <CTA />
+    <CTA variant="light" />
   </div>
 </template>
 
@@ -27,11 +28,11 @@ import { POSTS_QUERY, type Post } from '@/sanity/queries'
 import Hero from '@/components/Hero.vue'
 import CMSDemo from '@/components/CMSDemo.vue'
 import UseCaseSection from '@/components/UseCaseSection.vue'
-import ProductSlides from '@/components/ProductSlides.vue'
+import BannerSlides from '@/components/BannerSlides.vue'
 import FAQ from '@/components/FAQ.vue'
 import Compare from '@/components/Compare.vue'
 import CTA from '@/components/CTA.vue'
-
+import Service from '@/components/Service.vue'
 const posts = ref<Post[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)

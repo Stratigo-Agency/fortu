@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'useCaseSection',
-  title: 'Use Case Section',
+  title: 'Homepage: Past Clients Picture Gallery',
   type: 'document',
   fields: [
     defineField({

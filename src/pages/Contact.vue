@@ -69,7 +69,7 @@
               </a>
 
               <!-- Email -->
-              <a 
+              <div 
                 v-if="settings?.email" 
                 :href="`mailto:${settings.email}`"
                 class="contact-card block p-6 bg-white rounded-lg"
@@ -85,7 +85,7 @@
                     <p class="text-fortu-dark">{{ settings.email }}</p>
                   </div>
                 </div>
-              </a>
+              </div>
 
               <!-- WhatsApp -->
               <a 
@@ -112,14 +112,14 @@
             <!-- Social Media -->
             <div v-if="hasSocialMedia" class="pt-4">
               <p class="text-sm font-medium text-fortu-medium uppercase tracking-wider mb-4">Follow Us</p>
-              <div class="flex flex-wrap gap-3">
+              <div class="flex flex-wrap gap-4">
                 <!-- Instagram -->
                 <a 
                   v-if="settings?.socialMedia?.instagram"
                   :href="settings.socialMedia.instagram"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="social-icon w-12 h-12 rounded-full bg-fortu-dark flex items-center justify-center text-white hover:scale-110 transition-transform"
+                  class="w-10 h-10 rounded-full bg-fortu-medium/20 text-fortu-dark flex items-center justify-center hover:bg-fortu-off-white hover:text-fortu-dark transition-all duration-300"
                   aria-label="Instagram"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@
                   :href="settings.socialMedia.facebook"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="social-icon w-12 h-12 rounded-full bg-[#1877F2] flex items-center justify-center text-white hover:scale-110 transition-transform"
+                  class="w-10 h-10 rounded-full bg-fortu-medium/20 text-fortu-dark flex items-center justify-center hover:bg-fortu-off-white hover:text-fortu-dark transition-all duration-300"
                   aria-label="Facebook"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -147,7 +147,7 @@
                   :href="settings.socialMedia.twitter"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="social-icon w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:scale-110 transition-transform"
+                  class="w-10 h-10 rounded-full bg-fortu-medium/20 text-fortu-dark flex items-center justify-center hover:bg-fortu-off-white hover:text-fortu-dark transition-all duration-300"
                   aria-label="Twitter/X"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -161,7 +161,7 @@
                   :href="settings.socialMedia.linkedin"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="social-icon w-12 h-12 rounded-full bg-[#0A66C2] flex items-center justify-center text-white hover:scale-110 transition-transform"
+                  class="w-10 h-10 rounded-full bg-fortu-medium/20 text-fortu-dark flex items-center justify-center hover:bg-fortu-off-white hover:text-fortu-dark transition-all duration-300"
                   aria-label="LinkedIn"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -175,7 +175,7 @@
                   :href="settings.socialMedia.youtube"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="social-icon w-12 h-12 rounded-full bg-[#FF0000] flex items-center justify-center text-white hover:scale-110 transition-transform"
+                  class="w-10 h-10 rounded-full bg-fortu-medium/20 text-fortu-dark flex items-center justify-center hover:bg-fortu-off-white hover:text-fortu-dark transition-all duration-300"
                   aria-label="YouTube"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -189,7 +189,7 @@
                   :href="settings.socialMedia.tiktok"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="social-icon w-12 h-12 rounded-full bg-black flex items-center justify-center text-white hover:scale-110 transition-transform"
+                  class="w-10 h-10 rounded-full bg-fortu-medium/20 text-fortu-dark flex items-center justify-center hover:bg-fortu-off-white hover:text-fortu-dark transition-all duration-300"
                   aria-label="TikTok"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

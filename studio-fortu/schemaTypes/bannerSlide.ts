@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'productSlide',
-  title: 'Product Slide',
+  title: 'Homepage: Product Banner Slide',
   type: 'document',
   fields: [
     defineField({
