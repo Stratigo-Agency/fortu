@@ -9,14 +9,14 @@
       <div v-if="compare.heading || compare.subheading" class="text-center mb-8 md:mb-16">
         <h2 
           v-if="compare.heading" 
-          class="text-3xl md:text-4xl font-medium mb-4 tracking-tight"
+          class="text-3xl md:text-7xl font-medium mb-4 tracking-tight"
           :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
         >
           {{ compare.heading }}
         </h2>
         <p 
           v-if="compare.subheading" 
-          class="text-lg max-w-2xl mx-auto"
+          class="text-lg"
           :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
         >
           {{ compare.subheading }}

@@ -1,5 +1,5 @@
 <template>
-  <section v-if="productSlides && productSlides.length > 0 && !loading" class="product-slides-section relative min-h-screen md:h-screen bg-fortu-off-white overflow-hidden">
+  <section v-if="productSlides && productSlides.length > 0 && !loading" class="product-slides-section relative md:h-[95vh] bg-fortu-off-white overflow-hidden">
     <!-- Slides -->
     <div class="relative h-full">
       <TransitionGroup name="slide">
@@ -96,7 +96,7 @@
             <!-- Top Section -->
             <div class="max-w-xl pt-24">
               <!-- Tagline -->
-              <h2 class="text-5xl font-medium text-fortu-dark mb-6 tracking-tight">
+              <h2 class="text-7xl font-medium text-fortu-dark mb-6 tracking-tight">
                 {{ product.tagline || product.name }}
               </h2>
               

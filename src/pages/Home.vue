@@ -11,6 +11,8 @@
 
     <!-- Use Case Section -->
     <UseCaseSection />
+    <!-- Product Compare Section -->
+    <Compare />
 
     <!-- FAQ Section -->
     <FAQ />
@@ -26,6 +28,7 @@ import CMSDemo from '@/components/CMSDemo.vue'
 import UseCaseSection from '@/components/UseCaseSection.vue'
 import ProductSlides from '@/components/ProductSlides.vue'
 import FAQ from '@/components/FAQ.vue'
+import Compare from '@/components/Compare.vue'
 
 const posts = ref<Post[]>([])
 const loading = ref(true)

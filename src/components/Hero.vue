@@ -57,12 +57,12 @@ onMounted(async () => {
       }"
     >
       <div class="w-full">
-        <h1 class="text-6xl md:text-8xl font-medium mb-4 tracking-tight leading-tight">{{ hero.title }}</h1>
-        <h2 v-if="hero.subtitle" class="text-2xl md:text-3xl font-medium mb-4 text-fortu-light leading-snug">{{ hero.subtitle }}</h2>
-        <p v-if="hero.description" class="text-lg md:text-xl leading-relaxed mb-8 text-[rgba(250,250,250,0.9)]">{{ hero.description }}</p>
+        <h1 class="text-6xl md:text-8xl font-medium mb-4 tracking-tight leading-tight hero-title">{{ hero.title }}</h1>
+        <h2 v-if="hero.subtitle" class="text-2xl md:text-3xl font-medium mb-4 text-fortu-light leading-snug hero-subtitle">{{ hero.subtitle }}</h2>
+        <p v-if="hero.description" class="text-lg md:text-xl leading-relaxed mb-8 text-[rgba(250,250,250,0.9)] hero-description">{{ hero.description }}</p>
         <div 
           v-if="hero.ctaButtons && hero.ctaButtons.length > 0" 
-          class="flex gap-4 flex-wrap flex-col md:flex-row"
+          class="flex gap-4 flex-wrap flex-col md:flex-row hero-buttons"
           :class="{
             'md:justify-center': heroAlignment === 'center',
             'md:justify-end': heroAlignment === 'right',
@@ -89,5 +89,38 @@ onMounted(async () => {
     </div>
   </section>
 </template>
+
+<style scoped>
+.hero-title {
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+.hero-subtitle {
+  animation: fadeInUp 0.8s ease-out 0.15s forwards;
+  opacity: 0;
+}
+
+.hero-description {
+  animation: fadeInUp 0.8s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.hero-buttons {
+  animation: fadeInUp 0.8s ease-out 0.45s forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
 
 

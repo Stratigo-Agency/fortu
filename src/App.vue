@@ -13,7 +13,7 @@ import Footer from '@/components/Footer.vue'
 
 <style>
 :root {
-  --bg: #F9F9F9;
+  --bg: #1A1A1A;
   --fg: #fafafa;
   --accent: #f43f5e;
   --muted: #71717a;
@@ -26,11 +26,23 @@ import Footer from '@/components/Footer.vue'
   padding: 0;
 }
 
+html {
+  background: var(--bg);
+}
+
 body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--fg);
   min-height: 100vh;
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
 
 .container {
