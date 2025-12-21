@@ -117,7 +117,7 @@
           <!-- Laptop frame -->
           <div class="laptop-frame relative">
             <!-- Screen bezel -->
-            <div class="w-[700px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 mt-64 md:mt-0 to-fortu-medium/40 rounded-lg p-3">
+            <div class="w-[600px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 mt-64 md:mt-0 to-fortu-medium/40 rounded-lg p-3">
               
               <!-- Screen content -->
               <div class="bg-fortu-dark rounded-lg overflow-hidden aspect-[16/10]">
