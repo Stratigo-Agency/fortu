@@ -19,7 +19,6 @@
     <ImageCarousel
       v-else
       :images="productImages"
-      heading="Our Products"
       :clickable="true"
       @image-click="handleProductClick"
     />

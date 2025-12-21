@@ -38,6 +38,19 @@
         </div>
       </div>
 
+      <!-- Mobile Indicators -->
+      <div class="flex md:hidden justify-center gap-2 mt-4 px-4">
+        <button
+          v-for="(_, index) in images"
+          :key="index"
+          @click="scrollToImage(index)"
+          class="w-2 h-2 rounded-full transition-all"
+          :class="currentIndex === index 
+            ? 'bg-fortu-dark w-6' 
+            : 'bg-fortu-light/50'"
+        ></button>
+      </div>
+
       <!-- Navigation Arrows (Desktop) -->
       <div class="hidden md:flex items-center justify-end gap-2 px-16 mt-6">
         <button
@@ -118,6 +131,7 @@ defineEmits<{
 const carouselRef = ref<HTMLElement | null>(null)
 const isAtStart = ref(true)
 const isAtEnd = ref(false)
+const currentIndex = ref(0)
 
 const scrollCarousel = (direction: 'left' | 'right') => {
   if (!carouselRef.value) return
@@ -133,12 +147,26 @@ const scrollCarousel = (direction: 'left' | 'right') => {
   })
 }
 
+const scrollToImage = (index: number) => {
+  if (!carouselRef.value) return
+  
+  const itemWidth = 320 + 16 // w-[320px] + gap-4
+  carouselRef.value.scrollTo({
+    left: index * itemWidth,
+    behavior: 'smooth'
+  })
+}
+
 const handleScroll = () => {
   if (!carouselRef.value) return
   
   const { scrollLeft, scrollWidth, clientWidth } = carouselRef.value
   isAtStart.value = scrollLeft <= 0
   isAtEnd.value = scrollLeft + clientWidth >= scrollWidth - 10
+  
+  // Calculate current index for mobile indicators
+  const itemWidth = 320 + 16 // w-[320px] + gap-4
+  currentIndex.value = Math.round(scrollLeft / itemWidth)
 }
 
 onMounted(() => {

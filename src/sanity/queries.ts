@@ -144,6 +144,7 @@ export interface ProductSlide {
   product?: {
     _id: string
     name: string
+    slug?: { current: string }
   }
   ctaLink?: string
   order?: number
@@ -397,7 +398,8 @@ export const PRODUCT_SLIDES_QUERY = defineQuery(/* groq */ `
     },
     product-> {
       _id,
-      name
+      name,
+      slug
     },
     ctaLink,
     order,

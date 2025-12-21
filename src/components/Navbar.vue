@@ -2,16 +2,18 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import Button from '@/reusables/Button.vue'
+import ProductCatalog from '@/components/ProductCatalog.vue'
 
 const route = useRoute()
 const isMenuOpen = ref(false)
+const isProductsOpen = ref(false)
 const isVisible = ref(true)
 const isInHeroSection = ref(true)
 const lastScrollY = ref(0)
 
 const isInHero = computed(() => {
-  // Force solid background when mobile menu is open
-  if (isMenuOpen.value) {
+  // Force solid background when mobile menu is open or products dropdown is open
+  if (isMenuOpen.value || isProductsOpen.value) {
     return false
   }
   return isInHeroSection.value
@@ -19,13 +21,24 @@ const isInHero = computed(() => {
 
 const navLinks = [
   { label: 'Home', to: '/' },
-  { label: 'Products', to: '/products' },
+  { label: 'Products', to: '/products', hasDropdown: true },
   { label: 'About', to: '/about' },
   { label: 'Contact', to: '/contact' },
 ]
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
+  if (isMenuOpen.value) {
+    isProductsOpen.value = false
+  }
+}
+
+const toggleProducts = () => {
+  isProductsOpen.value = !isProductsOpen.value
+}
+
+const closeProducts = () => {
+  isProductsOpen.value = false
 }
 
 const handleScroll = () => {
@@ -46,6 +59,7 @@ const handleScroll = () => {
     // Scrolling down (with threshold to prevent jitter) - hide navbar
     isVisible.value = false
     isMenuOpen.value = false // Close mobile menu when hiding
+    isProductsOpen.value = false // Close products dropdown when hiding
   }
   
   lastScrollY.value = currentScrollY
@@ -55,6 +69,8 @@ const handleScroll = () => {
 watch(() => route.path, () => {
   lastScrollY.value = 0
   isInHeroSection.value = true
+  isProductsOpen.value = false
+  isMenuOpen.value = false
   handleScroll()
 })
 
@@ -75,13 +91,13 @@ onUnmounted(() => {
       isVisible ? 'translate-y-0' : '-translate-y-full',
       isInHero 
         ? 'bg-transparent' 
-        : 'bg-fortu-off-white shadow-sm'
+        : 'bg-white shadow-sm'
     ]"
   >
     <div class="mx-auto px-4 md:px-16 py-4">
       <div class="flex items-center justify-between">
         <!-- Logo -->
-        <RouterLink to="/" class="flex items-center hover:opacity-80 transition-opacity">
+        <RouterLink to="/" class="flex items-center hover:opacity-80 transition-opacity" @click="closeProducts">
           <img 
             src="/logo.png" 
             alt="FORTU DIGITAL" 
@@ -92,18 +108,44 @@ onUnmounted(() => {
 
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center gap-12">
-          <RouterLink
-            v-for="link in navLinks"
-            :key="link.to"
-            :to="link.to"
-            class="text-lg tracking-tight transition-colors"
-            :class="isInHero 
-              ? 'text-fortu-off-white hover:text-fortu-light' 
-              : 'text-fortu-dark hover:text-fortu-medium'"
-            active-class="font-medium"
-          >
-            {{ link.label }}
-          </RouterLink>
+          <template v-for="link in navLinks" :key="link.to">
+            <!-- Products with dropdown -->
+            <button
+              v-if="link.hasDropdown"
+              @click="toggleProducts"
+              class="text-lg tracking-tight transition-colors flex items-center gap-1"
+              :class="[
+                isInHero 
+                  ? 'text-fortu-off-white hover:text-fortu-light' 
+                  : 'text-fortu-dark hover:text-fortu-medium',
+                isProductsOpen ? 'font-medium' : ''
+              ]"
+            >
+              {{ link.label }}
+              <svg 
+                class="w-4 h-4 transition-transform duration-200"
+                :class="isProductsOpen ? 'rotate-180' : ''"
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <!-- Regular links -->
+            <RouterLink
+              v-else
+              :to="link.to"
+              class="text-lg tracking-tight transition-colors"
+              :class="isInHero 
+                ? 'text-fortu-off-white hover:text-fortu-light' 
+                : 'text-fortu-dark hover:text-fortu-medium'"
+              active-class="font-medium"
+              @click="closeProducts"
+            >
+              {{ link.label }}
+            </RouterLink>
+          </template>
         </div>
 
         <!-- Desktop CTA -->
@@ -113,6 +155,7 @@ onUnmounted(() => {
             size="sm" 
             href="/products"
             :class="!isInHero ? 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white' : ''"
+            @click="closeProducts"
           >
             Shop Now
           </Button>
@@ -168,5 +211,33 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <!-- Products Dropdown (Full Width) -->
+    <div
+      v-show="isProductsOpen"
+      class="hidden md:block w-full bg-white border-t border-fortu-light/20 shadow-lg"
+    >
+      <div class="py-8">
+        <ProductCatalog />
+      </div>
+      
+      <!-- View All Products Link -->
+      <div class="border-t border-fortu-light/20 py-4 text-center">
+        <RouterLink 
+          to="/products" 
+          class="text-sm font-medium text-fortu-dark hover:text-fortu-medium transition-colors"
+          @click="closeProducts"
+        >
+          View All Products →
+        </RouterLink>
+      </div>
+    </div>
   </nav>
+
+  <!-- Backdrop -->
+  <div
+    v-if="isProductsOpen"
+    class="fixed inset-0 bg-black/20 z-40"
+    @click="closeProducts"
+  ></div>
 </template>
