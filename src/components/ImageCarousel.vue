@@ -22,7 +22,7 @@
           :class="clickable ? 'cursor-pointer' : ''"
           @click="clickable && $emit('image-click', index)"
         >
-          <div class="aspect-[4/3] rounded-2xl overflow-hidden bg-black">
+          <div class="aspect-[3/3.2] rounded-2xl overflow-hidden bg-black">
             <img
               :src="image.url"
               :alt="image.alt || `Product image ${index + 1}`"

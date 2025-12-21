@@ -5,7 +5,6 @@
       fallbackTitle="Discover Fortu"
       fallbackSubtitle="Explore our collection of premium products"
     />
-
     <ProductCatalog class="py-12" />
     <Compare />
     <CTA variant="dark" />
