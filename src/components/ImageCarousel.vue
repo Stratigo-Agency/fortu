@@ -18,7 +18,7 @@
         <div
           v-for="(image, index) in images"
           :key="index"
-          class="flex-shrink-0 w-[320px] md:w-[400px] lg:w-[480px]"
+          class="flex-shrink-0 w-[320px] md:w-[400px] lg:w-[480px] font-medium"
           :class="clickable ? 'cursor-pointer' : ''"
           @click="clickable && $emit('image-click', index)"
         >
@@ -26,12 +26,12 @@
             <img
               :src="image.url"
               :alt="image.alt || `Product image ${index + 1}`"
-              class="w-full h-full object-cover transition-transform duration-300"
+              class="w-full h-full object-cover transition-opacity duration-300 hover:opacity-80"
             />
           </div>
           <p 
             v-if="image.caption" 
-            class="mt-3 text-3xl text-fortu-dark font-medium text-left"
+            class="mt-3 text-3xl text-fortu-dark text-left"
           >
             {{ image.caption }}
           </p>

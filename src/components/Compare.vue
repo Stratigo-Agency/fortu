@@ -287,8 +287,17 @@
             </div>
           </template>
         </div>
+        
       </div>
+      <RouterLink
+          to="/products"
+          class="inline-block mx-auto mt-24 w-full text-center text-sm font-medium underline underline-offset-4 transition-opacity hover:opacity-70"
+          :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+        >
+          Discover all products
+        </RouterLink>
     </div>
+    
   </section>
 
   <!-- Loading State -->
@@ -301,6 +310,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
 import { client, urlFor } from '@/sanity/client'
 import { PRODUCT_COMPARE_QUERY, type ProductCompare, type ProductCompareItem } from '@/sanity/queries'
 import CompareIcon from '@/components/CompareIcon.vue'
