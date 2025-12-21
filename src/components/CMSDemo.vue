@@ -24,7 +24,7 @@
       </div>
 
       <!-- Main visualization container -->
-      <div class="relative max-w-6xl mx-auto h-[420px] mt-16 md:mt-48 md:h-[780px] flex items-center justify-center">
+      <div class="relative max-w-6xl mx-auto h-[300px] mt-32 md:mt-48 md:h-[780px] flex items-center justify-center">
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
