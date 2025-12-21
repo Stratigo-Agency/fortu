@@ -12,6 +12,7 @@
       loop
       muted
       playsinline
+      fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover"
     ></video>
     
@@ -20,6 +21,7 @@
       v-else-if="heroImageUrl"
       :src="heroImageUrl"
       :alt="pageHero.title"
+      fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover"
     />
     
@@ -87,7 +89,7 @@
 </style>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watchEffect, onUnmounted } from 'vue'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { PAGE_HERO_QUERY, type PageHero } from '@/sanity/queries'
@@ -117,6 +119,45 @@ const heroImageUrl = computed(() => {
     }
   }
   return null
+})
+
+// Add preload link for LCP optimization
+let preloadLink: HTMLLinkElement | null = null
+
+watchEffect(() => {
+  const imageUrl = heroImageUrl.value
+  const videoUrl = heroVideoUrl.value
+  
+  // Remove existing preload link if any
+  if (preloadLink && preloadLink.parentNode) {
+    preloadLink.parentNode.removeChild(preloadLink)
+    preloadLink = null
+  }
+  
+  // Preload video if available (takes priority)
+  if (videoUrl) {
+    preloadLink = document.createElement('link')
+    preloadLink.rel = 'preload'
+    preloadLink.as = 'video'
+    preloadLink.href = videoUrl
+    preloadLink.setAttribute('fetchpriority', 'high')
+    document.head.appendChild(preloadLink)
+  } 
+  // Otherwise preload image
+  else if (imageUrl) {
+    preloadLink = document.createElement('link')
+    preloadLink.rel = 'preload'
+    preloadLink.as = 'image'
+    preloadLink.href = imageUrl
+    preloadLink.setAttribute('fetchpriority', 'high')
+    document.head.appendChild(preloadLink)
+  }
+})
+
+onUnmounted(() => {
+  if (preloadLink && preloadLink.parentNode) {
+    preloadLink.parentNode.removeChild(preloadLink)
+  }
 })
 
 onMounted(async () => {

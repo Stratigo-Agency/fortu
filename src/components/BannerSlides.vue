@@ -69,6 +69,7 @@
                 v-if="getProductImage(product)"
                 :src="getProductImage(product)"
                 :alt="product.name"
+                :fetchpriority="currentIndex === 0 ? 'high' : 'auto'"
                 class="w-full h-full object-cover px-4"
               />
               <!-- Mobile Navigation Arrows -->
@@ -197,6 +198,7 @@
                 v-if="getProductImage(product)"
                 :src="getProductImage(product)"
                 :alt="product.name"
+                :fetchpriority="currentIndex === 0 ? 'high' : 'auto'"
                 class="w-full h-full object-cover"
               />
               <div v-else class="w-full h-full bg-fortu-light/20 flex items-center justify-center text-fortu-medium">
@@ -221,7 +223,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watchEffect } from 'vue'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { PRODUCT_SLIDES_QUERY, type ProductSlide } from '@/sanity/queries'
@@ -289,6 +291,30 @@ const resetAutoPlay = () => {
   }, 100)
 }
 
+// Add preload link for first slide image (potential LCP)
+let preloadLink: HTMLLinkElement | null = null
+
+watchEffect(() => {
+  // Preload the first slide image for LCP optimization
+  if (productSlides.value.length > 0 && currentIndex.value === 0) {
+    const firstImageUrl = getProductImage(productSlides.value[0])
+    if (firstImageUrl) {
+      // Remove existing preload link if any
+      if (preloadLink && preloadLink.parentNode) {
+        preloadLink.parentNode.removeChild(preloadLink)
+      }
+      
+      // Create new preload link for first image
+      preloadLink = document.createElement('link')
+      preloadLink.rel = 'preload'
+      preloadLink.as = 'image'
+      preloadLink.href = firstImageUrl
+      preloadLink.setAttribute('fetchpriority', 'high')
+      document.head.appendChild(preloadLink)
+    }
+  }
+})
+
 onMounted(async () => {
   try {
     productSlides.value = await client.fetch(PRODUCT_SLIDES_QUERY)
@@ -304,6 +330,9 @@ onMounted(async () => {
 
 onUnmounted(() => {
   if (autoPlayTimer) clearInterval(autoPlayTimer)
+  if (preloadLink && preloadLink.parentNode) {
+    preloadLink.parentNode.removeChild(preloadLink)
+  }
 })
 </script>
 

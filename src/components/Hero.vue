@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watchEffect, onUnmounted } from 'vue'
 import { client } from '@/sanity/client'
 import { HERO_QUERY, type Hero } from '@/sanity/queries'
 import Button from '@/reusables/Button.vue'
@@ -17,6 +17,33 @@ const heroVideoUrl = computed(() => {
 
 const heroAlignment = computed(() => {
   return hero.value?.alignment || 'left'
+})
+
+// Add preload link for LCP optimization
+let preloadLink: HTMLLinkElement | null = null
+
+watchEffect(() => {
+  const videoUrl = heroVideoUrl.value
+  if (videoUrl) {
+    // Remove existing preload link if any
+    if (preloadLink && preloadLink.parentNode) {
+      preloadLink.parentNode.removeChild(preloadLink)
+    }
+    
+    // Create new preload link for video
+    preloadLink = document.createElement('link')
+    preloadLink.rel = 'preload'
+    preloadLink.as = 'video'
+    preloadLink.href = videoUrl
+    preloadLink.setAttribute('fetchpriority', 'high')
+    document.head.appendChild(preloadLink)
+  }
+})
+
+onUnmounted(() => {
+  if (preloadLink && preloadLink.parentNode) {
+    preloadLink.parentNode.removeChild(preloadLink)
+  }
 })
 
 onMounted(async () => {
@@ -43,6 +70,7 @@ onMounted(async () => {
       loop
       muted
       playsinline
+      fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover z-0"
     ></video>
     <div class="absolute inset-0 bg-gradient-to-b from-[rgba(15,15,15,0.7)] to-[rgba(15,15,15,0.9)] z-[1]"></div>
