@@ -36,6 +36,7 @@
             <option 
               v-for="(item, idx) in compare.products" 
               :key="idx" 
+              :label="item.product.name"
               :value="idx"
               :disabled="idx === mobileSelection[1]"
             >
@@ -97,6 +98,8 @@
                 v-for="(_, imgIndex) in item.product.images.slice(0, 4)"
                 :key="imgIndex"
                 @click="activeImages[index] = imgIndex"
+                :aria-label="`View ${item.product.name} image ${imgIndex + 1} of ${item.product.images.length}`"
+                :aria-current="activeImages[index] === imgIndex ? 'true' : 'false'"
                 class="w-2 h-2 rounded-full transition-all"
                 :class="activeImages[index] === imgIndex 
                   ? (compare.backgroundColor === 'light' ? 'bg-fortu-dark' : 'bg-fortu-off-white') 
@@ -212,6 +215,8 @@
                   v-for="(_, imgIndex) in compare.products[selectedIdx].product.images.slice(0, 4)"
                   :key="imgIndex"
                   @click="activeImages[selectedIdx] = imgIndex"
+                  :aria-label="`View ${compare.products[selectedIdx].product.name} image ${imgIndex + 1} of ${compare.products[selectedIdx].product.images.length}`"
+                  :aria-current="activeImages[selectedIdx] === imgIndex ? 'true' : 'false'"
                   class="w-1.5 h-1.5 rounded-full transition-all"
                   :class="activeImages[selectedIdx] === imgIndex 
                     ? (compare.backgroundColor === 'light' ? 'bg-fortu-dark' : 'bg-fortu-off-white') 

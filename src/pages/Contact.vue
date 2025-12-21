@@ -219,6 +219,8 @@
                 >
                   <button
                     @click="toggleFaqItem(index)"
+                    :aria-label="`${openFaqItems.includes(index) ? 'Collapse' : 'Expand'} question: ${item.question}`"
+                    :aria-expanded="openFaqItems.includes(index) ? 'true' : 'false'"
                     class="w-full py-6 flex items-center justify-between text-left group"
                   >
                     <span class="text-lg font-medium text-fortu-dark group-hover:text-fortu-medium transition-colors pr-8">

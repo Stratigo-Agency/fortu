@@ -20,6 +20,8 @@
                     v-for="(prod, idx) in productSlides"
                     :key="`mobile-tab-${prod._id}`"
                     @click="goToSlide(idx)"
+                    :aria-label="`View ${prod.name} product slide`"
+                    :aria-pressed="currentIndex === idx ? 'true' : 'false'"
                     class="px-3 py-2.5 text-xs font-medium transition-all duration-300"
                     :class="currentIndex === idx 
                       ? 'bg-fortu-off-white text-fortu-dark' 
@@ -106,6 +108,8 @@
                       v-for="(prod, idx) in productSlides"
                       :key="`desktop-tab-${prod._id}`"
                       @click="goToSlide(idx)"
+                      :aria-label="`View ${prod.name} product slide`"
+                      :aria-pressed="currentIndex === idx ? 'true' : 'false'"
                       class="px-6 py-2.5 text-sm font-medium transition-all duration-300"
                       :class="currentIndex === idx 
                         ? 'bg-fortu-off-white text-fortu-dark' 

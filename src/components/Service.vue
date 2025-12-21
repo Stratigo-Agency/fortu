@@ -129,6 +129,8 @@
           <button
             v-for="(_, index) in serviceSection.services"
             :key="index"
+            :aria-label="`Go to service ${index + 1} of ${serviceSection.services.length}`"
+            :aria-current="currentSlide === index ? 'true' : 'false'"
             class="w-2 h-2 rounded-full transition-all duration-300"
             :class="currentSlide === index ? 'bg-fortu-off-white w-6' : 'bg-fortu-medium/40'"
             @click="scrollToSlide(index)"

@@ -44,6 +44,8 @@
           v-for="(_, index) in images"
           :key="index"
           @click="scrollToImage(index)"
+          :aria-label="`Go to image ${index + 1} of ${images.length}`"
+          :aria-current="currentIndex === index ? 'true' : 'false'"
           class="w-2 h-2 rounded-full transition-all"
           :class="currentIndex === index 
             ? 'bg-fortu-dark w-6' 
@@ -56,6 +58,7 @@
         <button
           @click="scrollCarousel('left')"
           :disabled="isAtStart"
+          aria-label="Scroll carousel left"
           class="w-10 h-10 rounded-full border border-fortu-light/30 flex items-center justify-center transition-all"
           :class="isAtStart ? 'opacity-30 cursor-not-allowed' : 'hover:bg-fortu-light/10'"
         >
@@ -66,6 +69,7 @@
         <button
           @click="scrollCarousel('right')"
           :disabled="isAtEnd"
+          aria-label="Scroll carousel right"
           class="w-10 h-10 rounded-full border border-fortu-light/30 flex items-center justify-center transition-all"
           :class="isAtEnd ? 'opacity-30 cursor-not-allowed' : 'hover:bg-fortu-light/10'"
         >
@@ -86,6 +90,8 @@
           v-for="variant in variants"
           :key="variant._key"
           @click="$emit('select-variant', variant)"
+          :aria-label="`Select ${variant.name} variant`"
+          :aria-pressed="selectedVariantKey === variant._key ? 'true' : 'false'"
           class="w-8 h-8 rounded-full border-2 transition-all hover:scale-110"
           :class="selectedVariantKey === variant._key 
             ? 'border-fortu-off-white' 

@@ -113,6 +113,8 @@ onUnmounted(() => {
             <button
               v-if="link.hasDropdown"
               @click="toggleProducts"
+              :aria-label="`${isProductsOpen ? 'Close' : 'Open'} products menu`"
+              :aria-expanded="isProductsOpen ? 'true' : 'false'"
               class="text-lg tracking-tight transition-colors flex items-center gap-1"
               :class="[
                 isInHero 
@@ -128,6 +130,7 @@ onUnmounted(() => {
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
               </svg>
