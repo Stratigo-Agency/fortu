@@ -119,7 +119,7 @@ export default defineType({
     // SPECIFICATIONS
     defineField({
       name: 'specs',
-      title: 'Specifications',
+      title: 'Spesifikasi',
       type: 'array',
       group: 'specs',
       description: 'Product specifications for comparison and detail pages',

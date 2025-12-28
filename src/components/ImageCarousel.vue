@@ -2,7 +2,10 @@
   <section v-if="images && images.length > 0" class="overflow-hidden">
     <div class="px-4 md:px-16">
       <!-- Section Header -->
-      <h2 class="text-3xl md:text-4xl font-medium text-fortu-off-white mb-12 tracking-tight">
+      <h2 
+        class="text-3xl md:text-4xl font-medium mb-12 tracking-tight"
+        :class="mode === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+      >
         {{ heading || '' }}
       </h2>
     </div>
@@ -31,10 +34,21 @@
           </div>
           <p 
             v-if="image.caption" 
-            class="mt-3 text-3xl text-fortu-dark text-left"
+            class="mt-3 text-3xl text-left"
+            :class="mode === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
           >
             {{ image.caption }}
           </p>
+          <!-- Learn More Button -->
+          <div v-if="showButton && image.slug" class="mt-4">
+            <Button 
+              :variant="mode === 'light' ? 'primary' : 'outline'" 
+              size="sm" 
+              :to="`/products/${image.slug}`"
+            >
+              Lihat Detail Produk
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -48,8 +62,8 @@
           :aria-current="currentIndex === index ? 'true' : 'false'"
           class="w-2 h-2 rounded-full transition-all"
           :class="currentIndex === index 
-            ? 'bg-fortu-dark w-6' 
-            : 'bg-fortu-light/50'"
+            ? (mode === 'light' ? 'bg-fortu-off-white w-6' : 'bg-fortu-dark w-6')
+            : (mode === 'light' ? 'bg-fortu-off-white/50' : 'bg-fortu-light/50')"
         ></button>
       </div>
 
@@ -59,10 +73,21 @@
           @click="scrollCarousel('left')"
           :disabled="isAtStart"
           aria-label="Scroll carousel left"
-          class="w-10 h-10 rounded-full border border-fortu-light/30 flex items-center justify-center transition-all"
-          :class="isAtStart ? 'opacity-30 cursor-not-allowed' : 'hover:bg-fortu-light/10'"
+          class="w-10 h-10 rounded-full border flex items-center justify-center transition-all"
+          :class="[
+            mode === 'light' 
+              ? 'border-fortu-off-white/30 hover:bg-fortu-off-white/10' 
+              : 'border-fortu-light/30 hover:bg-fortu-light/10',
+            isAtStart ? 'opacity-30 cursor-not-allowed' : ''
+          ]"
         >
-          <svg class="w-5 h-5 text-fortu-off-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg 
+            class="w-5 h-5" 
+            :class="mode === 'light' ? 'text-fortu-off-white' : 'text-fortu-off-white'"
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
           </svg>
         </button>
@@ -70,10 +95,21 @@
           @click="scrollCarousel('right')"
           :disabled="isAtEnd"
           aria-label="Scroll carousel right"
-          class="w-10 h-10 rounded-full border border-fortu-light/30 flex items-center justify-center transition-all"
-          :class="isAtEnd ? 'opacity-30 cursor-not-allowed' : 'hover:bg-fortu-light/10'"
+          class="w-10 h-10 rounded-full border flex items-center justify-center transition-all"
+          :class="[
+            mode === 'light' 
+              ? 'border-fortu-off-white/30 hover:bg-fortu-off-white/10' 
+              : 'border-fortu-light/30 hover:bg-fortu-light/10',
+            isAtEnd ? 'opacity-30 cursor-not-allowed' : ''
+          ]"
         >
-          <svg class="w-5 h-5 text-fortu-off-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg 
+            class="w-5 h-5" 
+            :class="mode === 'light' ? 'text-fortu-off-white' : 'text-fortu-off-white'"
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
           </svg>
         </button>
@@ -82,7 +118,10 @@
 
     <!-- Variant Selector -->
     <div v-if="variants && variants.length > 0 && variantType === 'color'" class="mt-8 text-center">
-      <p class="text-sm text-fortu-off-white mb-3">
+      <p 
+        class="text-sm mb-3"
+        :class="mode === 'light' ? 'text-fortu-off-white' : 'text-fortu-dark'"
+      >
         {{ selectedVariantName }}
       </p>
       <div class="flex justify-center gap-3">
@@ -94,8 +133,8 @@
           :aria-pressed="selectedVariantKey === variant._key ? 'true' : 'false'"
           class="w-8 h-8 rounded-full border-2 transition-all hover:scale-110"
           :class="selectedVariantKey === variant._key 
-            ? 'border-fortu-off-white' 
-            : 'border-fortu-medium/50'"
+            ? (mode === 'light' ? 'border-fortu-off-white' : 'border-fortu-dark')
+            : (mode === 'light' ? 'border-fortu-off-white/50' : 'border-fortu-medium/50')"
           :style="{ backgroundColor: variant.colorHex || '#666' }"
           :title="variant.name"
         ></button>
@@ -106,11 +145,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
+import Button from '@/reusables/Button.vue'
 
 interface CarouselImage {
   url: string
   alt?: string
   caption?: string
+  slug?: string
 }
 
 interface ProductVariant {
@@ -119,7 +160,7 @@ interface ProductVariant {
   colorHex?: string
 }
 
-defineProps<{
+const props = withDefaults(defineProps<{
   images: CarouselImage[]
   heading?: string
   variants?: ProductVariant[]
@@ -127,7 +168,11 @@ defineProps<{
   selectedVariantKey?: string
   selectedVariantName?: string
   clickable?: boolean
-}>()
+  showButton?: boolean
+  mode?: 'light' | 'dark'
+}>(), {
+  mode: 'dark'
+})
 
 defineEmits<{
   (e: 'select-variant', variant: ProductVariant): void

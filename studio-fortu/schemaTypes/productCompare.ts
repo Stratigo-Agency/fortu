@@ -44,8 +44,8 @@ export default defineType({
               name: 'ctaLabel',
               title: 'CTA Button Label',
               type: 'string',
-              description: 'Button text (e.g., "Learn more", "Buy now")',
-              initialValue: 'Learn more',
+              description: 'Button text (e.g., "Pelajari Lebih Lanjut", "Beli Sekarang")',
+              initialValue: 'Pelajari Lebih Lanjut',
             }),
             defineField({
               name: 'ctaLink',
@@ -53,18 +53,28 @@ export default defineType({
               type: 'string',
               description: 'Link URL for the button',
             }),
+            defineField({
+              name: 'compareImage',
+              title: 'Compare Image',
+              type: 'image',
+              options: {
+                hotspot: true,
+              },
+              description: 'Optional custom image for comparison. If not set, product images will be used.',
+            }),
           ],
           preview: {
             select: {
               title: 'product.name',
-              media: 'product.images.0',
+              media: 'compareImage',
+              productMedia: 'product.images.0',
               highlight: 'highlightLabel',
             },
-            prepare({title, media, highlight}) {
+            prepare({title, media, productMedia, highlight}) {
               return {
                 title: title || 'Select a product',
                 subtitle: highlight || '',
-                media,
+                media: media || productMedia,
               }
             },
           },

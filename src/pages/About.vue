@@ -3,12 +3,12 @@
     <PageHero 
       pageName="about" 
       fallbackTitle="About Us"
-      fallbackSubtitle="Learn more about our story and mission"
+      fallbackSubtitle="Pelajari lebih lanjut tentang kami dan misi kami"
     />
 
     <!-- About Content -->
     <div class="px-4 md:px-16 py-16">
-      <p class="text-fortu-medium text-lg">About page content coming soon...</p>
+      <p class="text-fortu-medium text-lg">Halaman tentang kami akan segera hadir...</p>
     </div>
   </div>
 </template>

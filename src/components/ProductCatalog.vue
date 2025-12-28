@@ -20,6 +20,9 @@
       v-else
       :images="productImages"
       :clickable="true"
+      heading="Produk Kami"
+      :show-button="true"
+      mode="light"
       @image-click="handleProductClick"
     />
   </div>

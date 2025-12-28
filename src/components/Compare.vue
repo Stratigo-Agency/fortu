@@ -91,7 +91,7 @@
             </div>
             
             <div 
-              v-if="item.product.images && item.product.images.length > 1" 
+              v-if="!item.compareImage && item.product.images && item.product.images.length > 1" 
               class="flex justify-center gap-2"
             >
               <button
@@ -132,7 +132,7 @@
                   :variant="compare.backgroundColor === 'light' ? 'primary' : 'secondary'"
                   size="sm"
                 >
-                  {{ item.ctaLabel || 'Learn more' }}
+                  {{ item.ctaLabel || 'Pelajari Lebih Lanjut' }}
                 </Button>
               </div>
           </div>
@@ -208,7 +208,7 @@
               </div>
               
               <div 
-                v-if="compare.products[selectedIdx].product.images && compare.products[selectedIdx].product.images.length > 1" 
+                v-if="!compare.products[selectedIdx].compareImage && compare.products[selectedIdx].product.images && compare.products[selectedIdx].product.images.length > 1" 
                 class="flex justify-center gap-1"
               >
                 <button
@@ -244,7 +244,7 @@
                   :variant="compare.backgroundColor === 'light' ? 'primary' : 'inverted'"
                   size="sm"
                 >
-                  {{ compare.products[selectedIdx].ctaLabel || 'Learn more' }}
+                  {{ compare.products[selectedIdx].ctaLabel || 'Pelajari Lebih Lanjut' }}
                 </Button>
               </div>
             </div>
@@ -346,6 +346,19 @@ const isInternalLink = (link: string): boolean => {
 }
 
 const getProductImage = (item: ProductCompareItem, imageIndex: number): string | null => {
+  // Priority: Use compareImage if available, otherwise use product images
+  if (item.compareImage?.asset) {
+    if (item.compareImage.asset.url) {
+      return item.compareImage.asset.url
+    }
+    try {
+      return urlFor(item.compareImage.asset).width(560).height(560).url()
+    } catch {
+      // Fall through to product images
+    }
+  }
+  
+  // Fallback to product images
   const images = item.product?.images
   if (!images || images.length === 0) return null
   

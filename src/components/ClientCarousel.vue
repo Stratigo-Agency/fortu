@@ -1,7 +1,7 @@
 <template>
   <section v-if="clients.length > 0" class="client-carousel-section overflow-hidden py-8">
     <div class="mx-auto px-4 md:px-16 mb-4">
-      <p class="text-fortu-light/60 text-sm uppercase tracking-wider text-center">Trusted by industry leaders</p>
+      <p class="text-fortu-light/60 text-sm uppercase tracking-wider text-center">Dipercaya Oleh</p>
     </div>
     <!-- Carousel wrapper -->
     <div class="relative">

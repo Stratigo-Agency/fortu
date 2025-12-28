@@ -56,7 +56,7 @@
                 size="sm"
                 class="gap-2"
               >
-                Learn More
+                Pelajari Lebih Lanjut
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                 </svg>
@@ -147,7 +147,7 @@
                   size="md"
                   class="gap-2"
                 >
-                  Learn More
+                  Pelajari Lebih Lanjut
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                   </svg>

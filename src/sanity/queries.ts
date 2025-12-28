@@ -587,6 +587,13 @@ export interface ProductCompareItem {
   highlightLabel?: string
   ctaLabel?: string
   ctaLink?: string
+  compareImage?: {
+    asset: {
+      _ref: string
+      _type: string
+      url?: string
+    }
+  }
 }
 
 export interface ProductCompare {
@@ -628,7 +635,13 @@ export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
       },
       highlightLabel,
       ctaLabel,
-      ctaLink
+      ctaLink,
+      compareImage {
+        asset-> {
+          _id,
+          url
+        }
+      }
     },
     backgroundColor,
     isActive
