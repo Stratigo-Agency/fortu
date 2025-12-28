@@ -160,7 +160,7 @@ onUnmounted(() => {
             :class="!isInHero ? 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white' : ''"
             @click="closeProducts"
           >
-            Beli Sekarang
+            Lihat Produk
           </Button>
         </div>
 
@@ -209,7 +209,7 @@ onUnmounted(() => {
               ? 'border-fortu-off-white text-fortu-off-white hover:bg-fortu-off-white hover:text-fortu-dark' 
               : 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white'"
           >
-            Beli Sekarang
+            Lihat Produk
           </Button>
         </div>
       </div>

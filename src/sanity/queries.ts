@@ -792,3 +792,38 @@ export const SERVICE_SECTION_QUERY = defineQuery(/* groq */ `
     isActive
   }
 `)
+
+// About Page
+export interface AboutPage {
+  _id: string
+  description: string
+  vision: {
+    title?: string
+    heading: string
+    description: string
+  }
+  mission: {
+    title?: string
+    heading: string
+    description: string
+  }
+  isActive?: boolean
+}
+
+export const ABOUT_PAGE_QUERY = defineQuery(/* groq */ `
+  *[_type == "aboutPage" && isActive == true][0] {
+    _id,
+    description,
+    vision {
+      title,
+      heading,
+      description
+    },
+    mission {
+      title,
+      heading,
+      description
+    },
+    isActive
+  }
+`)

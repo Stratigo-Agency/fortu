@@ -1,12 +1,12 @@
 <template>
   <section v-if="useCaseSection && !loading" class="use-case-section bg-fortu-off-white overflow-hidden">
-    <div class="px-4 md:px-16 my-16">
+    <div v-if="showHeader" class="px-4 md:px-16 my-16">
       <!-- Section header -->
       <div class="text-center mb-16 max-w-2xl mx-auto">
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-light text-fortu-dark mb-6 tracking-tight leading-tight">
+        <h2 v-if="showTitle" class="text-4xl md:text-5xl lg:text-6xl font-light text-fortu-dark mb-6 tracking-tight leading-tight">
           {{ useCaseSection.heading }}
         </h2>
-        <p class="text-fortu-medium text-lg leading-relaxed">
+        <p v-if="showDescription" class="text-fortu-medium text-lg leading-relaxed">
           {{ useCaseSection.description }}
         </p>
       </div>
@@ -66,6 +66,16 @@ import { ref, onMounted, computed } from 'vue'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { USE_CASE_SECTION_QUERY, type UseCaseSection, type UseCaseItem } from '@/sanity/queries'
+
+const props = withDefaults(defineProps<{
+  showTitle?: boolean
+  showDescription?: boolean
+}>(), {
+  showTitle: true,
+  showDescription: true
+})
+
+const showHeader = computed(() => props.showTitle || props.showDescription)
 
 const useCaseSection = ref<UseCaseSection | null>(null)
 const loading = ref(true)

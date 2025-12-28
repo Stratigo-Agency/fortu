@@ -44,7 +44,7 @@ export default defineType({
               name: 'ctaLabel',
               title: 'CTA Button Label',
               type: 'string',
-              description: 'Button text (e.g., "Pelajari Lebih Lanjut", "Beli Sekarang")',
+              description: 'Button text (e.g., "Pelajari Lebih Lanjut", "Lihat Produk")',
               initialValue: 'Pelajari Lebih Lanjut',
             }),
             defineField({

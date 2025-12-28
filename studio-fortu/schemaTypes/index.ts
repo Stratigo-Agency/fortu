@@ -9,5 +9,6 @@ import faq from './faq'
 import pageHero from './pageHero'
 import productCompare from './productCompare'
 import service from './service'
+import aboutPage from './aboutPage'
 
-export const schemaTypes = [hero, clientLogo, bannerSlide, cmsDemo, useCaseSection, product, productCompare, pageHero, siteSettings, faq, service]
+export const schemaTypes = [hero, clientLogo, bannerSlide, cmsDemo, useCaseSection, product, productCompare, pageHero, siteSettings, faq, service, aboutPage]

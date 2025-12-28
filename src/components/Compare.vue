@@ -299,7 +299,7 @@
           class="inline-block mx-auto mt-24 w-full text-center text-sm font-medium underline underline-offset-4 transition-opacity hover:opacity-70"
           :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
         >
-          Discover all products
+          Lihat Semua Produk
         </RouterLink>
     </div>
     

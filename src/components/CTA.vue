@@ -58,8 +58,8 @@ interface Props {
 }
 
 withDefaults(defineProps<Props>(), {
-  heading: 'Ready to Get Started?',
-  description: 'Have questions or want to purchase? Reach out to us directly on WhatsApp for a quick response.',
+  heading: 'Solusi Digital Signage bersama Kami',
+  description: 'Punya pertanyaan atau ingin membeli? Hubungi kami langsung melalui WhatsApp untuk tanggapan yang cepat.',
   buttonLabel: 'Chat on WhatsApp',
   variant: 'dark'
 })
