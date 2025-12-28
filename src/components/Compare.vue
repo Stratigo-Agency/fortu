@@ -181,11 +181,11 @@
       </div>
 
       <!-- Product Comparison Grid - Mobile (2 columns) -->
-      <div class="md:hidden grid grid-cols-2 gap-4">
+      <div class="md:hidden grid grid-cols-2 gap-4 items-start">
         <div 
           v-for="selectedIdx in mobileProductsToShow" 
           :key="selectedIdx"
-          class="product-column text-center"
+          class="product-column text-center flex flex-col"
         >
           <template v-if="compare.products[selectedIdx]">
             <!-- Product Image -->
@@ -226,17 +226,15 @@
             </div>
 
             <!-- Product Info -->
-            <div class="mb-4">
+            <div class="mb-4 flex flex-col">
               <h3 
-                class="text-base font-medium mb-1"
+                class="text-base font-medium mb-1 min-h-[3rem] flex items-start justify-center text-center"
                 :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
               >
                 {{ compare.products[selectedIdx].product.name }}
               </h3>
               
-           
-
-              <div class="flex justify-center">
+              <div class="flex justify-center mt-auto">
                 <Button
                   v-if="compare.products[selectedIdx].ctaLink"
                   :to="isInternalLink(compare.products[selectedIdx].ctaLink!) ? compare.products[selectedIdx].ctaLink : undefined"
