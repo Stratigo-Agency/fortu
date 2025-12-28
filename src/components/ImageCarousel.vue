@@ -160,7 +160,7 @@ interface ProductVariant {
   colorHex?: string
 }
 
-const props = withDefaults(defineProps<{
+withDefaults(defineProps<{
   images: CarouselImage[]
   heading?: string
   variants?: ProductVariant[]
