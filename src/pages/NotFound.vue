@@ -1,43 +1,43 @@
 <template>
-  <div class="not-found-page bg-fortu-off-white min-h-screen flex items-center justify-center">
+  <div class="not-found-page bg-fortu-dark min-h-screen flex items-center justify-center">
     <div class="text-center px-4 md:px-16 py-24 max-w-2xl mx-auto">
       <!-- 404 Number -->
-      <h1 class="text-8xl md:text-9xl font-medium text-fortu-dark mb-4 tracking-tight opacity-20">
+      <h1 class="text-8xl md:text-9xl font-medium text-fortu-off-white mb-4 tracking-tight opacity-20">
         404
       </h1>
       
       <!-- Title -->
-      <h2 class="text-3xl md:text-5xl font-medium text-fortu-dark mb-4 tracking-tight">
-        Page Not Found
+      <h2 class="text-3xl md:text-5xl font-medium text-fortu-off-white mb-4 tracking-tight">
+        Halaman Tidak Ditemukan
       </h2>
       
       <!-- Description -->
-      <p class="text-fortu-medium text-lg mb-8 leading-relaxed">
-        The page you're looking for doesn't exist or has been moved.
+      <p class="text-fortu-light text-lg mb-8 leading-relaxed">
+        Halaman yang Anda cari tidak ada atau telah dipindahkan.
       </p>
       
       <!-- Action Buttons -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-        <Button href="/" variant="primary" size="lg">
-          Go to Home
+        <Button href="/" variant="secondary" size="lg">
+          Kembali ke Beranda
         </Button>
-        <Button href="/products" variant="secondary" size="lg">
-          Browse Products
+        <Button href="/products" variant="outline" size="lg">
+          Lihat Produk
         </Button>
       </div>
       
       <!-- Additional Links -->
-      <div class="mt-12 pt-8 border-t border-fortu-light/30">
-        <p class="text-sm text-fortu-medium mb-4">Or visit:</p>
+      <div class="mt-12 pt-8 border-t border-fortu-medium/30">
+        <p class="text-sm text-fortu-light mb-4">Atau kunjungi:</p>
         <div class="flex flex-wrap justify-center gap-4">
-          <router-link to="/about" class="text-fortu-dark hover:text-fortu-medium transition-colors text-sm">
-            About
+          <router-link to="/about" class="text-fortu-off-white hover:text-fortu-light transition-colors text-sm">
+            Tentang Kami
           </router-link>
-          <router-link to="/contact" class="text-fortu-dark hover:text-fortu-medium transition-colors text-sm">
-            Contact
+          <router-link to="/contact" class="text-fortu-off-white hover:text-fortu-light transition-colors text-sm">
+            Kontak
           </router-link>
-          <router-link to="/products" class="text-fortu-dark hover:text-fortu-medium transition-colors text-sm">
-            Products
+          <router-link to="/products" class="text-fortu-off-white hover:text-fortu-light transition-colors text-sm">
+            Produk
           </router-link>
         </div>
       </div>
