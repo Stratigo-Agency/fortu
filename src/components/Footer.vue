@@ -100,26 +100,26 @@
 
         <!-- Quick Links -->
         <div>
-          <h4 class="text-fortu-off-white font-medium mb-6">Quick Links</h4>
+          <h4 class="text-fortu-off-white font-medium mb-6">Tautan Cepat</h4>
           <ul class="space-y-3">
             <li>
               <RouterLink to="/" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
-                Home
+                Beranda
               </RouterLink>
             </li>
             <li>
               <RouterLink to="/products" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
-                Products
+                Produk
               </RouterLink>
             </li>
             <li>
               <RouterLink to="/about" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
-                About Us
+                Tentang Kami
               </RouterLink>
             </li>
             <li>
               <RouterLink to="/contact" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
-                Contact
+                Kontak
               </RouterLink>
             </li>
           </ul>
@@ -127,7 +127,7 @@
 
         <!-- Contact -->
         <div>
-          <h4 class="text-fortu-off-white font-medium mb-6">Contact</h4>
+          <h4 class="text-fortu-off-white font-medium mb-6">Kontak</h4>
           <ul class="space-y-4">
             <!-- Address -->
             <li v-if="settings?.address" class="flex gap-3">
@@ -177,7 +177,7 @@
       <div class="mx-auto px-4 md:px-16 py-6">
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
           <p class="text-fortu-medium text-sm">
-            © {{ currentYear }} {{ settings?.companyName || 'FORTU DIGITAL' }}. All rights reserved.
+            © {{ currentYear }} {{ settings?.companyName || 'FORTU DIGITAL' }}. Hak cipta dilindungi.
           </p>
           <div class="flex gap-6">
           </div>

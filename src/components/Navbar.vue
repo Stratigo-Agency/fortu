@@ -20,10 +20,10 @@ const isInHero = computed(() => {
 })
 
 const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'Products', to: '/products', hasDropdown: true },
-  { label: 'About', to: '/about' },
-  { label: 'Contact', to: '/contact' },
+  { label: 'Beranda', to: '/' },
+  { label: 'Produk', to: '/products', hasDropdown: true },
+  { label: 'Tentang', to: '/about' },
+  { label: 'Kontak', to: '/contact' },
 ]
 
 const toggleMenu = () => {
@@ -113,7 +113,7 @@ onUnmounted(() => {
             <button
               v-if="link.hasDropdown"
               @click="toggleProducts"
-              :aria-label="`${isProductsOpen ? 'Close' : 'Open'} products menu`"
+              :aria-label="`${isProductsOpen ? 'Tutup' : 'Buka'} menu produk`"
               :aria-expanded="isProductsOpen ? 'true' : 'false'"
               class="text-lg tracking-tight transition-colors flex items-center gap-1"
               :class="[
@@ -160,7 +160,7 @@ onUnmounted(() => {
             :class="!isInHero ? 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white' : ''"
             @click="closeProducts"
           >
-            Shop Now
+            Beli Sekarang
           </Button>
         </div>
 
@@ -169,7 +169,7 @@ onUnmounted(() => {
           @click="toggleMenu"
           class="md:hidden p-2 transition-colors"
           :class="isInHero ? 'text-fortu-off-white' : 'text-fortu-dark'"
-          aria-label="Toggle menu"
+          aria-label="Buka/Tutup menu"
         >
           <svg v-if="!isMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -209,7 +209,7 @@ onUnmounted(() => {
               ? 'border-fortu-off-white text-fortu-off-white hover:bg-fortu-off-white hover:text-fortu-dark' 
               : 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white'"
           >
-            Shop Now
+            Beli Sekarang
           </Button>
         </div>
       </div>
@@ -231,7 +231,7 @@ onUnmounted(() => {
           class="text-sm font-medium text-fortu-dark hover:text-fortu-medium transition-colors"
           @click="closeProducts"
         >
-          View All Products →
+          Lihat Semua Produk →
         </RouterLink>
       </div>
     </div>
