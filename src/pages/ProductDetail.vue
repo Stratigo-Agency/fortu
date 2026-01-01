@@ -37,7 +37,7 @@
     <ImageCarousel
       v-if="carouselImages.length > 0"
       :images="carouselImages"
-      heading="Take a closer look."
+      heading="Lihat lebih dekat"
       :variants="product.variants"
       :variant-type="product.variantType"
       :selected-variant-key="selectedVariant?._key"
