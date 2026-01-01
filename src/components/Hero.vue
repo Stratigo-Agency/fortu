@@ -60,7 +60,7 @@ onMounted(async () => {
 <template>
   <section 
     v-if="hero && !loading" 
-    class="relative min-h-screen flex flex-col bg-[var(--card)] overflow-hidden"
+    class="relative min-h-screen flex flex-col bg-[var(--card)] overflow-hidden pt-24 md:pt-0"
   >
     <!-- Background Video -->
     <video

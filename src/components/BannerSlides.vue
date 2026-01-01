@@ -10,9 +10,9 @@
           class="absolute inset-0"
         >
           <!-- Mobile Layout: Stacked content + image -->
-          <div class="flex flex-col h-full md:hidden pb-16 text-center">
+          <div class="flex flex-col min-h-screen md:hidden pb-20 text-center">
             <!-- Mobile Content Section -->
-            <div class="bg-fortu-off-white px-6 pt-20 pb-6">
+            <div class="bg-fortu-off-white px-6 pt-20 pb-6 flex-shrink-0">
               <!-- Mobile Product Tabs -->
               <div class="flex mb-4">
                 <div class="flex rounded-md mx-auto overflow-hidden bg-fortu-dark border-8 border-fortu-dark">
@@ -22,7 +22,7 @@
                     @click="goToSlide(idx)"
                     :aria-label="`View ${prod.name} product slide`"
                     :aria-pressed="currentIndex === idx ? 'true' : 'false'"
-                    class="px-3 py-2.5 text-xs font-medium transition-all duration-300"
+                    class="px-2 py-2.5 text-xs font-medium transition-all duration-300"
                     :class="currentIndex === idx 
                       ? 'bg-fortu-off-white text-fortu-dark' 
                       : 'bg-fortu-dark text-fortu-off-white hover:bg-fortu-off-white/20'"
@@ -64,7 +64,7 @@
             </div>
 
             <!-- Mobile Image Section -->
-            <div class="flex-1 relative min-h-[50vh]">
+            <div class="flex-1 relative flex flex-col justify-between">
               <img
                 v-if="getProductImage(product)"
                 :src="getProductImage(product)"
@@ -73,7 +73,7 @@
                 class="w-full h-full object-cover px-4"
               />
               <!-- Mobile Navigation Arrows -->
-              <div class="absolute bottom-6 left-6 flex gap-2">
+              <div class="absolute bottom-8 left-6 flex gap-2">
                 <button
                   @click="prevSlide"
                   class="w-10 h-10 text-fortu-dark rounded-full bg-fortu-off-white/90 backdrop-blur-sm flex items-center justify-center"

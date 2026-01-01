@@ -51,7 +51,7 @@
     <!-- Specifications Section -->
     <section v-if="product.specs && product.specs.length > 0" class="py-16 px-4 md:px-16 bg-white">
       <div>
-        <h2 class="text-4xl md:text-6xl font-medium text-fortu-dark mb-10 tracking-tight">
+        <h2 class="text-4xl md:text-4xl font-medium text-fortu-dark mb-10 tracking-tight">
           Spesifikasi
         </h2>
         
@@ -71,6 +71,12 @@
       </div>
     </section>
 
+    <!-- Product Recommendations -->
+    <ProductRecommendation
+      :current-product-id="product._id"
+      :current-product-slug="product.slug?.current"
+    />
+
     <CTA variant="dark" />
   </div>
 </template>
@@ -85,6 +91,7 @@ import CompareIcon from '@/components/CompareIcon.vue'
 import ImageCarousel from '@/components/ImageCarousel.vue'
 import ProductHero from '@/components/productDetail/ProductHero.vue'
 import ProductSingleFeature from '@/components/productDetail/ProductSingleFeature.vue'
+import ProductRecommendation from '@/components/productDetail/ProductRecommendation.vue'
 import CTA from '@/components/CTA.vue'
 const route = useRoute()
 const product = ref<Product | null>(null)

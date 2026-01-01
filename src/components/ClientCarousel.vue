@@ -5,10 +5,6 @@
     </div>
     <!-- Carousel wrapper -->
     <div class="relative">
-      <!-- Gradient fade edges (dark for hero background) -->
-      <div class="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-fortu-dark to-transparent z-10 pointer-events-none"></div>
-      <div class="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-fortu-dark to-transparent z-10 pointer-events-none"></div>
-      
       <!-- Scrolling track -->
       <div class="carousel-track flex gap-8">
         <!-- First set of cards -->

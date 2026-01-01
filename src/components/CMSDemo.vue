@@ -24,7 +24,7 @@
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
-        <div v-if="getProductByPosition('top-left')" class="product-card product-1 absolute top-0 left-2 md:left-12 lg:left-24">
+        <div v-if="getProductByPosition('top-left')" class="product-card product-1 absolute top-0 left-2 md:left-12 lg:left-24 z-30">
           <div class="relative group">
             <!-- Connection line - L-shaped: right then down -->
             <div class="connection-line connection-1">
@@ -33,7 +33,7 @@
               <div class="pulse-dot pulse-1"></div>
             </div>
             
-            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-md md:rounded-lg border border-fortu-light/10 p-2 md:p-4 transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-md md:rounded-lg border border-fortu-light/10 p-2 md:p-4 transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-left')"
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Product 2 - Top Right -->
-        <div v-if="getProductByPosition('top-right')" class="product-card product-2 absolute top-0 right-2 md:right-12 lg:right-24">
+        <div v-if="getProductByPosition('top-right')" class="product-card product-2 absolute top-0 right-2 md:right-12 lg:right-24 z-30">
           <div class="relative group">
             <!-- Connection line - L-shaped: left then down -->
             <div class="connection-line connection-2">
@@ -63,7 +63,7 @@
               <div class="pulse-dot pulse-2"></div>
             </div>
             
-            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-right')"
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Product 3 - Bottom Center -->
-        <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute top-[-80px] md:top-[-150px] left-1/2">
+        <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute top-[-80px] md:top-[-150px] left-1/2 z-30">
           <div class="relative group">
             
             <!-- Connection line - straight down -->
@@ -92,7 +92,7 @@
               <div class="line-vertical-down"></div>
               <div class="pulse-dot pulse-3"></div>
             </div>
-            <div class="w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('bottom-center')"
@@ -113,7 +113,7 @@
         </div>
 
         <!-- Central Laptop with CMS -->
-        <div class="laptop-container relative z-20">
+        <div class="laptop-container relative z-40">
           <!-- Laptop frame -->
           <div class="laptop-frame relative">
             <!-- Screen bezel -->
@@ -375,6 +375,7 @@ onMounted(async () => {
 .connection-line {
   position: absolute;
   pointer-events: none;
+  z-index: 10;
 }
 
 /* Connection 1 - Top Left: goes right then down */
@@ -449,6 +450,7 @@ onMounted(async () => {
   background: #F9F9F9;
   border-radius: 50%;
   box-shadow: 0 0 10px rgba(249, 249, 249, 0.8), 0 0 20px rgba(249, 249, 249, 0.4);
+  z-index: 11;
 }
 
 /* Pulse animation for connection 1 - right then down */
@@ -663,51 +665,43 @@ onMounted(async () => {
     z-index: 15;
   }
   
-  /* Connection 1 - From top-left product card: right then down (L-shaped) */
+  /* Connection 1 - From top-left product card: straight down */
   .mobile-conn-1 {
     top: 80px;
-    left: 120px;
+    left: 60px;
+    transform: translateX(-50%);
   }
   
   .mobile-conn-1 .mobile-line-horizontal {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50px;
-    height: 2px;
-    border-top: 2px dashed rgba(191, 191, 191, 0.4);
+    display: none;
   }
   
   .mobile-conn-1 .mobile-line-vertical {
     position: absolute;
     top: 0;
-    left: 50px;
+    left: 0;
     width: 2px;
-    height: 120px;
+    height: 140px;
     border-left: 2px dashed rgba(191, 191, 191, 0.4);
   }
   
-  /* Connection 2 - From top-right product card: left then down (L-shaped) */
+  /* Connection 2 - From top-right product card: straight down */
   .mobile-conn-2 {
     top: 80px;
-    right: 120px;
+    right: 60px;
+    transform: translateX(50%);
   }
   
   .mobile-conn-2 .mobile-line-horizontal {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50px;
-    height: 2px;
-    border-top: 2px dashed rgba(191, 191, 191, 0.4);
+    display: none;
   }
   
   .mobile-conn-2 .mobile-line-vertical {
     position: absolute;
     top: 0;
-    right: 50px;
+    right: 0;
     width: 2px;
-    height: 120px;
+    height: 140px;
     border-left: 2px dashed rgba(191, 191, 191, 0.4);
   }
   
@@ -733,14 +727,15 @@ onMounted(async () => {
     background: #F9F9F9;
     border-radius: 50%;
     box-shadow: 0 0 8px rgba(249, 249, 249, 0.8), 0 0 16px rgba(249, 249, 249, 0.4);
+    z-index: 11;
   }
   
-  /* Dot 1 - travels along L-shape from top-left: right then down */
+  /* Dot 1 - travels straight down from top-left */
   .mobile-dot-1 {
     animation: mobilePulse1 3s ease-in-out infinite;
   }
   
-  /* Dot 2 - travels along L-shape from top-right: left then down */
+  /* Dot 2 - travels straight down from top-right */
   .mobile-dot-2 {
     animation: mobilePulse2 3s ease-in-out infinite;
     animation-delay: 1s;
@@ -753,21 +748,16 @@ onMounted(async () => {
   }
 }
 
-/* Mobile pulse animations - L-shaped paths */
+/* Mobile pulse animations - straight down paths */
 @keyframes mobilePulse1 {
   0% {
     top: -3px;
     left: -3px;
     opacity: 1;
   }
-  35% {
-    top: -3px;
-    left: 46px;
-    opacity: 1;
-  }
   100% {
-    top: 116px;
-    left: 46px;
+    top: 136px;
+    left: -3px;
     opacity: 0;
   }
 }
@@ -778,14 +768,9 @@ onMounted(async () => {
     right: -3px;
     opacity: 1;
   }
-  35% {
-    top: -3px;
-    right: 46px;
-    opacity: 1;
-  }
   100% {
-    top: 116px;
-    right: 46px;
+    top: 136px;
+    right: -3px;
     opacity: 0;
   }
 }
