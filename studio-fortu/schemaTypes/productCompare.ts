@@ -60,7 +60,7 @@ export default defineType({
               options: {
                 hotspot: true,
               },
-              description: 'Optional custom image for comparison. If not set, product images will be used.',
+              description: 'Optional custom image to display in comparison. If not provided, the first product image will be used as fallback.',
             }),
           ],
           preview: {

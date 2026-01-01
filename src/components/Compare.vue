@@ -83,27 +83,10 @@
             
             <div class="relative max-w-[280px] mx-auto mb-4">
               <img
-                v-if="getProductImage(item, activeImages[index])"
-                :src="getProductImage(item, activeImages[index]) ?? undefined"
+                v-if="getProductImage(item)"
+                :src="getProductImage(item) ?? undefined"
                 :alt="item.product.name"
                 class="w-full h-full object-contain rounded-lg"
-              />
-            </div>
-            
-            <div 
-              v-if="!item.compareImage && item.product.images && item.product.images.length > 1" 
-              class="flex justify-center gap-2"
-            >
-              <button
-                v-for="(_, imgIndex) in item.product.images.slice(0, 4)"
-                :key="imgIndex"
-                @click="activeImages[index] = imgIndex"
-                :aria-label="`View ${item.product.name} image ${imgIndex + 1} of ${item.product.images.length}`"
-                :aria-current="activeImages[index] === imgIndex ? 'true' : 'false'"
-                class="w-2 h-2 rounded-full transition-all"
-                :class="activeImages[index] === imgIndex 
-                  ? (compare.backgroundColor === 'light' ? 'bg-fortu-dark' : 'bg-fortu-off-white') 
-                  : (compare.backgroundColor === 'light' ? 'bg-fortu-light' : 'bg-fortu-medium')"
               />
             </div>
           </div>
@@ -200,27 +183,10 @@
               
               <div class="relative max-w-[140px] mx-auto mb-2">
                 <img
-                  v-if="getProductImage(compare.products[selectedIdx], activeImages[selectedIdx])"
-                  :src="getProductImage(compare.products[selectedIdx], activeImages[selectedIdx]) ?? undefined"
+                  v-if="getProductImage(compare.products[selectedIdx])"
+                  :src="getProductImage(compare.products[selectedIdx]) ?? undefined"
                   :alt="compare.products[selectedIdx].product.name"
                   class="w-full h-full object-contain rounded-lg"
-                />
-              </div>
-              
-              <div 
-                v-if="!compare.products[selectedIdx].compareImage && compare.products[selectedIdx].product.images && compare.products[selectedIdx].product.images.length > 1" 
-                class="flex justify-center gap-1"
-              >
-                <button
-                  v-for="(_, imgIndex) in compare.products[selectedIdx].product.images.slice(0, 4)"
-                  :key="imgIndex"
-                  @click="activeImages[selectedIdx] = imgIndex"
-                  :aria-label="`View ${compare.products[selectedIdx].product.name} image ${imgIndex + 1} of ${compare.products[selectedIdx].product.images.length}`"
-                  :aria-current="activeImages[selectedIdx] === imgIndex ? 'true' : 'false'"
-                  class="w-1.5 h-1.5 rounded-full transition-all"
-                  :class="activeImages[selectedIdx] === imgIndex 
-                    ? (compare.backgroundColor === 'light' ? 'bg-fortu-dark' : 'bg-fortu-off-white') 
-                    : (compare.backgroundColor === 'light' ? 'bg-fortu-light' : 'bg-fortu-medium')"
                 />
               </div>
             </div>
@@ -321,7 +287,6 @@ import Button from '@/reusables/Button.vue'
 
 const compare = ref<ProductCompare | null>(null)
 const loading = ref(true)
-const activeImages = ref<number[]>([0, 0, 0])
 const mobileSelection = ref<number[]>([0, 1])
 
 const gridColsDesktop = computed(() => {
@@ -343,8 +308,8 @@ const isInternalLink = (link: string): boolean => {
   return link.startsWith('/') || link.startsWith('#')
 }
 
-const getProductImage = (item: ProductCompareItem, imageIndex: number): string | null => {
-  // Priority: Use compareImage if available, otherwise use product images
+const getProductImage = (item: ProductCompareItem): string | null => {
+  // Priority 1: Use compareImage if available
   if (item.compareImage?.asset) {
     if (item.compareImage.asset.url) {
       return item.compareImage.asset.url
@@ -356,12 +321,12 @@ const getProductImage = (item: ProductCompareItem, imageIndex: number): string |
     }
   }
   
-  // Fallback to product images
+  // Priority 2: Fallback to first product image
   const images = item.product?.images
   if (!images || images.length === 0) return null
   
-  const idx = Math.min(imageIndex, images.length - 1)
-  const image = images[idx]
+  // Always use the first image (index 0)
+  const image = images[0]
   
   if (!image?.asset) return null
   
