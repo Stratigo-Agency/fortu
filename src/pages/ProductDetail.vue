@@ -26,6 +26,11 @@
       :price="displayPrice"
       :compare-at-price="compareAtPrice"
       :currency="product.currency"
+      :has-variants="product.hasVariants"
+      :variants="product.variants"
+      :variant-type="product.variantType"
+      :selected-variant-key="selectedVariant?._key"
+      @select-variant="selectVariant"
     />
 
     <!-- Image Carousel Section -->

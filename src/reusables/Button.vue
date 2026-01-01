@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 
 interface Props {
-  variant?: 'primary' | 'secondary' | 'light' | 'outline' | 'inverted'
+  variant?: 'primary' | 'secondary' | 'light' | 'outline' | 'inverted' | 'green'
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   type?: 'button' | 'submit' | 'reset'
@@ -44,6 +44,7 @@ const buttonClasses = computed(() => {
     light: 'bg-fortu-light text-fortu-dark hover:bg-opacity-80 focus:ring-fortu-light',
     outline: 'bg-transparent text-fortu-off-white hover:text-fortu-dark hover:bg-fortu-off-white border-2 border-fortu-off-white focus:ring-fortu-medium',
     inverted: 'bg-fortu-off-white text-fortu-dark hover:bg-fortu-light focus:ring-fortu-light',
+    green: 'bg-green-500 text-white hover:bg-green-600 border-2 border-green-500 hover:border-green-600 focus:ring-green-500',
   }
   
   const sizeClasses = {
