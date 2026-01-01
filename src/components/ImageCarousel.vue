@@ -15,13 +15,13 @@
       <!-- Images Wrapper -->
       <div 
         ref="carouselRef"
-        class="flex gap-4 md:gap-6 overflow-x-auto scroll-smooth px-4 md:px-16 pb-4 hide-scrollbar"
+        class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-4 md:px-16 pb-4 hide-scrollbar"
         @scroll="handleScroll"
       >
         <div
           v-for="(image, index) in images"
           :key="index"
-          class="flex-shrink-0 w-[320px] md:w-[400px] lg:w-[480px] font-medium"
+          class="flex-shrink-0 w-[320px] md:w-[400px] lg:w-[480px] font-medium snap-center"
           :class="clickable ? 'cursor-pointer' : ''"
           @click="clickable && $emit('image-click', index)"
         >
@@ -187,7 +187,11 @@ const currentIndex = ref(0)
 const scrollCarousel = (direction: 'left' | 'right') => {
   if (!carouselRef.value) return
   
-  const scrollAmount = 400
+  const itemWidth = 320 + 16 // w-[320px] + gap-4 (mobile)
+  const mdItemWidth = 400 + 24 // md:w-[400px] + md:gap-6
+  const isMobile = window.innerWidth < 768
+  const scrollAmount = isMobile ? itemWidth : mdItemWidth
+  
   const newScrollLeft = direction === 'left' 
     ? carouselRef.value.scrollLeft - scrollAmount 
     : carouselRef.value.scrollLeft + scrollAmount
@@ -202,8 +206,12 @@ const scrollToImage = (index: number) => {
   if (!carouselRef.value) return
   
   const itemWidth = 320 + 16 // w-[320px] + gap-4
+  const mdItemWidth = 400 + 24 // md:w-[400px] + md:gap-6
+  const isMobile = window.innerWidth < 768
+  const scrollAmount = isMobile ? itemWidth : mdItemWidth
+  
   carouselRef.value.scrollTo({
-    left: index * itemWidth,
+    left: index * scrollAmount,
     behavior: 'smooth'
   })
 }
