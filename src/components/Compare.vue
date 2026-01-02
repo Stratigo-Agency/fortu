@@ -264,6 +264,7 @@ import { ref, computed, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import { client, urlFor } from '@/sanity/client'
 import { PRODUCT_COMPARE_QUERY, type ProductCompare, type ProductCompareItem } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 import CompareIcon from '@/components/CompareIcon.vue'
 import Button from '@/reusables/Button.vue'
 
@@ -293,7 +294,8 @@ const getProductImage = (item: ProductCompareItem): string | null => {
       return item.compareImage.asset.url
     }
     try {
-      return urlFor(item.compareImage.asset).width(560).height(560).quality(75).auto('format').url()
+      const builder = urlFor(item.compareImage.asset).width(560).height(560).quality(IMAGE_CONFIG.quality)
+      return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
     } catch {
       // Fall through to product images
     }
@@ -313,7 +315,8 @@ const getProductImage = (item: ProductCompareItem): string | null => {
   }
   
   try {
-    return urlFor(image.asset).width(560).height(560).quality(75).auto('format').url()
+    const builder = urlFor(image.asset).width(560).height(560).quality(IMAGE_CONFIG.quality)
+    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
   } catch {
     return null
   }

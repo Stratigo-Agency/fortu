@@ -93,6 +93,7 @@ import { ref, computed, onMounted, watchEffect, onUnmounted } from 'vue'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { PAGE_HERO_QUERY, type PageHero } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 
 const props = defineProps<{
   pageName: 'products' | 'about' | 'contact' | 'services'
@@ -113,7 +114,8 @@ const heroVideoUrl = computed(() => {
 const heroImageUrl = computed(() => {
   if (pageHero.value?.backgroundImage?.asset) {
     try {
-      return urlFor(pageHero.value.backgroundImage.asset).width(1920).quality(75).auto('format').url()
+      const builder = urlFor(pageHero.value.backgroundImage.asset).width(1920).quality(IMAGE_CONFIG.quality)
+      return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
     } catch {
       return null
     }

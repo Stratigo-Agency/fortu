@@ -33,6 +33,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { client, urlFor } from '@/sanity/client'
 import { PRODUCTS_QUERY, type Product } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 import ImageCarousel from '@/components/ImageCarousel.vue'
 
 const router = useRouter()
@@ -54,7 +55,8 @@ const getProductImage = (product: Product): string | undefined => {
     }
     try {
       // Pass the full image object (not just asset) to preserve hotspot and crop
-      return urlFor(firstImage).width(600).height(600).quality(75).auto('format').url()
+      const builder = urlFor(firstImage).width(600).height(600).quality(IMAGE_CONFIG.quality)
+      return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
     } catch {
       return undefined
     }

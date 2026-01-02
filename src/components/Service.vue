@@ -146,6 +146,7 @@ import { ref, onMounted, h } from 'vue'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { SERVICE_SECTION_QUERY, type ServiceSection, type ServiceItem } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 
 const serviceSection = ref<ServiceSection | null>(null)
 const loading = ref(true)
@@ -156,7 +157,8 @@ const carouselRef = ref<HTMLElement | null>(null)
 const getBackgroundImage = (service: ServiceItem): string | null => {
   if (!service.backgroundImage?.asset) return null
   try {
-    return urlFor(service.backgroundImage.asset).width(600).height(800).quality(75).auto('format').url()
+    const builder = urlFor(service.backgroundImage.asset).width(600).height(800).quality(IMAGE_CONFIG.quality)
+    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
   } catch {
     return null
   }

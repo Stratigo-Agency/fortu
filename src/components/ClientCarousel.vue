@@ -53,6 +53,7 @@ import { ref, onMounted } from 'vue'
 import { client as sanityClient } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { CLIENT_LOGOS_QUERY, type ClientLogo } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 
 const clients = ref<ClientLogo[]>([])
 
@@ -61,7 +62,8 @@ const getLogoUrl = (client: ClientLogo): string => {
   try {
     // Always use urlFor to apply crop/hotspot settings
     // Pass the full image object (not just asset) to preserve hotspot and crop
-    return urlFor(client.logo).width(320).fit('max').quality(75).auto('format').url()
+    const builder = urlFor(client.logo).width(320).fit('max').quality(IMAGE_CONFIG.quality)
+    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
   } catch {
     return ''
   }

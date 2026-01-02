@@ -3,6 +3,7 @@ import { ref, onMounted, computed, watchEffect, onUnmounted } from 'vue'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { HERO_QUERY, type Hero } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 import Button from '@/reusables/Button.vue'
 import ClientCarousel from '@/components/ClientCarousel.vue'
 
@@ -21,7 +22,8 @@ const heroImageUrl = computed(() => {
     try {
       // Always use urlFor to apply crop/hotspot settings
       // Pass the full image object (not just asset) to preserve hotspot and crop
-      return urlFor(hero.value.backgroundImage).width(1920).quality(75).auto('format').url()
+      const builder = urlFor(hero.value.backgroundImage).width(1920).quality(IMAGE_CONFIG.quality)
+      return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
     } catch {
       return null
     }

@@ -91,6 +91,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { client, urlFor } from '@/sanity/client'
 import { PRODUCT_BY_SLUG_QUERY, type Product, type ProductVariant } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 import Button from '@/reusables/Button.vue'
 import CompareIcon from '@/components/CompareIcon.vue'
 import ImageCarousel from '@/components/ImageCarousel.vue'
@@ -114,7 +115,8 @@ const carouselImages = computed(() => {
         try {
           // Always use urlFor to apply crop/hotspot settings
           // Pass the full image object (not just asset) to preserve hotspot and crop
-          const url = urlFor(img).width(960).quality(75).auto('format').url()
+          const builder = urlFor(img).width(960).quality(IMAGE_CONFIG.quality)
+          const url = IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
           if (url) {
             images.push({
               url,
@@ -134,7 +136,8 @@ const carouselImages = computed(() => {
       if (variant.image?.asset) {
         try {
           // Always use urlFor to apply crop/hotspot settings
-          const url = urlFor(variant.image).width(960).quality(75).auto('format').url()
+          const builder = urlFor(variant.image).width(960).quality(IMAGE_CONFIG.quality)
+          const url = IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
           if (url && !images.some(img => img.url === url)) {
             images.push({
               url,
@@ -151,7 +154,8 @@ const carouselImages = computed(() => {
           if (variantImg.asset) {
             try {
               // Always use urlFor to apply crop/hotspot settings
-              const url = urlFor(variantImg).width(960).quality(75).auto('format').url()
+              const builder = urlFor(variantImg).width(960).quality(IMAGE_CONFIG.quality)
+              const url = IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
               if (url && !images.some(img => img.url === url)) {
                 images.push({
                   url,

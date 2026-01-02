@@ -193,6 +193,7 @@ import { RouterLink } from 'vue-router'
 import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { SITE_SETTINGS_QUERY, type SiteSettings } from '@/sanity/queries'
+import { IMAGE_CONFIG } from '@/config/image'
 
 const settings = ref<SiteSettings | null>(null)
 
@@ -201,7 +202,8 @@ const currentYear = computed(() => new Date().getFullYear())
 const logoUrl = computed(() => {
   if (!settings.value?.logo?.asset) return null
   try {
-    return urlFor(settings.value.logo.asset).height(96).quality(75).auto('format').url()
+    const builder = urlFor(settings.value.logo.asset).height(96).quality(IMAGE_CONFIG.quality)
+    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
   } catch {
     return null
   }

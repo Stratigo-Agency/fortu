@@ -227,6 +227,7 @@ import { ref, onMounted } from 'vue'
 import { client } from '@/sanity/client'
 import { CMS_DEMO_QUERY, type CMSDemo, type CMSDemoProduct } from '@/sanity/queries'
 import { urlFor } from '@/sanity/client'
+import { IMAGE_CONFIG } from '@/config/image'
 
 const cmsDemo = ref<CMSDemo | null>(null)
 const loading = ref(true)
@@ -269,7 +270,8 @@ const getProductImage = (position: 'top-left' | 'top-right' | 'bottom-center'): 
   if (!data?.image?.asset) return undefined
   
   try {
-    return urlFor(data.image.asset).width(400).height(400).quality(75).auto('format').url()
+    const builder = urlFor(data.image.asset).width(400).height(400).quality(IMAGE_CONFIG.quality)
+    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
   } catch {
     return undefined
   }
@@ -297,7 +299,8 @@ const getProductImageForCMS = (product: CMSDemoProduct): string | undefined => {
   if (!imageAsset) return undefined
   
   try {
-    return urlFor(imageAsset).width(80).height(80).quality(75).auto('format').url()
+    const builder = urlFor(imageAsset).width(80).height(80).quality(IMAGE_CONFIG.quality)
+    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
   } catch {
     return undefined
   }
