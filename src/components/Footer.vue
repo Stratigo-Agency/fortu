@@ -5,7 +5,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
         <!-- Brand Column -->
         <div class="lg:col-span-1">
-          <RouterLink to="/" class="inline-block mb-6">
+          <RouterLink to="/" class="inline-block mb-6" @click="scrollToTop">
             <img 
               :src="logoUrl || '/logo.png'" 
               :alt="settings?.companyName || 'FORTU DIGITAL'" 
@@ -103,22 +103,22 @@
           <h4 class="text-fortu-off-white font-medium mb-6">Tautan Cepat</h4>
           <ul class="space-y-3">
             <li>
-              <RouterLink to="/" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
+              <RouterLink to="/" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm" @click="scrollToTop">
                 Beranda
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/products" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
+              <RouterLink to="/products" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm" @click="scrollToTop">
                 Produk
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/about" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
+              <RouterLink to="/about" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm" @click="scrollToTop">
                 Tentang Kami
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/contact" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm">
+              <RouterLink to="/contact" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm" @click="scrollToTop">
                 Kontak
               </RouterLink>
             </li>
@@ -206,6 +206,13 @@ const logoUrl = computed(() => {
     return null
   }
 })
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  })
+}
 
 onMounted(async () => {
   try {
