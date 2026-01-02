@@ -147,7 +147,8 @@ const imageUrl = computed(() => {
     }
     if (props.feature.image.asset._ref) {
       try {
-        return urlFor(props.feature.image.asset).width(1920).url()
+        // Pass the full image object (not just asset) to preserve hotspot and crop
+        return urlFor(props.feature.image).width(1920).url()
       } catch {
         return null
       }

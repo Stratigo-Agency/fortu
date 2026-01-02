@@ -171,13 +171,7 @@ export interface ProductFeature {
   description?: string
   highlightText?: string
   mediaType?: 'image' | 'video'
-  image?: {
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-  }
+  image?: SanityImage
   video?: {
     asset: {
       _ref: string
@@ -190,27 +184,38 @@ export interface ProductFeature {
   highlights?: FeatureHighlight[]
 }
 
+export interface SanityImageHotspot {
+  x?: number
+  y?: number
+  height?: number
+  width?: number
+}
+
+export interface SanityImageCrop {
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
+}
+
+export interface SanityImage {
+  asset: {
+    _ref: string
+    _type: string
+    url?: string
+  }
+  alt?: string
+  hotspot?: SanityImageHotspot
+  crop?: SanityImageCrop
+}
+
 export interface ProductVariant {
   _key: string
   name: string
   sku?: string
   colorHex?: string
-  image?: {
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-    alt?: string
-  }
-  images?: Array<{
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-    alt?: string
-  }>
+  image?: SanityImage
+  images?: SanityImage[]
   price?: number
   compareAtPrice?: number
   inStock?: boolean
@@ -223,13 +228,7 @@ export interface Product {
   slug: { current: string }
   sku?: string
   description?: string
-  heroImage?: {
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-  }
+  heroImage?: SanityImage
   heroVideo?: {
     asset: {
       _ref: string
@@ -237,14 +236,7 @@ export interface Product {
       url?: string
     }
   }
-  images?: Array<{
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-    alt?: string
-  }>
+  images?: SanityImage[]
   price?: number
   currency?: string
   compareAtPrice?: number
@@ -419,6 +411,8 @@ export const PRODUCTS_QUERY = defineQuery(/* groq */ `
         _id,
         url
       },
+      hotspot,
+      crop,
       alt
     },
     price,
@@ -435,6 +429,8 @@ export const PRODUCTS_QUERY = defineQuery(/* groq */ `
           _id,
           url
         },
+        hotspot,
+        crop,
         alt
       },
       price,
@@ -660,7 +656,10 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
       asset-> {
         _id,
         url
-      }
+      },
+      hotspot,
+      crop,
+      alt
     },
     heroVideo {
       asset-> {
@@ -673,6 +672,8 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
         _id,
         url
       },
+      hotspot,
+      crop,
       alt
     },
     price,
@@ -695,7 +696,10 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
         asset-> {
           _id,
           url
-        }
+        },
+        hotspot,
+        crop,
+        alt
       },
       video {
         asset-> {
@@ -723,6 +727,8 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
           _id,
           url
         },
+        hotspot,
+        crop,
         alt
       },
       images[] {
@@ -730,6 +736,8 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
           _id,
           url
         },
+        hotspot,
+        crop,
         alt
       },
       price,

@@ -297,6 +297,18 @@ interface HeroAsset {
     _type?: string
     url?: string
   }
+  hotspot?: {
+    x?: number
+    y?: number
+    height?: number
+    width?: number
+  }
+  crop?: {
+    top?: number
+    bottom?: number
+    left?: number
+    right?: number
+  }
 }
 
 interface ProductVariant {
@@ -340,7 +352,8 @@ const imageUrl = computed(() => {
     }
     if (props.heroImage.asset._ref) {
       try {
-        return urlFor(props.heroImage.asset).width(1920).url()
+        // Pass the full image object (not just asset) to preserve hotspot and crop
+        return urlFor(props.heroImage).width(1920).url()
       } catch {
         return null
       }

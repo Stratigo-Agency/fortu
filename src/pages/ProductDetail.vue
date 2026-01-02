@@ -111,7 +111,7 @@ const carouselImages = computed(() => {
   if (product.value?.images) {
     product.value.images.forEach((img, index) => {
       if (img.asset) {
-        const url = img.asset.url || (img.asset._ref ? urlFor(img.asset).width(960).url() : null)
+        const url = img.asset.url || (img.asset._ref ? urlFor(img).width(960).url() : null)
         if (url) {
           images.push({
             url,
@@ -127,13 +127,28 @@ const carouselImages = computed(() => {
     product.value.variants.forEach(variant => {
       if (variant.image?.asset) {
         const url = variant.image.asset.url || 
-          (variant.image.asset._ref ? urlFor(variant.image.asset).width(960).url() : null)
+          (variant.image.asset._ref ? urlFor(variant.image).width(960).url() : null)
         if (url && !images.some(img => img.url === url)) {
           images.push({
             url,
-            alt: `${product.value?.name} - ${variant.name}`
+            alt: variant.image.alt || `${product.value?.name} - ${variant.name}`
           })
         }
+      }
+      // Add additional variant images
+      if (variant.images) {
+        variant.images.forEach(variantImg => {
+          if (variantImg.asset) {
+            const url = variantImg.asset.url || 
+              (variantImg.asset._ref ? urlFor(variantImg).width(960).url() : null)
+            if (url && !images.some(img => img.url === url)) {
+              images.push({
+                url,
+                alt: variantImg.alt || `${product.value?.name} - ${variant.name}`
+              })
+            }
+          }
+        })
       }
     })
   }
