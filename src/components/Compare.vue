@@ -73,14 +73,6 @@
         >
           <!-- Product Image -->
           <div class="relative mb-6">
-            <span 
-              v-if="item.highlightLabel" 
-              class="inline-block px-3 py-1 text-xs font-medium rounded-full mb-4"
-              :class="compare.backgroundColor === 'light' ? 'bg-fortu-dark text-fortu-off-white' : 'bg-fortu-off-white text-fortu-dark'"
-            >
-              {{ item.highlightLabel }}
-            </span>
-            
             <div class="relative max-w-[280px] mx-auto mb-4">
               <img
                 v-if="getProductImage(item)"
@@ -109,9 +101,8 @@
             
               <div class="flex justify-center gap-3">
                 <Button
-                  v-if="item.ctaLink"
-                  :to="isInternalLink(item.ctaLink) ? item.ctaLink : undefined"
-                  :href="!isInternalLink(item.ctaLink) ? item.ctaLink : undefined"
+                  v-if="item.product.slug?.current"
+                  :to="`/products/${item.product.slug.current}`"
                   :variant="compare.backgroundColor === 'light' ? 'primary' : 'secondary'"
                   size="sm"
                 >
@@ -173,14 +164,6 @@
           <template v-if="compare.products[selectedIdx]">
             <!-- Product Image -->
             <div class="relative mb-4">
-              <span 
-                v-if="compare.products[selectedIdx].highlightLabel" 
-                class="inline-block px-2 py-1 text-xs font-medium rounded-full mb-2"
-                :class="compare.backgroundColor === 'light' ? 'bg-fortu-dark text-fortu-off-white' : 'bg-fortu-off-white text-fortu-dark'"
-              >
-                {{ compare.products[selectedIdx].highlightLabel }}
-              </span>
-              
               <div class="relative max-w-[140px] mx-auto mb-2">
                 <img
                   v-if="getProductImage(compare.products[selectedIdx])"
@@ -202,9 +185,8 @@
               
               <div class="flex justify-center mt-auto">
                 <Button
-                  v-if="compare.products[selectedIdx].ctaLink"
-                  :to="isInternalLink(compare.products[selectedIdx].ctaLink!) ? compare.products[selectedIdx].ctaLink : undefined"
-                  :href="!isInternalLink(compare.products[selectedIdx].ctaLink!) ? compare.products[selectedIdx].ctaLink : undefined"
+                  v-if="compare.products[selectedIdx].product.slug?.current"
+                  :to="`/products/${compare.products[selectedIdx].product.slug.current}`"
                   :variant="compare.backgroundColor === 'light' ? 'primary' : 'inverted'"
                   size="sm"
                 >
@@ -303,10 +285,6 @@ const mobileProductsToShow = computed(() => {
   }
   return mobileSelection.value
 })
-
-const isInternalLink = (link: string): boolean => {
-  return link.startsWith('/') || link.startsWith('#')
-}
 
 const getProductImage = (item: ProductCompareItem): string | null => {
   // Priority 1: Use compareImage if available

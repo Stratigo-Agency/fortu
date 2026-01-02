@@ -127,63 +127,6 @@ export default defineType({
       validation: (Rule) => Rule.min(1).max(3).error('You must have between 1 and 3 products'),
     }),
     defineField({
-      name: 'features',
-      title: 'Feature Cards',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            {
-              name: 'icon',
-              title: 'Icon Name',
-              type: 'string',
-              description: 'Icon identifier (e.g., "lightning", "dashboard", "shield")',
-              options: {
-                list: [
-                  {title: 'Lightning (Real-time Sync)', value: 'lightning'},
-                  {title: 'Dashboard (Unified Dashboard)', value: 'dashboard'},
-                  {title: 'Shield (Secure & Reliable)', value: 'shield'},
-                ],
-              },
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: 'title',
-              title: 'Feature Title',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: 'description',
-              title: 'Feature Description',
-              type: 'text',
-              rows: 2,
-              validation: (Rule) => Rule.required(),
-            },
-          ],
-          preview: {
-            select: {
-              title: 'title',
-              subtitle: 'description',
-              icon: 'icon',
-            },
-            prepare({title, subtitle, icon}) {
-              return {
-                title: title || 'Untitled Feature',
-                subtitle: subtitle || '',
-                media: () => {
-                  // Icon preview would go here if needed
-                  return null
-                },
-              }
-            },
-          },
-        },
-      ],
-      validation: (Rule) => Rule.min(1).max(3).error('You must have between 1 and 3 features'),
-    }),
-    defineField({
       name: 'isActive',
       title: 'Active',
       type: 'boolean',

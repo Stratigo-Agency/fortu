@@ -59,13 +59,6 @@ export interface CMSDemoProduct {
   position: 'top-left' | 'top-right' | 'bottom-center'
 }
 
-export interface CMSDemoFeature {
-  _key?: string
-  icon: 'lightning' | 'dashboard' | 'shield'
-  title: string
-  description: string
-}
-
 export interface CMSDemo {
   _id: string
   badge: string
@@ -75,7 +68,6 @@ export interface CMSDemo {
   }
   description: string
   products: CMSDemoProduct[]
-  features: CMSDemoFeature[]
   isActive?: boolean
 }
 
@@ -135,7 +127,6 @@ export interface ProductSlide {
     name: string
     slug?: { current: string }
   }
-  ctaLink?: string
   order?: number
   isActive?: boolean
 }
@@ -158,7 +149,6 @@ export interface ProductFeature {
   eyebrow?: string
   heading: string
   description?: string
-  highlightText?: string
   mediaType?: 'image' | 'video'
   image?: SanityImage
   video?: {
@@ -208,7 +198,6 @@ export interface ProductVariant {
   price?: number
   compareAtPrice?: number
   inStock?: boolean
-  stockQuantity?: number
 }
 
 export interface Product {
@@ -235,9 +224,7 @@ export interface Product {
   variantType?: 'color' | 'size' | 'material' | 'style' | 'custom'
   variants?: ProductVariant[]
   category?: string
-  tags?: string[]
   inStock?: boolean
-  stockQuantity?: number
   featured?: boolean
   status?: 'active' | 'draft' | 'archived'
 }
@@ -316,12 +303,6 @@ export const CMS_DEMO_QUERY = defineQuery(/* groq */ `
         }
       }
     },
-    features[] {
-      _key,
-      icon,
-      title,
-      description
-    },
     isActive
   }
 `)
@@ -397,7 +378,6 @@ export const PRODUCT_SLIDES_QUERY = defineQuery(/* groq */ `
       name,
       slug
     },
-    ctaLink,
     order,
     isActive
   }
@@ -584,9 +564,7 @@ export const PAGE_HERO_QUERY = defineQuery(/* groq */ `
 export interface ProductCompareItem {
   _key?: string
   product: Product  // Full product with specs
-  highlightLabel?: string
   ctaLabel?: string
-  ctaLink?: string
   compareImage?: {
     asset: {
       _ref: string
@@ -615,6 +593,7 @@ export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
       product-> {
         _id,
         name,
+        slug,
         description,
         images[] {
           asset-> {
@@ -633,9 +612,7 @@ export const PRODUCT_COMPARE_QUERY = defineQuery(/* groq */ `
           value
         }
       },
-      highlightLabel,
       ctaLabel,
-      ctaLink,
       compareImage {
         asset-> {
           _id,
@@ -694,7 +671,6 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
       eyebrow,
       heading,
       description,
-      highlightText,
       mediaType,
       image {
         asset-> {
@@ -746,13 +722,10 @@ export const PRODUCT_BY_SLUG_QUERY = defineQuery(/* groq */ `
       },
       price,
       compareAtPrice,
-      inStock,
-      stockQuantity
+      inStock
     },
     category,
-    tags,
     inStock,
-    stockQuantity,
     featured
   }
 `)

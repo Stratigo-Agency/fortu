@@ -35,23 +35,11 @@ export default defineType({
               validation: (Rule) => Rule.required(),
             }),
             defineField({
-              name: 'highlightLabel',
-              title: 'Highlight Label',
-              type: 'string',
-              description: 'Optional badge label (e.g., "New", "Best Seller", "Popular")',
-            }),
-            defineField({
               name: 'ctaLabel',
               title: 'CTA Button Label',
               type: 'string',
               description: 'Button text (e.g., "Pelajari Lebih Lanjut", "Lihat Produk")',
               initialValue: 'Pelajari Lebih Lanjut',
-            }),
-            defineField({
-              name: 'ctaLink',
-              title: 'CTA Link',
-              type: 'string',
-              description: 'Link URL for the button',
             }),
             defineField({
               name: 'compareImage',
@@ -68,12 +56,11 @@ export default defineType({
               title: 'product.name',
               media: 'compareImage',
               productMedia: 'product.images.0',
-              highlight: 'highlightLabel',
             },
-            prepare({title, media, productMedia, highlight}) {
+            prepare({title, media, productMedia}) {
               return {
                 title: title || 'Select a product',
-                subtitle: highlight || '',
+                subtitle: '',
                 media: media || productMedia,
               }
             },

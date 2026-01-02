@@ -125,12 +125,6 @@ export default defineType({
       description: 'Optional: Link to a product for more details',
     }),
     defineField({
-      name: 'ctaLink',
-      title: 'CTA Link',
-      type: 'url',
-      description: 'Optional link when clicking on the slide',
-    }),
-    defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',

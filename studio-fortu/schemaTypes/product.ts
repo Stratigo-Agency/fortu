@@ -216,12 +216,6 @@ export default defineType({
               description: 'Feature description text',
             }),
             defineField({
-              name: 'highlightText',
-              title: 'Highlight Text',
-              type: 'string',
-              description: 'Bold/highlighted text within description (e.g., "50 percent charge in around 30 minutes.")',
-            }),
-            defineField({
               name: 'mediaType',
               title: 'Media Type',
               type: 'string',
@@ -462,11 +456,6 @@ export default defineType({
               type: 'boolean',
               initialValue: true,
             }),
-            defineField({
-              name: 'stockQuantity',
-              title: 'Stock Quantity',
-              type: 'number',
-            }),
           ],
           preview: {
             select: {
@@ -504,29 +493,12 @@ export default defineType({
       },
     }),
     defineField({
-      name: 'tags',
-      title: 'Tags',
-      type: 'array',
-      group: 'basic',
-      of: [{type: 'string'}],
-      options: {
-        layout: 'tags',
-      },
-    }),
-    defineField({
       name: 'inStock',
       title: 'In Stock',
       type: 'boolean',
       group: 'inventory',
       description: 'Overall stock status (overridden by variants if enabled)',
       initialValue: true,
-    }),
-    defineField({
-      name: 'stockQuantity',
-      title: 'Stock Quantity',
-      type: 'number',
-      group: 'inventory',
-      description: 'Number of items available (overridden by variants if enabled)',
     }),
     defineField({
       name: 'featured',

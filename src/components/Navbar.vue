@@ -215,14 +215,14 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Products Dropdown (Full Width) -->
-    <div
-      v-show="isProductsOpen"
-      class="hidden md:block w-full bg-white border-t border-fortu-light/20 shadow-lg"
-    >
-      <div class="py-8">
-        <ProductCatalog />
-      </div>
+      <!-- Products Dropdown (Full Width) -->
+      <div
+        v-show="isProductsOpen"
+        class="hidden md:block w-full bg-white border-t border-fortu-light/20 shadow-lg"
+      >
+        <div class="py-8">
+          <ProductCatalog @close-navbar="closeProducts" />
+        </div>
       
       <!-- View All Products Link -->
       <div class="border-t border-fortu-light/20 py-4 text-center">

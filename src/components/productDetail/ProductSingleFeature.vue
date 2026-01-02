@@ -29,7 +29,7 @@
         {{ feature.heading }}
       </h2>
       
-      <!-- Description with optional highlight -->
+      <!-- Description -->
       <p 
         v-if="feature.description" 
         class="text-base md:text-lg leading-relaxed max-w-2xl"
@@ -41,17 +41,7 @@
           }
         ]"
       >
-        <template v-if="feature.highlightText && feature.description.includes(feature.highlightText)">
-          {{ descriptionBefore }}
-          <span 
-            class="font-medium"
-            :class="isDark ? 'text-fortu-off-white' : 'text-fortu-dark'"
-          >{{ feature.highlightText }}</span>
-          {{ descriptionAfter }}
-        </template>
-        <template v-else>
-          {{ feature.description }}
-        </template>
+        {{ feature.description }}
       </p>
 
       <!-- Highlight Items -->
@@ -151,21 +141,6 @@ const imageUrl = computed(() => {
     }
   }
   return null
-})
-
-// Split description around highlight text
-const descriptionBefore = computed(() => {
-  if (!props.feature.description || !props.feature.highlightText) return ''
-  const index = props.feature.description.indexOf(props.feature.highlightText)
-  if (index === -1) return props.feature.description
-  return props.feature.description.substring(0, index)
-})
-
-const descriptionAfter = computed(() => {
-  if (!props.feature.description || !props.feature.highlightText) return ''
-  const index = props.feature.description.indexOf(props.feature.highlightText)
-  if (index === -1) return ''
-  return props.feature.description.substring(index + props.feature.highlightText.length)
 })
 </script>
 

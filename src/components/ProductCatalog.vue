@@ -30,15 +30,21 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { client, urlFor } from '@/sanity/client'
 import { PRODUCTS_QUERY, type Product } from '@/sanity/queries'
 import ImageCarousel from '@/components/ImageCarousel.vue'
 
 const router = useRouter()
+const route = useRoute()
 const products = ref<Product[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
+
+const emit = defineEmits<{
+  (e: 'product-click', slug: string): void
+  (e: 'close-navbar'): void
+}>()
 
 const getProductImage = (product: Product): string | undefined => {
   const firstImage = product.images?.[0]
@@ -68,7 +74,18 @@ const productImages = computed(() => {
 const handleProductClick = (index: number) => {
   const product = products.value[index]
   if (product?.slug?.current) {
-    router.push(`/products/${product.slug.current}`)
+    const productSlug = product.slug.current
+    const currentPath = route.path
+    
+    // Check if we're already on this product's page
+    if (currentPath === `/products/${productSlug}`) {
+      // Emit event to close navbar
+      emit('close-navbar')
+    } else {
+      // Navigate to the product page
+      router.push(`/products/${productSlug}`)
+      emit('product-click', productSlug)
+    }
   }
 }
 

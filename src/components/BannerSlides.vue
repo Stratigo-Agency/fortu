@@ -235,10 +235,6 @@ const getProductLink = (product: ProductSlide): string | null => {
   if (product.product?.slug?.current) {
     return `/products/${product.product.slug.current}`
   }
-  // Fallback: ctaLink if available
-  if (product.ctaLink) {
-    return product.ctaLink
-  }
   return null
 }
 
