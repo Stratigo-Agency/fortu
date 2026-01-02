@@ -9,7 +9,7 @@ export const IMAGE_CONFIG = {
    * Lower values = smaller file size, lower quality
    * Higher values = larger file size, better quality
    */
-  quality: 50,
+  quality: 30,
   
   /**
    * Enable automatic format selection (WebP, AVIF, etc.)
