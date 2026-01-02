@@ -111,12 +111,18 @@ const carouselImages = computed(() => {
   if (product.value?.images) {
     product.value.images.forEach((img, index) => {
       if (img.asset) {
-        const url = img.asset.url || (img.asset._ref ? urlFor(img).width(960).url() : null)
-        if (url) {
-          images.push({
-            url,
-            alt: img.alt || `${product.value?.name} image ${index + 1}`
-          })
+        try {
+          // Always use urlFor to apply crop/hotspot settings
+          // Pass the full image object (not just asset) to preserve hotspot and crop
+          const url = urlFor(img).width(960).url()
+          if (url) {
+            images.push({
+              url,
+              alt: img.alt || `${product.value?.name} image ${index + 1}`
+            })
+          }
+        } catch (e) {
+          console.warn('Failed to generate image URL:', e)
         }
       }
     })
@@ -126,26 +132,34 @@ const carouselImages = computed(() => {
   if (product.value?.variants) {
     product.value.variants.forEach(variant => {
       if (variant.image?.asset) {
-        const url = variant.image.asset.url || 
-          (variant.image.asset._ref ? urlFor(variant.image).width(960).url() : null)
-        if (url && !images.some(img => img.url === url)) {
-          images.push({
-            url,
-            alt: variant.image.alt || `${product.value?.name} - ${variant.name}`
-          })
+        try {
+          // Always use urlFor to apply crop/hotspot settings
+          const url = urlFor(variant.image).width(960).url()
+          if (url && !images.some(img => img.url === url)) {
+            images.push({
+              url,
+              alt: variant.image.alt || `${product.value?.name} - ${variant.name}`
+            })
+          }
+        } catch (e) {
+          console.warn('Failed to generate variant image URL:', e)
         }
       }
       // Add additional variant images
       if (variant.images) {
         variant.images.forEach(variantImg => {
           if (variantImg.asset) {
-            const url = variantImg.asset.url || 
-              (variantImg.asset._ref ? urlFor(variantImg).width(960).url() : null)
-            if (url && !images.some(img => img.url === url)) {
-              images.push({
-                url,
-                alt: variantImg.alt || `${product.value?.name} - ${variant.name}`
-              })
+            try {
+              // Always use urlFor to apply crop/hotspot settings
+              const url = urlFor(variantImg).width(960).url()
+              if (url && !images.some(img => img.url === url)) {
+                images.push({
+                  url,
+                  alt: variantImg.alt || `${product.value?.name} - ${variant.name}`
+                })
+              }
+            } catch (e) {
+              console.warn('Failed to generate variant image URL:', e)
             }
           }
         })

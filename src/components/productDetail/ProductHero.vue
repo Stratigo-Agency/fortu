@@ -347,16 +347,12 @@ const videoUrl = computed(() => {
 
 const imageUrl = computed(() => {
   if (props.heroImage?.asset) {
-    if (props.heroImage.asset.url) {
-      return props.heroImage.asset.url
-    }
-    if (props.heroImage.asset._ref) {
-      try {
-        // Pass the full image object (not just asset) to preserve hotspot and crop
-        return urlFor(props.heroImage).width(1920).url()
-      } catch {
-        return null
-      }
+    try {
+      // Always use urlFor to apply crop/hotspot settings
+      // Pass the full image object (not just asset) to preserve hotspot and crop
+      return urlFor(props.heroImage).width(1920).url()
+    } catch {
+      return null
     }
   }
   return null

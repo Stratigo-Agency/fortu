@@ -18,6 +18,7 @@ export interface Hero {
   title: string
   subtitle?: string
   description?: string
+  backgroundImage?: SanityImage
   backgroundVideo?: {
     asset: {
       _ref: string
@@ -268,6 +269,15 @@ export const HERO_QUERY = defineQuery(/* groq */ `
     title,
     subtitle,
     description,
+    backgroundImage {
+      asset-> {
+        _id,
+        url
+      },
+      hotspot,
+      crop,
+      alt
+    },
     backgroundVideo {
       asset-> {
         _id,

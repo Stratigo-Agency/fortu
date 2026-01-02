@@ -24,13 +24,22 @@ export default defineType({
       rows: 4,
     }),
     defineField({
+      name: 'backgroundImage',
+      title: 'Background Image',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      description: 'Background image for the hero (used if no video is provided)',
+    }),
+    defineField({
       name: 'backgroundVideo',
       title: 'Background Video',
       type: 'file',
       options: {
         accept: 'video/*',
       },
-      description: 'Upload a video file for the hero background (MP4, WebM, etc.)',
+      description: 'Background video (takes priority over image if both provided)',
     }),
     defineField({
       name: 'ctaButtons',

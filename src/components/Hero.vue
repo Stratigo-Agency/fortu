@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed, watchEffect, onUnmounted } from 'vue'
 import { client } from '@/sanity/client'
+import { urlFor } from '@/sanity/client'
 import { HERO_QUERY, type Hero } from '@/sanity/queries'
 import Button from '@/reusables/Button.vue'
 import ClientCarousel from '@/components/ClientCarousel.vue'
@@ -15,6 +16,19 @@ const heroVideoUrl = computed(() => {
   return null
 })
 
+const heroImageUrl = computed(() => {
+  if (hero.value?.backgroundImage?.asset) {
+    try {
+      // Always use urlFor to apply crop/hotspot settings
+      // Pass the full image object (not just asset) to preserve hotspot and crop
+      return urlFor(hero.value.backgroundImage).width(1920).url()
+    } catch {
+      return null
+    }
+  }
+  return null
+})
+
 const heroAlignment = computed(() => {
   return hero.value?.alignment || 'left'
 })
@@ -24,17 +38,29 @@ let preloadLink: HTMLLinkElement | null = null
 
 watchEffect(() => {
   const videoUrl = heroVideoUrl.value
+  const imageUrl = heroImageUrl.value
+  
+  // Remove existing preload link if any
+  if (preloadLink && preloadLink.parentNode) {
+    preloadLink.parentNode.removeChild(preloadLink)
+    preloadLink = null
+  }
+  
+  // Preload video if available (takes priority)
   if (videoUrl) {
-    // Remove existing preload link if any
-    if (preloadLink && preloadLink.parentNode) {
-      preloadLink.parentNode.removeChild(preloadLink)
-    }
-    
-    // Create new preload link for video
     preloadLink = document.createElement('link')
     preloadLink.rel = 'preload'
     preloadLink.as = 'video'
     preloadLink.href = videoUrl
+    preloadLink.setAttribute('fetchpriority', 'high')
+    document.head.appendChild(preloadLink)
+  } 
+  // Otherwise preload image
+  else if (imageUrl) {
+    preloadLink = document.createElement('link')
+    preloadLink.rel = 'preload'
+    preloadLink.as = 'image'
+    preloadLink.href = imageUrl
     preloadLink.setAttribute('fetchpriority', 'high')
     document.head.appendChild(preloadLink)
   }
@@ -73,6 +99,16 @@ onMounted(async () => {
       fetchpriority="high"
       class="absolute inset-0 w-full h-full object-cover z-0"
     ></video>
+    
+    <!-- Background Image (fallback) -->
+    <img
+      v-else-if="heroImageUrl"
+      :src="heroImageUrl"
+      :alt="hero.title"
+      fetchpriority="high"
+      class="absolute inset-0 w-full h-full object-cover z-0"
+    />
+    
     <div class="absolute inset-0 bg-gradient-to-b from-[rgba(15,15,15,0.7)] to-[rgba(15,15,15,0.9)] z-[1]"></div>
     
     <!-- Hero Content -->
