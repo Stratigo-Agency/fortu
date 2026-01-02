@@ -91,13 +91,7 @@ export interface ClientLogo {
 export interface UseCaseItem {
   _key?: string
   mediaType: 'image' | 'video'
-  image?: {
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-  }
+  image?: SanityImage
   video?: {
     asset: {
       _ref: string
@@ -363,7 +357,10 @@ export const USE_CASE_SECTION_QUERY = defineQuery(/* groq */ `
         asset-> {
           _id,
           url
-        }
+        },
+        hotspot,
+        crop,
+        alt
       },
       video {
         asset-> {
