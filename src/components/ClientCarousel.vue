@@ -59,7 +59,9 @@ const clients = ref<ClientLogo[]>([])
 const getLogoUrl = (client: ClientLogo): string => {
   if (!client.logo?.asset) return ''
   try {
-    return urlFor(client.logo.asset).width(320).fit('max').url()
+    // Always use urlFor to apply crop/hotspot settings
+    // Pass the full image object (not just asset) to preserve hotspot and crop
+    return urlFor(client.logo).width(320).fit('max').url()
   } catch {
     return ''
   }

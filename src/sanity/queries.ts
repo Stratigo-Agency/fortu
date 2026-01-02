@@ -82,13 +82,7 @@ export interface CMSDemo {
 export interface ClientLogo {
   _id: string
   name: string
-  logo: {
-    asset: {
-      _ref: string
-      _type: string
-      url?: string
-    }
-  }
+  logo: SanityImage
   url?: string
   order?: number
   isActive?: boolean
@@ -346,7 +340,10 @@ export const CLIENT_LOGOS_QUERY = defineQuery(/* groq */ `
       asset-> {
         _id,
         url
-      }
+      },
+      hotspot,
+      crop,
+      alt
     },
     url,
     order,
