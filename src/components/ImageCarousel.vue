@@ -29,6 +29,8 @@
             <img
               :src="image.url"
               :alt="image.alt || `Product image ${index + 1}`"
+              loading="lazy"
+              decoding="async"
               class="w-full h-full object-cover transition-opacity duration-300 hover:opacity-80"
             />
           </div>

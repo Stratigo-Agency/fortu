@@ -22,6 +22,7 @@
       :src="heroImageUrl"
       :alt="pageHero.title"
       fetchpriority="high"
+      decoding="async"
       class="absolute inset-0 w-full h-full object-cover"
     />
     

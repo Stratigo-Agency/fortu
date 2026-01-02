@@ -103,6 +103,8 @@
         v-else-if="imageUrl"
         :src="imageUrl"
         :alt="feature.heading"
+        loading="lazy"
+        decoding="async"
         class="h-auto max-h-[70vh] object-contain rounded-2xl"
       />
     </div>

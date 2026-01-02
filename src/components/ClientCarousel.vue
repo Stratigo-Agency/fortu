@@ -16,6 +16,10 @@
           <img 
             :src="getLogoUrl(client)"
             :alt="client.name"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="48"
             class="max-h-12 max-w-[160px] object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
           />
         </div>
@@ -29,6 +33,10 @@
           <img 
             :src="getLogoUrl(client)"
             :alt="client.name"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="48"
             class="max-h-12 max-w-[160px] object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
           />
         </div>
@@ -40,6 +48,10 @@
           <img 
             :src="getLogoUrl(client)"
             :alt="client.name"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="48"
             class="max-h-12 max-w-[160px] object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
           />
         </div>

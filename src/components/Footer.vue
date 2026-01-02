@@ -9,6 +9,8 @@
             <img 
               :src="logoUrl || '/logo.png'" 
               :alt="settings?.companyName || 'FORTU DIGITAL'" 
+              width="120"
+              height="48"
               class="h-12 w-auto" 
             />
           </RouterLink>

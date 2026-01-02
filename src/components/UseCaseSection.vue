@@ -46,6 +46,8 @@
                 v-else-if="getMediaUrl(item)"
                 :src="getMediaUrl(item)"
                 :alt="item.alt || item.caption || 'Use case image'"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover"
               />
               

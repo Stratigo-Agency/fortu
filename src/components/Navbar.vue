@@ -101,6 +101,8 @@ onUnmounted(() => {
           <img 
             src="/logo.png" 
             alt="FORTU DIGITAL" 
+            width="120"
+            height="48"
             class="h-12 md:h-12 w-auto transition-all duration-300"
             :class="isInHero ? '' : 'brightness-0'"
           />

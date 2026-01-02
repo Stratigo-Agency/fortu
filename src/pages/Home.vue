@@ -25,14 +25,17 @@
 import { ref, onMounted } from 'vue'
 import { client } from '@/sanity/client'
 import { POSTS_QUERY, type Post } from '@/sanity/queries'
+// Lazy load below-the-fold components
 import Hero from '@/components/Hero.vue'
-import CMSDemo from '@/components/CMSDemo.vue'
-import UseCaseSection from '@/components/UseCaseSection.vue'
-import BannerSlides from '@/components/BannerSlides.vue'
-import FAQ from '@/components/FAQ.vue'
-import Compare from '@/components/Compare.vue'
-import CTA from '@/components/CTA.vue'
-import Service from '@/components/Service.vue'
+import { defineAsyncComponent } from 'vue'
+
+const CMSDemo = defineAsyncComponent(() => import('@/components/CMSDemo.vue'))
+const UseCaseSection = defineAsyncComponent(() => import('@/components/UseCaseSection.vue'))
+const BannerSlides = defineAsyncComponent(() => import('@/components/BannerSlides.vue'))
+const FAQ = defineAsyncComponent(() => import('@/components/FAQ.vue'))
+const Compare = defineAsyncComponent(() => import('@/components/Compare.vue'))
+const CTA = defineAsyncComponent(() => import('@/components/CTA.vue'))
+const Service = defineAsyncComponent(() => import('@/components/Service.vue'))
 const posts = ref<Post[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)

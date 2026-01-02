@@ -108,6 +108,7 @@ onMounted(async () => {
       :src="heroImageUrl"
       :alt="hero.title"
       fetchpriority="high"
+      decoding="async"
       class="absolute inset-0 w-full h-full object-cover z-0"
     />
     

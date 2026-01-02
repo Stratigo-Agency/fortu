@@ -7,6 +7,19 @@ export default defineConfig({
     alias: {
       '@': '/src'
     }
-  }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separate vendor chunks for better caching
+          'vue-vendor': ['vue', 'vue-router'],
+          'sanity-vendor': ['@sanity/client', '@sanity/image-url', 'groq'],
+        },
+      },
+    },
+    // Enable code splitting
+    chunkSizeWarningLimit: 1000,
+  },
 })
 

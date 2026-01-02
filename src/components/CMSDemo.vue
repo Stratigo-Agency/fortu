@@ -39,6 +39,8 @@
                   v-if="getProductImage('top-left')"
                   :src="getProductImage('top-left')" 
                   :alt="getProductName('top-left')"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
@@ -69,6 +71,8 @@
                   v-if="getProductImage('top-right')"
                   :src="getProductImage('top-right')" 
                   :alt="getProductName('top-right')"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
@@ -98,6 +102,8 @@
                   v-if="getProductImage('bottom-center')"
                   :src="getProductImage('bottom-center')" 
                   :alt="getProductName('bottom-center')"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
@@ -174,6 +180,10 @@
                             v-if="getProductImageForCMS(product)"
                             :src="getProductImageForCMS(product)" 
                             :alt="getProductNameForCMS(product)"
+                            loading="lazy"
+                            decoding="async"
+                            width="80"
+                            height="80"
                             class="w-full h-full object-cover"
                           />
                         </div>

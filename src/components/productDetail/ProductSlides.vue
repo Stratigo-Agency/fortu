@@ -57,6 +57,9 @@
                 v-if="getProductImage(product)"
                 :src="getProductImage(product)"
                 :alt="product.name"
+                :fetchpriority="currentIndex === 0 ? 'high' : 'auto'"
+                :loading="currentIndex === 0 ? 'eager' : 'lazy'"
+                decoding="async"
                 class="w-full h-full object-cover px-4"
               />
               <!-- Mobile Navigation Arrows -->
@@ -171,6 +174,8 @@
                 v-if="getProductImage(product)"
                 :src="getProductImage(product)"
                 :alt="product.name"
+                :loading="currentIndex === 0 ? 'eager' : 'lazy'"
+                decoding="async"
                 class="w-full h-full object-cover"
               />
               <div v-else class="w-full h-full bg-fortu-light/20 flex items-center justify-center text-fortu-medium">

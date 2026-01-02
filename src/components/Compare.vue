@@ -78,6 +78,8 @@
                 v-if="getProductImage(item)"
                 :src="getProductImage(item) ?? undefined"
                 :alt="item.product.name"
+                loading="lazy"
+                decoding="async"
                 class="w-full h-full object-contain rounded-lg"
               />
             </div>
@@ -169,6 +171,8 @@
                   v-if="getProductImage(compare.products[selectedIdx])"
                   :src="getProductImage(compare.products[selectedIdx]) ?? undefined"
                   :alt="compare.products[selectedIdx].product.name"
+                  loading="lazy"
+                  decoding="async"
                   class="w-full h-full object-contain rounded-lg"
                 />
               </div>
