@@ -288,7 +288,7 @@ const getProductImage = (position: 'top-left' | 'top-right' | 'bottom-center'): 
   if (!data?.image?.asset) return undefined
   
   try {
-    return urlFor(data.image.asset).width(400).height(400).url()
+    return urlFor(data.image.asset).width(400).height(400).quality(75).auto('format').url()
   } catch {
     return undefined
   }
@@ -316,7 +316,7 @@ const getProductImageForCMS = (product: CMSDemoProduct): string | undefined => {
   if (!imageAsset) return undefined
   
   try {
-    return urlFor(imageAsset).width(80).height(80).url()
+    return urlFor(imageAsset).width(80).height(80).quality(75).auto('format').url()
   } catch {
     return undefined
   }

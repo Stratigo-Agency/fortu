@@ -315,7 +315,7 @@ const getProductImage = (item: ProductCompareItem): string | null => {
       return item.compareImage.asset.url
     }
     try {
-      return urlFor(item.compareImage.asset).width(560).height(560).url()
+      return urlFor(item.compareImage.asset).width(560).height(560).quality(75).auto('format').url()
     } catch {
       // Fall through to product images
     }
@@ -335,7 +335,7 @@ const getProductImage = (item: ProductCompareItem): string | null => {
   }
   
   try {
-    return urlFor(image.asset).width(560).height(560).url()
+    return urlFor(image.asset).width(560).height(560).quality(75).auto('format').url()
   } catch {
     return null
   }

@@ -21,7 +21,7 @@ const heroImageUrl = computed(() => {
     try {
       // Always use urlFor to apply crop/hotspot settings
       // Pass the full image object (not just asset) to preserve hotspot and crop
-      return urlFor(hero.value.backgroundImage).width(1920).url()
+      return urlFor(hero.value.backgroundImage).width(1920).quality(75).auto('format').url()
     } catch {
       return null
     }

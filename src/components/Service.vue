@@ -156,7 +156,7 @@ const carouselRef = ref<HTMLElement | null>(null)
 const getBackgroundImage = (service: ServiceItem): string | null => {
   if (!service.backgroundImage?.asset) return null
   try {
-    return urlFor(service.backgroundImage.asset).width(600).height(800).url()
+    return urlFor(service.backgroundImage.asset).width(600).height(800).quality(75).auto('format').url()
   } catch {
     return null
   }

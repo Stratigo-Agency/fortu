@@ -113,7 +113,7 @@ const heroVideoUrl = computed(() => {
 const heroImageUrl = computed(() => {
   if (pageHero.value?.backgroundImage?.asset) {
     try {
-      return urlFor(pageHero.value.backgroundImage.asset).width(1920).url()
+      return urlFor(pageHero.value.backgroundImage.asset).width(1920).quality(75).auto('format').url()
     } catch {
       return null
     }

@@ -56,7 +56,7 @@ const getProductImage = (product: Product): string | undefined => {
       return firstImage.asset.url
     }
     try {
-      return urlFor(firstImage.asset).width(600).height(600).url()
+      return urlFor(firstImage.asset).width(600).height(600).quality(75).auto('format').url()
     } catch {
       return undefined
     }

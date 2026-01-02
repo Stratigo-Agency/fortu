@@ -211,7 +211,7 @@ let autoPlayTimer: ReturnType<typeof setInterval> | null = null
 const getProductImage = (product: ProductSlide): string | undefined => {
   if (!product.slideImage?.asset) return undefined
   try {
-    return urlFor(product.slideImage.asset).width(1920).quality(85).url()
+    return urlFor(product.slideImage.asset).width(1920).quality(75).auto('format').url()
   } catch {
     return undefined
   }

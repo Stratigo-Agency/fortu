@@ -201,7 +201,7 @@ const currentYear = computed(() => new Date().getFullYear())
 const logoUrl = computed(() => {
   if (!settings.value?.logo?.asset) return null
   try {
-    return urlFor(settings.value.logo.asset).height(96).url()
+    return urlFor(settings.value.logo.asset).height(96).quality(75).auto('format').url()
   } catch {
     return null
   }

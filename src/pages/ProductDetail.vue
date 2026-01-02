@@ -114,7 +114,7 @@ const carouselImages = computed(() => {
         try {
           // Always use urlFor to apply crop/hotspot settings
           // Pass the full image object (not just asset) to preserve hotspot and crop
-          const url = urlFor(img).width(960).url()
+          const url = urlFor(img).width(960).quality(75).auto('format').url()
           if (url) {
             images.push({
               url,
@@ -134,7 +134,7 @@ const carouselImages = computed(() => {
       if (variant.image?.asset) {
         try {
           // Always use urlFor to apply crop/hotspot settings
-          const url = urlFor(variant.image).width(960).url()
+          const url = urlFor(variant.image).width(960).quality(75).auto('format').url()
           if (url && !images.some(img => img.url === url)) {
             images.push({
               url,
@@ -151,7 +151,7 @@ const carouselImages = computed(() => {
           if (variantImg.asset) {
             try {
               // Always use urlFor to apply crop/hotspot settings
-              const url = urlFor(variantImg).width(960).url()
+              const url = urlFor(variantImg).width(960).quality(75).auto('format').url()
               if (url && !images.some(img => img.url === url)) {
                 images.push({
                   url,

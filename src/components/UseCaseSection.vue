@@ -109,7 +109,7 @@ const getMediaUrl = (item: UseCaseItem): string | undefined => {
     try {
       // Always use urlFor to apply crop/hotspot settings
       // Pass the full image object (not just asset) to preserve hotspot and crop
-      return urlFor(item.image).width(600).quality(80).url()
+      return urlFor(item.image).width(600).quality(75).auto('format').url()
     } catch {
       return undefined
     }

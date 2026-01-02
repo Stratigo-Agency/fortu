@@ -48,7 +48,7 @@ const getProductImage = (product: Product): string | undefined => {
     }
     try {
       // Pass the full image object (not just asset) to preserve hotspot and crop
-      return urlFor(firstImage).width(600).height(600).url()
+      return urlFor(firstImage).width(600).height(600).quality(75).auto('format').url()
     } catch {
       return undefined
     }
