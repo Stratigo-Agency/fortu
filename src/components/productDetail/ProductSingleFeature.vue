@@ -105,6 +105,8 @@
         :alt="feature.heading"
         loading="lazy"
         decoding="async"
+        width="1920"
+        height="1080"
         class="h-auto max-h-[70vh] object-contain rounded-2xl"
       />
     </div>

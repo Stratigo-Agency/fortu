@@ -22,6 +22,8 @@
       :alt="productName"
       fetchpriority="high"
       decoding="async"
+      width="1920"
+      height="1080"
       class="absolute inset-0 w-full h-full object-cover"
     />
     

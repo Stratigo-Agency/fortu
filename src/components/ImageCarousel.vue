@@ -31,6 +31,8 @@
               :alt="image.alt || `Product image ${index + 1}`"
               loading="lazy"
               decoding="async"
+              width="480"
+              height="512"
               class="w-full h-full object-cover transition-opacity duration-300 hover:opacity-80"
             />
           </div>

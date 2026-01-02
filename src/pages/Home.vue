@@ -22,32 +22,45 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { client } from '@/sanity/client'
-import { POSTS_QUERY, type Post } from '@/sanity/queries'
 // Lazy load below-the-fold components
 import Hero from '@/components/Hero.vue'
 import { defineAsyncComponent } from 'vue'
 
-const CMSDemo = defineAsyncComponent(() => import('@/components/CMSDemo.vue'))
-const UseCaseSection = defineAsyncComponent(() => import('@/components/UseCaseSection.vue'))
-const BannerSlides = defineAsyncComponent(() => import('@/components/BannerSlides.vue'))
-const FAQ = defineAsyncComponent(() => import('@/components/FAQ.vue'))
-const Compare = defineAsyncComponent(() => import('@/components/Compare.vue'))
-const CTA = defineAsyncComponent(() => import('@/components/CTA.vue'))
-const Service = defineAsyncComponent(() => import('@/components/Service.vue'))
-const posts = ref<Post[]>([])
-const loading = ref(true)
-const error = ref<string | null>(null)
-
-onMounted(async () => {
-  try {
-    posts.value = await client.fetch(POSTS_QUERY)
-  } catch (e) {
-    error.value = e instanceof Error ? e.message : 'Failed to fetch posts'
-  } finally {
-    loading.value = false
-  }
+// Defer non-critical components until needed
+const CMSDemo = defineAsyncComponent({
+  loader: () => import('@/components/CMSDemo.vue'),
+  delay: 200, // Delay loading by 200ms
+  timeout: 3000,
+})
+const UseCaseSection = defineAsyncComponent({
+  loader: () => import('@/components/UseCaseSection.vue'),
+  delay: 200,
+  timeout: 3000,
+})
+const BannerSlides = defineAsyncComponent({
+  loader: () => import('@/components/BannerSlides.vue'),
+  delay: 200,
+  timeout: 3000,
+})
+const FAQ = defineAsyncComponent({
+  loader: () => import('@/components/FAQ.vue'),
+  delay: 200,
+  timeout: 3000,
+})
+const Compare = defineAsyncComponent({
+  loader: () => import('@/components/Compare.vue'),
+  delay: 200,
+  timeout: 3000,
+})
+const CTA = defineAsyncComponent({
+  loader: () => import('@/components/CTA.vue'),
+  delay: 200,
+  timeout: 3000,
+})
+const Service = defineAsyncComponent({
+  loader: () => import('@/components/Service.vue'),
+  delay: 200,
+  timeout: 3000,
 })
 </script>
 

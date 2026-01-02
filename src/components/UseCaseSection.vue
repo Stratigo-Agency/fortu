@@ -48,6 +48,8 @@
                 :alt="item.alt || item.caption || 'Use case image'"
                 loading="lazy"
                 decoding="async"
+                width="600"
+                :height="item.size === 'tall' ? 800 : item.size === 'short' ? 400 : 600"
                 class="w-full h-full object-cover"
               />
               

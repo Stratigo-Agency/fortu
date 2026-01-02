@@ -41,6 +41,8 @@
                   :alt="getProductName('top-left')"
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="400"
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
@@ -73,6 +75,8 @@
                   :alt="getProductName('top-right')"
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="400"
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>
@@ -104,6 +108,8 @@
                   :alt="getProductName('bottom-center')"
                   loading="lazy"
                   decoding="async"
+                  width="400"
+                  height="400"
                   class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 />
               </div>

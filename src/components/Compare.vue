@@ -73,13 +73,15 @@
         >
           <!-- Product Image -->
           <div class="relative mb-6">
-            <div class="relative max-w-[280px] mx-auto mb-4">
+            <div class="relative max-w-[280px] mx-auto mb-4 aspect-square">
               <img
                 v-if="getProductImage(item)"
                 :src="getProductImage(item) ?? undefined"
                 :alt="item.product.name"
                 loading="lazy"
                 decoding="async"
+                width="560"
+                height="560"
                 class="w-full h-full object-contain rounded-lg"
               />
             </div>
@@ -166,13 +168,15 @@
           <template v-if="compare.products[selectedIdx]">
             <!-- Product Image -->
             <div class="relative mb-4">
-              <div class="relative max-w-[140px] mx-auto mb-2">
+              <div class="relative max-w-[140px] mx-auto mb-2 aspect-square">
                 <img
                   v-if="getProductImage(compare.products[selectedIdx])"
                   :src="getProductImage(compare.products[selectedIdx]) ?? undefined"
                   :alt="compare.products[selectedIdx].product.name"
                   loading="lazy"
                   decoding="async"
+                  width="280"
+                  height="280"
                   class="w-full h-full object-contain rounded-lg"
                 />
               </div>

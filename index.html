@@ -12,7 +12,8 @@
     <title>Fortu Digital</title>
     <!-- Preload critical resources -->
     <link rel="preload" href="/logo.png" as="image" type="image/png" />
-    <!-- DNS prefetch for external resources -->
+    <!-- Preconnect to required origins for faster connection -->
+    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
     <style>
       /* Prevent white flash on load */

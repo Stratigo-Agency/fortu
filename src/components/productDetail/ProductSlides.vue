@@ -60,6 +60,8 @@
                 :fetchpriority="currentIndex === 0 ? 'high' : 'auto'"
                 :loading="currentIndex === 0 ? 'eager' : 'lazy'"
                 decoding="async"
+                width="1920"
+                height="1080"
                 class="w-full h-full object-cover px-4"
               />
               <!-- Mobile Navigation Arrows -->
@@ -176,6 +178,8 @@
                 :alt="product.name"
                 :loading="currentIndex === 0 ? 'eager' : 'lazy'"
                 decoding="async"
+                width="1920"
+                height="1080"
                 class="w-full h-full object-cover"
               />
               <div v-else class="w-full h-full bg-fortu-light/20 flex items-center justify-center text-fortu-medium">
