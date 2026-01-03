@@ -11,4 +11,4 @@ import productCompare from './productCompare'
 import service from './service'
 import aboutPage from './aboutPage'
 
-export const schemaTypes = [hero, clientLogo, bannerSlide, cmsDemo, useCaseSection, product, productCompare, pageHero, siteSettings, faq, service, aboutPage]
+export const schemaTypes = [hero, clientLogo, bannerSlide, cmsDemo, useCaseSection, product, pageHero, productCompare, siteSettings, faq, service, aboutPage]
