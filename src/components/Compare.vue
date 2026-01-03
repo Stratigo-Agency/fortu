@@ -130,38 +130,38 @@
           class="product-column text-center"
         >
           <template v-if="compare.products[selectedIdx]">
-            <!-- Product Image -->
-            <div class="relative mb-6">
-              <div class="relative max-w-[280px] mx-auto mb-4 aspect-square">
-                <img
+          <!-- Product Image -->
+          <div class="relative mb-6">
+            <div class="relative max-w-[280px] mx-auto mb-4 aspect-square">
+              <img
                   v-if="getProductImage(compare.products[selectedIdx])"
                   :src="getProductImage(compare.products[selectedIdx]) ?? undefined"
                   :alt="compare.products[selectedIdx].product.name"
-                  loading="lazy"
-                  decoding="async"
-                  width="560"
-                  height="560"
-                  class="w-full h-full object-contain rounded-lg"
-                />
-              </div>
+                loading="lazy"
+                decoding="async"
+                width="560"
+                height="560"
+                class="w-full h-full object-contain rounded-lg"
+              />
             </div>
+          </div>
 
-            <!-- Product Info -->
-            <div class="mb-6">
-              <h3 
-                class="text-2xl font-medium mb-2"
-                :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
-              >
+          <!-- Product Info -->
+          <div class="mb-6">
+            <h3 
+              class="text-2xl font-medium mb-2"
+              :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+            >
                 {{ compare.products[selectedIdx].product.name }}
-              </h3>
-              <p 
+            </h3>
+            <p 
                 v-if="compare.products[selectedIdx].product.description" 
-                class="text-sm mb-4 line-clamp-2 max-w-[20rem] mx-auto"
-                :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
-              >
+              class="text-sm mb-4 line-clamp-2 max-w-[20rem] mx-auto"
+              :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
+            >
                 {{ compare.products[selectedIdx].product.description }}
-              </p>
-              
+            </p>
+            
               <div class="flex justify-center gap-3">
                 <Button
                   v-if="compare.products[selectedIdx].product.slug?.current"
@@ -172,48 +172,48 @@
                   {{ compare.products[selectedIdx].ctaLabel || 'Pelajari Lebih Lanjut' }}
                 </Button>
               </div>
-            </div>
+          </div>
 
-            <!-- Specs Divider -->
-            <div 
-              class="border-t my-8"
-              :class="compare.backgroundColor === 'light' ? 'border-fortu-light/50' : 'border-fortu-medium/30'"
-            />
+          <!-- Specs Divider -->
+          <div 
+            class="border-t my-8"
+            :class="compare.backgroundColor === 'light' ? 'border-fortu-light/50' : 'border-fortu-medium/30'"
+          />
 
-            <!-- Specifications (from product) -->
+          <!-- Specifications (from product) -->
             <div v-if="compare.products[selectedIdx].product.specs && compare.products[selectedIdx].product.specs.length > 0" class="space-y-6">
-              <div 
+            <div 
                 v-for="(spec, specIndex) in compare.products[selectedIdx].product.specs" 
-                :key="spec._key || specIndex"
-                class="spec-item"
-              >
-                <div class="flex justify-center mb-2">
-                  <div 
-                    class="w-12 h-12 rounded-full flex items-center justify-center"
-                    :class="compare.backgroundColor === 'light' ? 'bg-fortu-light/30' : 'bg-fortu-medium/20'"
-                  >
-                    <CompareIcon 
-                      :icon="spec.icon || 'check'" 
-                      :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
-                    />
-                  </div>
+              :key="spec._key || specIndex"
+              class="spec-item"
+            >
+              <div class="flex justify-center mb-2">
+                <div 
+                  class="w-12 h-12 rounded-full flex items-center justify-center"
+                  :class="compare.backgroundColor === 'light' ? 'bg-fortu-light/30' : 'bg-fortu-medium/20'"
+                >
+                  <CompareIcon 
+                    :icon="spec.icon || 'check'" 
+                    :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+                  />
                 </div>
-                
-                <p 
-                  class="font-medium text-md"
-                  :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
-                >
-                  {{ spec.label }}
-                </p>
-                <p 
-                  v-if="spec.value" 
-                  class="text-sm mt-1"
-                  :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
-                >
-                  {{ spec.value }}
-                </p>
               </div>
+              
+              <p 
+                class="font-medium text-md"
+                :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+              >
+                {{ spec.label }}
+              </p>
+              <p 
+                v-if="spec.value" 
+                class="text-sm mt-1"
+                :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
+              >
+                {{ spec.value }}
+              </p>
             </div>
+          </div>
           </template>
         </div>
       </div>

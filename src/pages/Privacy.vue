@@ -116,7 +116,6 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 import PageHero from '@/components/PageHero.vue'
 </script>
 

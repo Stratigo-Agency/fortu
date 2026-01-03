@@ -63,18 +63,20 @@ const declineCookies = () => {
 
 const initializeGoogleAnalytics = () => {
   // Only initialize if not already loaded
-  if (window.gtag) {
+  if ((window as any).gtag) {
     return
   }
 
   // Initialize dataLayer first
-  window.dataLayer = window.dataLayer || []
+  if (!(window as any).dataLayer) {
+    (window as any).dataLayer = []
+  }
   
   // Define gtag function
   function gtag(...args: any[]) {
-    window.dataLayer.push(args)
+    (window as any).dataLayer.push(args)
   }
-  window.gtag = gtag
+  (window as any).gtag = gtag
   gtag('js', new Date())
   gtag('config', 'G-0BP7NTVTPH')
 
