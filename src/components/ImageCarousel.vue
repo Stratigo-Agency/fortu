@@ -15,13 +15,13 @@
       <!-- Images Wrapper -->
       <div 
         ref="carouselRef"
-        class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-4 md:px-16 pb-4 hide-scrollbar"
+        class="flex gap-4 md:gap-6 overflow-x-auto snap-x snap-mandatory px-4 md:px-16 pb-4 scrollbar-hide"
         @scroll="handleScroll"
       >
         <div
           v-for="(image, index) in images"
           :key="index"
-          class="flex-shrink-0 w-[320px] md:w-[400px] lg:w-[480px] font-medium snap-center"
+          class="flex-shrink-0 w-[220px] md:w-[300px] lg:w-[380px] font-medium snap-center"
           :class="clickable ? 'cursor-pointer' : ''"
           @click="clickable && $emit('image-click', index)"
         >
@@ -164,7 +164,7 @@ interface ProductVariant {
   colorHex?: string
 }
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   images: CarouselImage[]
   heading?: string
   variants?: ProductVariant[]
@@ -188,13 +188,26 @@ const isAtStart = ref(true)
 const isAtEnd = ref(false)
 const currentIndex = ref(0)
 
+// Get item width based on breakpoint
+const getItemWidth = () => {
+  const width = window.innerWidth
+  if (width >= 1024) {
+    // lg: w-[380px] + gap-6 (24px)
+    return 380 + 24
+  } else if (width >= 768) {
+    // md: w-[300px] + gap-6 (24px)
+    return 300 + 24
+  } else {
+    // mobile: w-[220px] + gap-4 (16px)
+    return 220 + 16
+  }
+}
+
 const scrollCarousel = (direction: 'left' | 'right') => {
   if (!carouselRef.value) return
   
-  const itemWidth = 320 + 16 // w-[320px] + gap-4 (mobile)
-  const mdItemWidth = 400 + 24 // md:w-[400px] + md:gap-6
-  const isMobile = window.innerWidth < 768
-  const scrollAmount = isMobile ? itemWidth : mdItemWidth
+  const itemWidth = getItemWidth()
+  const scrollAmount = itemWidth
   
   const newScrollLeft = direction === 'left' 
     ? carouselRef.value.scrollLeft - scrollAmount 
@@ -209,13 +222,10 @@ const scrollCarousel = (direction: 'left' | 'right') => {
 const scrollToImage = (index: number) => {
   if (!carouselRef.value) return
   
-  const itemWidth = 320 + 16 // w-[320px] + gap-4
-  const mdItemWidth = 400 + 24 // md:w-[400px] + md:gap-6
-  const isMobile = window.innerWidth < 768
-  const scrollAmount = isMobile ? itemWidth : mdItemWidth
+  const itemWidth = getItemWidth()
   
   carouselRef.value.scrollTo({
-    left: index * scrollAmount,
+    left: index * itemWidth,
     behavior: 'smooth'
   })
 }
@@ -224,12 +234,16 @@ const handleScroll = () => {
   if (!carouselRef.value) return
   
   const { scrollLeft, scrollWidth, clientWidth } = carouselRef.value
-  isAtStart.value = scrollLeft <= 0
+  isAtStart.value = scrollLeft <= 10
   isAtEnd.value = scrollLeft + clientWidth >= scrollWidth - 10
   
-  // Calculate current index for mobile indicators
-  const itemWidth = 320 + 16 // w-[320px] + gap-4
+  // Calculate current index based on actual item width
+  const itemWidth = getItemWidth()
   currentIndex.value = Math.round(scrollLeft / itemWidth)
+  
+  // Clamp index to valid range
+  if (currentIndex.value < 0) currentIndex.value = 0
+  if (currentIndex.value >= props.images.length) currentIndex.value = props.images.length - 1
 }
 
 onMounted(() => {
@@ -243,13 +257,20 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.hide-scrollbar {
+/* Hide scrollbar but keep functionality - similar to Service.vue */
+.scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-.hide-scrollbar::-webkit-scrollbar {
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* Smooth snap scrolling */
+.scrollbar-hide {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 </style>
 

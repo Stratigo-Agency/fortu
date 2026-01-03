@@ -222,8 +222,10 @@ onUnmounted(() => {
         v-show="isProductsOpen"
         class="hidden md:block w-full bg-white border-t border-fortu-light/20 shadow-lg"
       >
-        <div class="py-8">
-          <ProductCatalog @close-navbar="closeProducts" />
+        <div class="py-8 overflow-x-auto product-dropdown-scroll">
+          <div class="min-w-max">
+            <ProductCatalog @close-navbar="closeProducts" />
+          </div>
         </div>
       
       <!-- View All Products Link -->
@@ -246,3 +248,27 @@ onUnmounted(() => {
     @click="closeProducts"
   ></div>
 </template>
+
+<style scoped>
+.product-dropdown-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(191, 191, 191, 0.5) transparent;
+}
+
+.product-dropdown-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+
+.product-dropdown-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.product-dropdown-scroll::-webkit-scrollbar-thumb {
+  background-color: rgba(191, 191, 191, 0.5);
+  border-radius: 4px;
+}
+
+.product-dropdown-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(191, 191, 191, 0.7);
+}
+</style>
