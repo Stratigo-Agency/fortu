@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'product',
-  title: 'Product Page: Catalog',
+  title: 'Product Catalog',
   type: 'document',
   groups: [
     {name: 'basic', title: 'Basic Info', default: true},
