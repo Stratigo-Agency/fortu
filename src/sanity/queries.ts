@@ -312,9 +312,9 @@ export const CLIENT_LOGOS_QUERY = defineQuery(/* groq */ `
     _id,
     name,
     logo {
-      asset-> {
-        _id,
-        url
+      asset {
+        _ref,
+        _type
       },
       hotspot,
       crop,

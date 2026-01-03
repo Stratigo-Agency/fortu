@@ -10,10 +10,11 @@
         <!-- First set of cards -->
         <div 
           v-for="(client, index) in clients" 
-          :key="`first-${index}`"
+          :key="`first-${client._id || index}`"
           class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
         >
           <img 
+            v-if="getLogoUrl(client)"
             :src="getLogoUrl(client)"
             :alt="client.name"
             loading="lazy"
@@ -21,14 +22,17 @@
             width="160"
             height="48"
             class="h-24 w-48 object-contain transition-all duration-300"
+            @error="handleImageError($event, client)"
           />
         </div>
+        <!-- Second set for seamless loop -->
         <div 
           v-for="(client, index) in clients" 
-          :key="`first-${index}`"
+          :key="`second-${client._id || index}`"
           class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
         >
           <img 
+            v-if="getLogoUrl(client)"
             :src="getLogoUrl(client)"
             :alt="client.name"
             loading="lazy"
@@ -36,14 +40,17 @@
             width="160"
             height="48"
             class="h-24 w-48 object-contain transition-all duration-300"
+            @error="handleImageError($event, client)"
           />
         </div>
+        <!-- Third set for seamless loop -->
         <div 
           v-for="(client, index) in clients" 
-          :key="`first-${index}`"
+          :key="`third-${client._id || index}`"
           class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
         >
           <img 
+            v-if="getLogoUrl(client)"
             :src="getLogoUrl(client)"
             :alt="client.name"
             loading="lazy"
@@ -51,14 +58,17 @@
             width="160"
             height="48"
             class="h-24 w-48 object-contain transition-all duration-300"
+            @error="handleImageError($event, client)"
           />
         </div>
+        <!-- Fourth set for seamless loop -->
         <div 
           v-for="(client, index) in clients" 
-          :key="`first-${index}`"
+          :key="`fourth-${client._id || index}`"
           class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
         >
           <img 
+            v-if="getLogoUrl(client)"
             :src="getLogoUrl(client)"
             :alt="client.name"
             loading="lazy"
@@ -66,6 +76,7 @@
             width="160"
             height="48"
             class="h-24 w-48 object-contain transition-all duration-300"
+            @error="handleImageError($event, client)"
           />
         </div>
         
@@ -86,14 +97,41 @@ import { IMAGE_CONFIG } from '@/config/image'
 const clients = ref<ClientLogo[]>([])
 
 const getLogoUrl = (client: ClientLogo): string => {
-  if (!client.logo?.asset) return ''
+  if (!client.logo) {
+    console.warn(`Client "${client.name}" has no logo`)
+    return ''
+  }
+  
+  // Check if asset exists
+  if (!client.logo.asset) {
+    console.warn(`Client "${client.name}" logo has no asset`)
+    return ''
+  }
+  
   try {
     // Always use urlFor to apply crop/hotspot settings
     // Pass the full image object (not just asset) to preserve hotspot and crop
     const builder = urlFor(client.logo).width(320).fit('max').quality(IMAGE_CONFIG.quality)
-    return IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
-  } catch {
+    const url = IMAGE_CONFIG.autoFormat ? builder.auto('format').url() : builder.url()
+    
+    if (!url) {
+      console.warn(`Failed to generate URL for client "${client.name}"`)
+      return ''
+    }
+    
+    return url
+  } catch (error) {
+    console.error(`Error generating logo URL for client "${client.name}":`, error)
     return ''
+  }
+}
+
+const handleImageError = (event: Event, client: ClientLogo) => {
+  console.error(`Failed to load image for client "${client.name}"`, event)
+  // Optionally hide the broken image
+  const img = event.target as HTMLImageElement
+  if (img) {
+    img.style.display = 'none'
   }
 }
 
