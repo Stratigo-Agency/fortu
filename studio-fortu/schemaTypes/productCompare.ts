@@ -22,7 +22,7 @@ export default defineType({
       name: 'products',
       title: 'Products to Compare',
       type: 'array',
-      description: 'Select products to compare. Specs will be pulled from each product.',
+      description: 'Select products to compare. Specs will be pulled from each product. If more than 3 products are added, users can select which 3 to display using dropdowns.',
       of: [
         {
           type: 'object',
@@ -67,7 +67,7 @@ export default defineType({
           },
         },
       ],
-      validation: (Rule) => Rule.max(3).error('Maximum 3 products can be compared'),
+      validation: (Rule) => Rule.min(1).error('At least 1 product is required'),
     }),
     defineField({
       name: 'backgroundColor',

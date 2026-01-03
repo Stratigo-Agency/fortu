@@ -64,97 +64,157 @@
         </div>
       </div>
 
+      <!-- Desktop Product Selectors (when more than 3 products) -->
+      <div v-if="compare.products.length > 3" class="hidden md:flex gap-4 mb-8 justify-center">
+        <div class="w-64">
+          <select
+            v-model="desktopSelection[0]"
+            class="w-full px-4 py-3 rounded-lg text-sm font-medium appearance-none cursor-pointer"
+            :class="compare.backgroundColor === 'light' 
+              ? 'bg-white border border-fortu-light/50 text-fortu-dark' 
+              : 'bg-fortu-medium/20 border border-fortu-medium/30 text-fortu-off-white'"
+          >
+            <option 
+              v-for="(item, idx) in compare.products" 
+              :key="idx" 
+              :value="idx"
+              :disabled="idx === desktopSelection[1] || idx === desktopSelection[2]"
+            >
+              {{ item.product.name }}
+            </option>
+          </select>
+        </div>
+        <div class="w-64">
+          <select
+            v-model="desktopSelection[1]"
+            class="w-full px-4 py-3 rounded-lg text-sm font-medium appearance-none cursor-pointer"
+            :class="compare.backgroundColor === 'light' 
+              ? 'bg-white border border-fortu-light/50 text-fortu-dark' 
+              : 'bg-fortu-medium/20 border border-fortu-medium/30 text-fortu-off-white'"
+          >
+            <option 
+              v-for="(item, idx) in compare.products" 
+              :key="idx" 
+              :value="idx"
+              :disabled="idx === desktopSelection[0] || idx === desktopSelection[2]"
+            >
+              {{ item.product.name }}
+            </option>
+          </select>
+        </div>
+        <div class="w-64">
+          <select
+            v-model="desktopSelection[2]"
+            class="w-full px-4 py-3 rounded-lg text-sm font-medium appearance-none cursor-pointer"
+            :class="compare.backgroundColor === 'light' 
+              ? 'bg-white border border-fortu-light/50 text-fortu-dark' 
+              : 'bg-fortu-medium/20 border border-fortu-medium/30 text-fortu-off-white'"
+          >
+            <option 
+              v-for="(item, idx) in compare.products" 
+              :key="idx" 
+              :value="idx"
+              :disabled="idx === desktopSelection[0] || idx === desktopSelection[1]"
+            >
+              {{ item.product.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
       <!-- Product Comparison Grid - Desktop -->
       <div class="hidden md:grid gap-8" :class="gridColsDesktop">
         <div 
-          v-for="(item, index) in compare.products" 
-          :key="item._key || index"
+          v-for="selectedIdx in desktopProductsToShow" 
+          :key="selectedIdx"
           class="product-column text-center"
         >
-          <!-- Product Image -->
-          <div class="relative mb-6">
-            <div class="relative max-w-[280px] mx-auto mb-4 aspect-square">
-              <img
-                v-if="getProductImage(item)"
-                :src="getProductImage(item) ?? undefined"
-                :alt="item.product.name"
-                loading="lazy"
-                decoding="async"
-                width="560"
-                height="560"
-                class="w-full h-full object-contain rounded-lg"
-              />
+          <template v-if="compare.products[selectedIdx]">
+            <!-- Product Image -->
+            <div class="relative mb-6">
+              <div class="relative max-w-[280px] mx-auto mb-4 aspect-square">
+                <img
+                  v-if="getProductImage(compare.products[selectedIdx])"
+                  :src="getProductImage(compare.products[selectedIdx]) ?? undefined"
+                  :alt="compare.products[selectedIdx].product.name"
+                  loading="lazy"
+                  decoding="async"
+                  width="560"
+                  height="560"
+                  class="w-full h-full object-contain rounded-lg"
+                />
+              </div>
             </div>
-          </div>
 
-          <!-- Product Info -->
-          <div class="mb-6">
-            <h3 
-              class="text-2xl font-medium mb-2"
-              :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
-            >
-              {{ item.product.name }}
-            </h3>
-            <p 
-              v-if="item.product.description" 
-              class="text-sm mb-4 line-clamp-2 max-w-[20rem] mx-auto"
-              :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
-            >
-              {{ item.product.description }}
-            </p>
-            
+            <!-- Product Info -->
+            <div class="mb-6">
+              <h3 
+                class="text-2xl font-medium mb-2"
+                :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+              >
+                {{ compare.products[selectedIdx].product.name }}
+              </h3>
+              <p 
+                v-if="compare.products[selectedIdx].product.description" 
+                class="text-sm mb-4 line-clamp-2 max-w-[20rem] mx-auto"
+                :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
+              >
+                {{ compare.products[selectedIdx].product.description }}
+              </p>
+              
               <div class="flex justify-center gap-3">
                 <Button
-                  v-if="item.product.slug?.current"
-                  :to="`/products/${item.product.slug.current}`"
+                  v-if="compare.products[selectedIdx].product.slug?.current"
+                  :to="`/products/${compare.products[selectedIdx].product.slug.current}`"
                   :variant="compare.backgroundColor === 'light' ? 'primary' : 'secondary'"
                   size="sm"
                 >
-                  {{ item.ctaLabel || 'Pelajari Lebih Lanjut' }}
+                  {{ compare.products[selectedIdx].ctaLabel || 'Pelajari Lebih Lanjut' }}
                 </Button>
               </div>
-          </div>
-
-          <!-- Specs Divider -->
-          <div 
-            class="border-t my-8"
-            :class="compare.backgroundColor === 'light' ? 'border-fortu-light/50' : 'border-fortu-medium/30'"
-          />
-
-          <!-- Specifications (from product) -->
-          <div v-if="item.product.specs && item.product.specs.length > 0" class="space-y-6">
-            <div 
-              v-for="(spec, specIndex) in item.product.specs" 
-              :key="spec._key || specIndex"
-              class="spec-item"
-            >
-              <div class="flex justify-center mb-2">
-                <div 
-                  class="w-12 h-12 rounded-full flex items-center justify-center"
-                  :class="compare.backgroundColor === 'light' ? 'bg-fortu-light/30' : 'bg-fortu-medium/20'"
-                >
-                  <CompareIcon 
-                    :icon="spec.icon || 'check'" 
-                    :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
-                  />
-                </div>
-              </div>
-              
-              <p 
-                class="font-medium text-md"
-                :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
-              >
-                {{ spec.label }}
-              </p>
-              <p 
-                v-if="spec.value" 
-                class="text-sm mt-1"
-                :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
-              >
-                {{ spec.value }}
-              </p>
             </div>
-          </div>
+
+            <!-- Specs Divider -->
+            <div 
+              class="border-t my-8"
+              :class="compare.backgroundColor === 'light' ? 'border-fortu-light/50' : 'border-fortu-medium/30'"
+            />
+
+            <!-- Specifications (from product) -->
+            <div v-if="compare.products[selectedIdx].product.specs && compare.products[selectedIdx].product.specs.length > 0" class="space-y-6">
+              <div 
+                v-for="(spec, specIndex) in compare.products[selectedIdx].product.specs" 
+                :key="spec._key || specIndex"
+                class="spec-item"
+              >
+                <div class="flex justify-center mb-2">
+                  <div 
+                    class="w-12 h-12 rounded-full flex items-center justify-center"
+                    :class="compare.backgroundColor === 'light' ? 'bg-fortu-light/30' : 'bg-fortu-medium/20'"
+                  >
+                    <CompareIcon 
+                      :icon="spec.icon || 'check'" 
+                      :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+                    />
+                  </div>
+                </div>
+                
+                <p 
+                  class="font-medium text-md"
+                  :class="compare.backgroundColor === 'light' ? 'text-fortu-dark' : 'text-fortu-off-white'"
+                >
+                  {{ spec.label }}
+                </p>
+                <p 
+                  v-if="spec.value" 
+                  class="text-sm mt-1"
+                  :class="compare.backgroundColor === 'light' ? 'text-fortu-medium' : 'text-fortu-light'"
+                >
+                  {{ spec.value }}
+                </p>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
 
@@ -279,9 +339,36 @@ import Button from '@/reusables/Button.vue'
 const compare = ref<ProductCompare | null>(null)
 const loading = ref(true)
 const mobileSelection = ref<number[]>([0, 1])
+const desktopSelection = ref<number[]>([0, 1, 2])
+
+// Initialize desktop selection based on product count
+const initializeDesktopSelection = () => {
+  const count = compare.value?.products?.length || 0
+  if (count === 0) {
+    desktopSelection.value = []
+  } else if (count === 1) {
+    desktopSelection.value = [0]
+  } else if (count === 2) {
+    desktopSelection.value = [0, 1]
+  } else {
+    // For 3+ products, default to first 3
+    desktopSelection.value = [0, 1, 2].filter(i => i < count)
+  }
+}
+
+const desktopProductsToShow = computed(() => {
+  const count = compare.value?.products?.length || 0
+  if (count === 0) return []
+  if (count <= 3) {
+    // Show all products if 3 or fewer
+    return Array.from({ length: count }, (_, i) => i)
+  }
+  // Show selected products (up to 3)
+  return desktopSelection.value.filter(idx => idx < count && idx >= 0)
+})
 
 const gridColsDesktop = computed(() => {
-  const count = compare.value?.products?.length || 0
+  const count = desktopProductsToShow.value.length
   if (count === 1) return 'grid-cols-1 max-w-md mx-auto'
   if (count === 2) return 'grid-cols-2 max-w-4xl mx-auto'
   return 'grid-cols-3'
@@ -334,6 +421,7 @@ const getProductImage = (item: ProductCompareItem): string | null => {
 onMounted(async () => {
   try {
     compare.value = await client.fetch(PRODUCT_COMPARE_QUERY)
+    initializeDesktopSelection()
   } catch (e) {
     console.error('Failed to fetch product comparison:', e)
   } finally {

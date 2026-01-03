@@ -70,54 +70,55 @@
             : (mode === 'light' ? 'bg-fortu-off-white/50' : 'bg-fortu-light/50')"
         ></button>
       </div>
+    </div>
 
-      <!-- Navigation Arrows (Desktop) -->
-      <div class="hidden md:flex items-center justify-end gap-2 px-16 mt-6 pb-12">
-        <button
-          @click="scrollCarousel('left')"
-          :disabled="isAtStart"
-          aria-label="Scroll carousel left"
-          class="w-10 h-10 rounded-full border flex items-center justify-center transition-all"
-          :class="[
-            mode === 'light' 
-              ? 'border-fortu-off-white/30 hover:bg-fortu-off-white/10' 
-              : 'border-fortu-light/30 hover:bg-fortu-light/10',
-            isAtStart ? 'opacity-30 cursor-not-allowed' : ''
-          ]"
+    <!-- Navigation Arrows (Centered Below) - Show only when content exceeds width -->
+    <div 
+      v-if="canScroll" 
+      class="flex items-center justify-center gap-3 mt-6 pb-4"
+    >
+      <button
+        @click="scrollCarousel('left')"
+        :disabled="isAtStart"
+        aria-label="Scroll carousel left"
+        class="w-10 h-10 rounded-full border flex items-center justify-center transition-all"
+        :class="[
+          mode === 'light' 
+            ? 'border-fortu-dark/30 hover:bg-fortu-dark/10 text-fortu-dark' 
+            : 'border-fortu-light/30 hover:bg-fortu-light/10 text-fortu-off-white',
+          isAtStart ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
+        ]"
+      >
+        <svg 
+          class="w-5 h-5" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
         >
-          <svg 
-            class="w-5 h-5" 
-            :class="mode === 'light' ? 'text-fortu-off-white' : 'text-fortu-off-white'"
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
-          </svg>
-        </button>
-        <button
-          @click="scrollCarousel('right')"
-          :disabled="isAtEnd"
-          aria-label="Scroll carousel right"
-          class="w-10 h-10 rounded-full border flex items-center justify-center transition-all"
-          :class="[
-            mode === 'light' 
-              ? 'border-fortu-off-white/30 hover:bg-fortu-off-white/10' 
-              : 'border-fortu-light/30 hover:bg-fortu-light/10',
-            isAtEnd ? 'opacity-30 cursor-not-allowed' : ''
-          ]"
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button
+        @click="scrollCarousel('right')"
+        :disabled="isAtEnd"
+        aria-label="Scroll carousel right"
+        class="w-10 h-10 rounded-full border flex items-center justify-center transition-all"
+        :class="[
+          mode === 'light' 
+            ? 'border-fortu-dark/30 hover:bg-fortu-dark/10 text-fortu-dark' 
+            : 'border-fortu-light/30 hover:bg-fortu-light/10 text-fortu-off-white',
+          isAtEnd ? 'opacity-30 cursor-not-allowed' : 'hover:scale-110'
+        ]"
+      >
+        <svg 
+          class="w-5 h-5" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
         >
-          <svg 
-            class="w-5 h-5" 
-            :class="mode === 'light' ? 'text-fortu-off-white' : 'text-fortu-off-white'"
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
-          </svg>
-        </button>
-      </div>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
     </div>
 
     <!-- Variant Selector -->
@@ -187,6 +188,7 @@ const carouselRef = ref<HTMLElement | null>(null)
 const isAtStart = ref(true)
 const isAtEnd = ref(false)
 const currentIndex = ref(0)
+const canScroll = ref(false)
 
 // Get item width based on breakpoint
 const getItemWidth = () => {
@@ -236,6 +238,9 @@ const handleScroll = () => {
   const { scrollLeft, scrollWidth, clientWidth } = carouselRef.value
   isAtStart.value = scrollLeft <= 10
   isAtEnd.value = scrollLeft + clientWidth >= scrollWidth - 10
+  
+  // Check if content exceeds width (with small threshold to account for rounding)
+  canScroll.value = scrollWidth > clientWidth + 5
   
   // Calculate current index based on actual item width
   const itemWidth = getItemWidth()
