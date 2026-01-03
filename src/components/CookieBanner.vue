@@ -45,88 +45,60 @@ import { RouterLink } from 'vue-router'
 const COOKIE_CONSENT_KEY = 'fortu_cookie_consent'
 const showBanner = ref(false)
 
-const checkConsent = () => {
-  const consent = localStorage.getItem(COOKIE_CONSENT_KEY)
-  return consent === 'accepted' || consent === 'declined'
-}
-
 const acceptCookies = () => {
   localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted')
   showBanner.value = false
-  initializeGoogleAnalytics()
+  
+  // Update Consent Mode to allow analytics
+  if ((window as any).gtag) {
+    (window as any).gtag('consent', 'update', {
+      'analytics_storage': 'granted',
+      'ad_storage': 'granted'
+    })
+    
+    // Send a pageview event
+    (window as any).gtag('event', 'page_view', {
+      page_path: window.location.pathname,
+    })
+  }
 }
 
 const declineCookies = () => {
   localStorage.setItem(COOKIE_CONSENT_KEY, 'declined')
   showBanner.value = false
-}
-
-const initializeGoogleAnalytics = () => {
-  // Only initialize if not already loaded
-  if ((window as any).gtag && (window as any).dataLayer) {
-    console.log('Google Analytics already initialized')
-    return
-  }
-
-  // Initialize dataLayer first (must be before script loads)
-  if (!(window as any).dataLayer) {
-    (window as any).dataLayer = []
-  }
   
-  // Define gtag function (must be before script loads)
-  function gtag(...args: any[]) {
-    (window as any).dataLayer.push(args)
-  }
-  (window as any).gtag = gtag
-  
-  // Set the date first
-  gtag('js', new Date())
-  
-  // Configure GA (this will be queued in dataLayer until script loads)
-  gtag('config', 'G-0BP7NTVTPH', {
-    page_path: window.location.pathname,
-  })
-
-  // Check if script already exists
-  const existingScript = document.querySelector('script[src*="googletagmanager.com/gtag/js"]')
-  if (existingScript) {
-    console.log('Google Analytics script already exists')
-    return
-  }
-
-  // Load Google Analytics script
-  const script = document.createElement('script')
-  script.async = true
-  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-0BP7NTVTPH'
-  
-  script.onload = () => {
-    console.log('Google Analytics script loaded successfully')
-    // Send a pageview event to verify it's working
-    gtag('event', 'page_view', {
-      page_path: window.location.pathname,
+  // Ensure Consent Mode remains denied
+  if ((window as any).gtag) {
+    (window as any).gtag('consent', 'update', {
+      'analytics_storage': 'denied',
+      'ad_storage': 'denied'
     })
-  }
-  
-  script.onerror = () => {
-    console.error('Failed to load Google Analytics script')
-  }
-  
-  // Insert script in head, before other scripts if possible
-  const firstScript = document.head.querySelector('script')
-  if (firstScript) {
-    document.head.insertBefore(script, firstScript)
-  } else {
-    document.head.appendChild(script)
   }
 }
 
 onMounted(() => {
   // Check if user has already given consent
-  if (!checkConsent()) {
+  const consent = localStorage.getItem(COOKIE_CONSENT_KEY)
+  
+  if (!consent) {
+    // Show banner if no consent decision has been made
     showBanner.value = true
-  } else if (localStorage.getItem(COOKIE_CONSENT_KEY) === 'accepted') {
-    // If consent was previously accepted, initialize GA
-    initializeGoogleAnalytics()
+  } else if (consent === 'accepted') {
+    // If consent was previously accepted, update Consent Mode immediately
+    if ((window as any).gtag) {
+      (window as any).gtag('consent', 'update', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'granted'
+      })
+    }
+  } else {
+    // Consent was declined, ensure it stays denied
+    if ((window as any).gtag) {
+      (window as any).gtag('consent', 'update', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied'
+      })
+    }
   }
 })
 </script>

@@ -15,7 +15,22 @@
     <!-- Preconnect to required origins for faster connection -->
     <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
     <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-    <!-- Google Analytics will be loaded after user consent via CookieBanner component -->
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0BP7NTVTPH"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      
+      // Initialize Consent Mode v2 - deny analytics by default until consent is given
+      gtag('consent', 'default', {
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'wait_for_update': 500
+      });
+      
+      gtag('config', 'G-0BP7NTVTPH');
+    </script>
     <style>
       /* Prevent white flash on load */
       html, body {
