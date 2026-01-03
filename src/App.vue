@@ -2,6 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
+import CookieBanner from '@/components/CookieBanner.vue'
 import { client } from '@/sanity/client'
 import { SITE_SETTINGS_QUERY, type SiteSettings } from '@/sanity/queries'
 
@@ -29,6 +30,9 @@ onMounted(async () => {
     <RouterView />
   </main>
   <Footer />
+  
+  <!-- Cookie Banner -->
+  <CookieBanner />
   
   <!-- WhatsApp Floating Button -->
   <a 

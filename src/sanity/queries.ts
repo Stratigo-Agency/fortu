@@ -514,7 +514,7 @@ export const FAQ_QUERY = defineQuery(/* groq */ `
 // Page Hero
 export interface PageHero {
   _id: string
-  pageName: 'products' | 'about' | 'contact' | 'services'
+  pageName: 'products' | 'about' | 'contact' | 'services' | 'privacy'
   title: string
   subtitle?: string
   backgroundImage?: {

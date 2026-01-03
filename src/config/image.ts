@@ -18,3 +18,4 @@ export const IMAGE_CONFIG = {
   autoFormat: true,
 } as const
 
+

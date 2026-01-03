@@ -99,7 +99,7 @@ import { PAGE_HERO_QUERY, type PageHero } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
 
 const props = defineProps<{
-  pageName: 'products' | 'about' | 'contact' | 'services'
+  pageName: 'products' | 'about' | 'contact' | 'services' | 'privacy'
   fallbackTitle?: string
   fallbackSubtitle?: string
 }>()
