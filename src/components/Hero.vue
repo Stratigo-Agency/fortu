@@ -114,7 +114,7 @@ onMounted(async () => {
       class="absolute inset-0 w-full h-full object-cover z-0"
     />
     
-    <div class="absolute inset-0 bg-gradient-to-b from-[rgba(15,15,15,0.7)] to-[rgba(15,15,15,0.9)] z-[1]"></div>
+    <div class="absolute inset-0 bg-black/50 z-[1]"></div>
     
     <!-- Hero Content -->
     <div 

@@ -11,7 +11,7 @@
         <div 
           v-for="(client, index) in clients" 
           :key="`first-${index}`"
-          class="carousel-card flex-shrink-0 w-44 h-20 flex items-center justify-center"
+          class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
         >
           <img 
             :src="getLogoUrl(client)"
@@ -20,41 +20,57 @@
             decoding="async"
             width="160"
             height="48"
-            class="max-h-12 max-w-[160px] object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
+            class="h-24 w-48 object-contain transition-all duration-300"
+          />
+        </div>
+        <div 
+          v-for="(client, index) in clients" 
+          :key="`first-${index}`"
+          class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
+        >
+          <img 
+            :src="getLogoUrl(client)"
+            :alt="client.name"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="48"
+            class="h-24 w-48 object-contain transition-all duration-300"
+          />
+        </div>
+        <div 
+          v-for="(client, index) in clients" 
+          :key="`first-${index}`"
+          class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
+        >
+          <img 
+            :src="getLogoUrl(client)"
+            :alt="client.name"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="48"
+            class="h-24 w-48 object-contain transition-all duration-300"
+          />
+        </div>
+        <div 
+          v-for="(client, index) in clients" 
+          :key="`first-${index}`"
+          class="carousel-card rounded-lg p-8 flex-shrink-0 h-24 w-48 flex items-center justify-center"
+        >
+          <img 
+            :src="getLogoUrl(client)"
+            :alt="client.name"
+            loading="lazy"
+            decoding="async"
+            width="160"
+            height="48"
+            class="h-24 w-48 object-contain transition-all duration-300"
           />
         </div>
         
-        <!-- Duplicate set for seamless loop -->
-        <div 
-          v-for="(client, index) in clients" 
-          :key="`second-${index}`"
-          class="carousel-card flex-shrink-0 w-44 h-20 flex items-center justify-center"
-        >
-          <img 
-            :src="getLogoUrl(client)"
-            :alt="client.name"
-            loading="lazy"
-            decoding="async"
-            width="160"
-            height="48"
-            class="max-h-12 max-w-[160px] object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-          />
-        </div>
-        <div 
-          v-for="(client, index) in clients" 
-          :key="`second-${index}`"
-          class="carousel-card flex-shrink-0 w-44 h-20 flex items-center justify-center"
-        >
-          <img 
-            :src="getLogoUrl(client)"
-            :alt="client.name"
-            loading="lazy"
-            decoding="async"
-            width="160"
-            height="48"
-            class="max-h-12 max-w-[160px] object-contain brightness-0 invert opacity-60 hover:opacity-100 transition-all duration-300"
-          />
-        </div>
+
+        
       </div>
     </div>
   </section>
@@ -103,7 +119,7 @@ onMounted(async () => {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-50%);
+    transform: translateX(-25%);
   }
 }
 
