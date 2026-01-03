@@ -49,7 +49,7 @@
               <div class="space-y-1 md:space-y-2">
                 <div class="flex items-center gap-1 md:gap-2">
                   <div class="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[green] animate-pulse"></div>
-                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Terhubung</span>
+                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Perangkat Terhubung</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium text-xs md:text-base truncate">{{ getProductName('top-left') }}</h4>
               </div>
@@ -83,7 +83,7 @@
               <div class="space-y-1 md:space-y-2">
                 <div class="flex items-center gap-1 md:gap-2">
                   <div class="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[green] animate-pulse"></div>
-                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Terhubung</span>
+                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Perangkat Terhubung</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium text-xs md:text-base truncate">{{ getProductName('top-right') }}</h4>
               </div>
@@ -116,7 +116,7 @@
               <div class="space-y-1 md:space-y-2">
                 <div class="flex items-center gap-1 md:gap-2">
                   <div class="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[green] animate-pulse"></div>
-                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Terhubung</span>
+                  <span class="text-[10px] md:text-xs text-fortu-light uppercase tracking-wider">Perangkat Terhubung</span>
                 </div>
                 <h4 class="text-fortu-off-white font-medium text-xs md:text-base truncate">{{ getProductName('bottom-center') }}</h4>
               </div>
@@ -161,7 +161,7 @@
                     <div class="flex items-center justify-between mb-4">
                       <div>
                         <h3 class="text-fortu-off-white text-sm font-medium">Products</h3>
-                        <p class="text-fortu-medium text-xs">{{ cmsDemo.products.length }} produk terhubung</p>
+                        <p class="text-fortu-medium text-xs">{{ cmsDemo.products.length }} perangkat terhubung</p>
                       </div>
                       <div class="flex items-center gap-2">
                         <div class="px-2 py-1 rounded bg-fortu-off-white/10 text-fortu-off-white text-xs">Live</div>
