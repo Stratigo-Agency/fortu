@@ -63,28 +63,61 @@ const declineCookies = () => {
 
 const initializeGoogleAnalytics = () => {
   // Only initialize if not already loaded
-  if ((window as any).gtag) {
+  if ((window as any).gtag && (window as any).dataLayer) {
+    console.log('Google Analytics already initialized')
     return
   }
 
-  // Initialize dataLayer first
+  // Initialize dataLayer first (must be before script loads)
   if (!(window as any).dataLayer) {
     (window as any).dataLayer = []
   }
   
-  // Define gtag function
+  // Define gtag function (must be before script loads)
   function gtag(...args: any[]) {
     (window as any).dataLayer.push(args)
   }
   (window as any).gtag = gtag
+  
+  // Set the date first
   gtag('js', new Date())
-  gtag('config', 'G-0BP7NTVTPH')
+  
+  // Configure GA (this will be queued in dataLayer until script loads)
+  gtag('config', 'G-0BP7NTVTPH', {
+    page_path: window.location.pathname,
+  })
+
+  // Check if script already exists
+  const existingScript = document.querySelector('script[src*="googletagmanager.com/gtag/js"]')
+  if (existingScript) {
+    console.log('Google Analytics script already exists')
+    return
+  }
 
   // Load Google Analytics script
   const script = document.createElement('script')
   script.async = true
   script.src = 'https://www.googletagmanager.com/gtag/js?id=G-0BP7NTVTPH'
-  document.head.appendChild(script)
+  
+  script.onload = () => {
+    console.log('Google Analytics script loaded successfully')
+    // Send a pageview event to verify it's working
+    gtag('event', 'page_view', {
+      page_path: window.location.pathname,
+    })
+  }
+  
+  script.onerror = () => {
+    console.error('Failed to load Google Analytics script')
+  }
+  
+  // Insert script in head, before other scripts if possible
+  const firstScript = document.head.querySelector('script')
+  if (firstScript) {
+    document.head.insertBefore(script, firstScript)
+  } else {
+    document.head.appendChild(script)
+  }
 }
 
 onMounted(() => {
