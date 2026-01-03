@@ -3,7 +3,7 @@
     <div class="mx-auto px-4 md:px-16">
       <!-- Section Header -->
       <div class="text-left mb-16">
-        <h2 class="text-6xl md:text-7xl font-medium text-fortu-dark mb-6 tracking-tight">
+        <h2 class="text-4xl md:text-6xl font-medium text-fortu-dark mb-6 tracking-tight">
           {{ faq.heading }}
         </h2>
         <p v-if="faq.subheading" class="text-fortu-medium text-lg max-w-2xl mx-auto leading-relaxed">

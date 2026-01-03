@@ -33,7 +33,7 @@
               </div>
 
               <!-- Tagline -->
-              <h2 class="text-4xl text- font-medium text-fortu-dark mb-3 tracking-tight">
+              <h2 class="text-3xl font-medium text-fortu-dark mb-3 tracking-tight">
                 {{ product.tagline || product.name }}
               </h2>
               
