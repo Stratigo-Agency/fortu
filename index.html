@@ -4,48 +4,40 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Fortu Digital - Elevate your Vision. Digital Signage and Advertising | Interactive Meeting Solutions" />
-    <meta name="keywords" content="digital signage, interactive whiteboard, interactive signage" />
-    <meta name="robots" content="index, follow" />
-    <meta name="author" content="Fortu Digital" />
-    <link rel="canonical" href="https://fortu-digital.vercel.app" />
     <title>Fortu Digital</title>
-    <!-- Preload critical resources -->
-    <link rel="preload" href="/logo.png" as="image" type="image/png" />
-    <!-- Preconnect to required origins for faster connection -->
-    <link rel="preconnect" href="https://cdn.sanity.io" crossorigin />
-    <link rel="dns-prefetch" href="https://cdn.sanity.io" />
-    <!-- Google tag (gtag.js) -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0BP7NTVTPH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      
-      // Initialize Consent Mode v2 - deny analytics by default until consent is given
-      gtag('consent', 'default', {
-        'analytics_storage': 'denied',
-        'ad_storage': 'denied',
-        'wait_for_update': 500
-      });
-      
+      gtag('consent', 'default', { 'analytics_storage': 'denied', 'ad_storage': 'denied', 'wait_for_update': 500 });
       gtag('config', 'G-0BP7NTVTPH');
     </script>
+
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '25534798932796854');
+      fbq('track', 'PageView');
+    </script>
     <style>
-      /* Prevent white flash on load */
-      html, body {
-        background-color: #1A1A1A;
-      }
-      /* Font display optimization */
-      @font-face {
-        font-family: 'Helvetica Neue';
-        font-display: swap;
-      }
+      html, body { background-color: #1A1A1A; }
     </style>
   </head>
   <body>
+    <noscript>
+      <img height="1" width="1" style="display:none" 
+           src="https://www.facebook.com/tr?id=25534798932796854&ev=PageView&noscript=1" />
+    </noscript>
+
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
-
