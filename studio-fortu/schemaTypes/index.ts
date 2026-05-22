@@ -10,18 +10,20 @@ import pageHero from './pageHero'
 import productCompare from './productCompare'
 import service from './service'
 import aboutPage from './aboutPage'
+import blogPost from './blogPost'
 
 export const schemaTypes = [
-    hero, 
-    clientLogo, 
-    bannerSlide, 
-    cmsDemo, 
-    useCaseSection, 
-    service, 
-    product, 
-    pageHero, 
-    productCompare, 
-    siteSettings, 
-    faq, 
-    aboutPage
+    hero,
+    clientLogo,
+    bannerSlide,
+    cmsDemo,
+    useCaseSection,
+    service,
+    product,
+    pageHero,
+    productCompare,
+    siteSettings,
+    faq,
+    aboutPage,
+    blogPost,
 ]

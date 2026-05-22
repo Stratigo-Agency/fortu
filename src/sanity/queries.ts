@@ -514,7 +514,7 @@ export const FAQ_QUERY = defineQuery(/* groq */ `
 // Page Hero
 export interface PageHero {
   _id: string
-  pageName: 'products' | 'about' | 'contact' | 'services' | 'privacy'
+  pageName: 'products' | 'about' | 'contact' | 'services' | 'privacy' | 'blog'
   title: string
   subtitle?: string
   backgroundImage?: {
@@ -810,5 +810,143 @@ export const ABOUT_PAGE_QUERY = defineQuery(/* groq */ `
       description
     },
     isActive
+  }
+`)
+
+// Blog
+export interface BlogPostListItem {
+  _id: string
+  title: string
+  slug: { current: string }
+  excerpt?: string
+  author?: string
+  publishedAt: string
+  category?: string
+  tags?: string[]
+  coverImage?: SanityImage
+  featured?: boolean
+}
+
+export interface PortableTextSpan {
+  _key: string
+  _type: 'span'
+  text: string
+  marks?: string[]
+}
+
+export interface PortableTextMarkDef {
+  _key: string
+  _type: string
+  href?: string
+  blank?: boolean
+}
+
+export interface PortableTextBlock {
+  _key: string
+  _type: 'block'
+  style?: string
+  listItem?: string
+  level?: number
+  children: PortableTextSpan[]
+  markDefs?: PortableTextMarkDef[]
+}
+
+export interface PortableTextImage {
+  _key: string
+  _type: 'image'
+  asset: {
+    _ref: string
+    _type: string
+    url?: string
+  }
+  alt?: string
+  caption?: string
+}
+
+export type PortableTextContent = PortableTextBlock | PortableTextImage
+
+export interface BlogPost extends BlogPostListItem {
+  body: PortableTextContent[]
+  seoTitle?: string
+  seoDescription?: string
+}
+
+export const BLOG_POSTS_QUERY = defineQuery(/* groq */ `
+  *[_type == "blogPost" && isActive == true] | order(publishedAt desc) {
+    _id,
+    title,
+    slug,
+    excerpt,
+    author,
+    publishedAt,
+    category,
+    tags,
+    coverImage {
+      asset-> {
+        _id,
+        url
+      },
+      hotspot,
+      crop,
+      alt
+    },
+    featured
+  }
+`)
+
+export const BLOG_POST_BY_SLUG_QUERY = defineQuery(/* groq */ `
+  *[_type == "blogPost" && slug.current == $slug && isActive == true][0] {
+    _id,
+    title,
+    slug,
+    excerpt,
+    author,
+    publishedAt,
+    category,
+    tags,
+    coverImage {
+      asset-> {
+        _id,
+        url
+      },
+      hotspot,
+      crop,
+      alt
+    },
+    featured,
+    body[] {
+      ...,
+      _type == "image" => {
+        asset-> {
+          _id,
+          url
+        },
+        alt,
+        caption
+      }
+    },
+    seoTitle,
+    seoDescription
+  }
+`)
+
+export const RELATED_BLOG_POSTS_QUERY = defineQuery(/* groq */ `
+  *[_type == "blogPost" && isActive == true && _id != $currentId] | order(publishedAt desc) [0...3] {
+    _id,
+    title,
+    slug,
+    excerpt,
+    author,
+    publishedAt,
+    category,
+    coverImage {
+      asset-> {
+        _id,
+        url
+      },
+      hotspot,
+      crop,
+      alt
+    }
   }
 `)

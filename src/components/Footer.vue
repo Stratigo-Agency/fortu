@@ -120,6 +120,11 @@
               </RouterLink>
             </li>
             <li>
+              <RouterLink to="/blog" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm" @click="scrollToTop">
+                Blog
+              </RouterLink>
+            </li>
+            <li>
               <RouterLink to="/contact" class="text-fortu-light hover:text-fortu-off-white transition-colors text-sm" @click="scrollToTop">
                 Kontak
               </RouterLink>

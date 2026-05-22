@@ -7,6 +7,8 @@ const ProductDetail = () => import('@/pages/ProductDetail.vue')
 const About = () => import('@/pages/About.vue')
 const Contact = () => import('@/pages/Contact.vue')
 const Privacy = () => import('@/pages/Privacy.vue')
+const Blog = () => import('@/pages/Blog.vue')
+const BlogDetail = () => import('@/pages/BlogDetail.vue')
 const NotFound = () => import('@/pages/NotFound.vue')
 
 const router = createRouter({
@@ -41,6 +43,16 @@ const router = createRouter({
       path: '/privacy',
       name: 'Privacy',
       component: Privacy,
+    },
+    {
+      path: '/blog',
+      name: 'Blog',
+      component: Blog,
+    },
+    {
+      path: '/blog/:slug',
+      name: 'BlogDetail',
+      component: BlogDetail,
     },
     {
       path: '/:pathMatch(.*)*',

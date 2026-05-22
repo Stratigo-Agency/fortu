@@ -23,6 +23,7 @@ const navLinks = [
   { label: 'Beranda', to: '/' },
   { label: 'Produk', to: '/products', hasDropdown: true },
   { label: 'Tentang', to: '/about' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Kontak', to: '/contact' },
 ]
 

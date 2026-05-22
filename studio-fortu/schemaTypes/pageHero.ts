@@ -17,6 +17,7 @@ export default defineType({
           {title: 'Contact', value: 'contact'},
           {title: 'Services', value: 'services'},
           {title: 'Privacy', value: 'privacy'},
+          {title: 'Blog', value: 'blog'},
         ],
       },
       validation: (Rule) => Rule.required(),
