@@ -66,6 +66,8 @@
       </p>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="h-[70vh] min-h-[400px]" :cards="0" />
 </template>
 
 <style scoped>
@@ -97,6 +99,7 @@ import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { PAGE_HERO_QUERY, type PageHero } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const props = defineProps<{
   pageName: 'products' | 'about' | 'contact' | 'services' | 'privacy' | 'blog'

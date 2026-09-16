@@ -43,6 +43,8 @@
       </Button>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-[420px] md:min-h-[520px]" :tone="variant === 'light' ? 'light' : 'dark'" :cards="0" />
 </template>
 
 <script setup lang="ts">
@@ -51,6 +53,7 @@ import { client } from '@/sanity/client'
 import { SITE_SETTINGS_QUERY, type SiteSettings } from '@/sanity/queries'
 import Button from '@/reusables/Button.vue'
 import { useAnalytics } from '@/composables/useAnalytics'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 interface Props {
   heading?: string

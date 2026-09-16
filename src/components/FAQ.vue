@@ -64,12 +64,15 @@
       </div>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-[60vh]" align="left" :cards="0" />
 </template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { client } from '@/sanity/client'
 import { FAQ_QUERY, type FAQ } from '@/sanity/queries'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const faq = ref<FAQ | null>(null)
 const loading = ref(true)

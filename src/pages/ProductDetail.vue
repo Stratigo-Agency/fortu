@@ -1,8 +1,16 @@
 <template>
-  <!-- Loading State -->
-  <div v-if="loading" class="min-h-screen flex items-center justify-center bg-fortu-off-white">
-    <div class="w-8 h-8 border-2 border-fortu-dark border-t-transparent rounded-full animate-spin"></div>
-  </div>
+  <!-- Loading State - full-height so the page never collapses -->
+  <SectionSkeleton v-if="loading" min-height="min-h-screen" align="left" :cards="0">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full items-center">
+      <div class="skeleton aspect-[4/3] w-full rounded-2xl"></div>
+      <div class="space-y-4">
+        <div class="skeleton h-12 md:h-16 w-3/4 rounded-lg"></div>
+        <div class="skeleton h-4 w-full rounded"></div>
+        <div class="skeleton h-4 w-5/6 rounded"></div>
+        <div class="skeleton h-10 w-40 rounded-full mt-6"></div>
+      </div>
+    </div>
+  </SectionSkeleton>
 
   <!-- Error State -->
   <div v-else-if="error" class="min-h-screen flex items-center justify-center bg-fortu-off-white">
@@ -99,6 +107,7 @@ import ProductHero from '@/components/productDetail/ProductHero.vue'
 import ProductSingleFeature from '@/components/productDetail/ProductSingleFeature.vue'
 import ProductRecommendation from '@/components/productDetail/ProductRecommendation.vue'
 import CTA from '@/components/CTA.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 const route = useRoute()
 const product = ref<Product | null>(null)
 const loading = ref(true)

@@ -186,34 +186,36 @@ onUnmounted(() => {
       <!-- Mobile Menu -->
       <div
         v-show="isMenuOpen"
-        class="md:hidden mt-4 py-4 border-t transition-colors"
+        class="md:hidden mt-3 pt-3 border-t transition-colors"
         :class="isInHero ? 'border-fortu-medium/30' : 'border-fortu-light'"
       >
-        <div class="flex flex-col gap-4">
+        <!-- Links wrap inline instead of taking a row each -->
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-3">
           <RouterLink
             v-for="link in navLinks"
             :key="link.to"
             :to="link.to"
-            class="text-base font-medium transition-colors"
+            class="text-sm tracking-tight transition-colors"
             :class="isInHero 
               ? 'text-fortu-light hover:text-fortu-off-white' 
               : 'text-fortu-medium hover:text-fortu-dark'"
-            active-class="font-semibold"
+            active-class="font-medium"
             @click="isMenuOpen = false"
           >
             {{ link.label }}
           </RouterLink>
-          <Button 
-            variant="primary" 
-            size="sm" 
-            href="/products" 
-            class="mt-2"
+
+          <RouterLink
+            to="/products"
+            class="ml-auto inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs tracking-wide transition-colors"
             :class="isInHero 
-              ? 'border-fortu-off-white text-fortu-off-white hover:bg-fortu-off-white hover:text-fortu-dark' 
-              : 'border-fortu-dark text-fortu-dark hover:bg-fortu-dark hover:text-fortu-off-white'"
+              ? 'border-fortu-light/40 text-fortu-light hover:border-fortu-off-white hover:text-fortu-off-white' 
+              : 'border-fortu-light text-fortu-medium hover:border-fortu-dark hover:text-fortu-dark'"
+            @click="isMenuOpen = false"
           >
             Lihat Produk
-          </Button>
+            <span aria-hidden="true">&rarr;</span>
+          </RouterLink>
         </div>
       </div>
     </div>

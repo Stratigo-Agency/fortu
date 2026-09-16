@@ -6,10 +6,19 @@
       fallbackSubtitle="Wawasan, berita, dan cerita dari FORTU Digital"
     />
 
-    <!-- Loading State -->
-    <div v-if="loading" class="flex justify-center items-center min-h-[40vh]">
-      <div class="w-8 h-8 border-2 border-fortu-dark border-t-transparent rounded-full animate-spin"></div>
-    </div>
+    <!-- Loading State - matches the featured post + grid layout -->
+    <SectionSkeleton v-if="loading" min-height="min-h-[80vh]" align="left" :cards="0">
+      <div class="skeleton w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl mb-6"></div>
+      <div class="skeleton h-8 w-2/3 rounded-lg mb-3"></div>
+      <div class="skeleton h-4 w-1/3 rounded mb-12"></div>
+      <div class="grid gap-8 md:grid-cols-3 w-full">
+        <div v-for="n in 3" :key="n">
+          <div class="skeleton aspect-[16/10] w-full rounded-2xl mb-4"></div>
+          <div class="skeleton h-5 w-3/4 rounded mb-2"></div>
+          <div class="skeleton h-4 w-1/2 rounded"></div>
+        </div>
+      </div>
+    </SectionSkeleton>
 
     <!-- Empty State -->
     <div
@@ -118,6 +127,7 @@ import { BLOG_POSTS_QUERY, type BlogPostListItem } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
 import PageHero from '@/components/PageHero.vue'
 import CTA from '@/components/CTA.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const posts = ref<BlogPostListItem[]>([])
 const loading = ref(true)

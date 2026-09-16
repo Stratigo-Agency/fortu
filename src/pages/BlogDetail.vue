@@ -1,8 +1,13 @@
 <template>
-  <!-- Loading State -->
-  <div v-if="loading" class="min-h-screen flex items-center justify-center bg-fortu-off-white">
-    <div class="w-8 h-8 border-2 border-fortu-dark border-t-transparent rounded-full animate-spin"></div>
-  </div>
+  <!-- Loading State - article shape, full height -->
+  <SectionSkeleton v-if="loading" min-height="min-h-screen" align="left" :cards="0">
+    <div class="skeleton h-[40vh] w-full rounded-2xl mb-10"></div>
+    <div class="max-w-3xl space-y-4 w-full">
+      <div class="skeleton h-10 md:h-14 w-3/4 rounded-lg"></div>
+      <div class="skeleton h-4 w-1/3 rounded mb-6"></div>
+      <div v-for="n in 6" :key="n" class="skeleton h-4 rounded" :class="n % 3 === 0 ? 'w-2/3' : 'w-full'"></div>
+    </div>
+  </SectionSkeleton>
 
   <!-- Error State -->
   <div v-else-if="error || !post" class="min-h-screen flex items-center justify-center bg-fortu-off-white">
@@ -139,6 +144,7 @@ import { IMAGE_CONFIG } from '@/config/image'
 import Button from '@/reusables/Button.vue'
 import CTA from '@/components/CTA.vue'
 import PortableText from '@/components/PortableText.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const route = useRoute()
 const post = ref<BlogPost | null>(null)

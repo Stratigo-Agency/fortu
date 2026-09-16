@@ -6,6 +6,7 @@ import { HERO_QUERY, type Hero } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
 import Button from '@/reusables/Button.vue'
 import ClientCarousel from '@/components/ClientCarousel.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const hero = ref<Hero | null>(null)
 const loading = ref(true)
@@ -157,6 +158,8 @@ onMounted(async () => {
       <ClientCarousel />
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-screen" :cards="0" class="pt-24" />
 </template>
 
 <style scoped>

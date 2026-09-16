@@ -26,14 +26,13 @@
           @click="clickable && $emit('image-click', index)"
         >
           <div class="aspect-[3/3.2] rounded-2xl overflow-hidden bg-black">
-            <img
+            <SkeletonImage
               :src="image.url"
               :alt="image.alt || `Product image ${index + 1}`"
-              loading="lazy"
-              decoding="async"
-              width="480"
-              height="512"
-              class="w-full h-full object-cover transition-opacity duration-300 hover:opacity-80"
+              :width="480"
+              :height="512"
+              tone="dark"
+              img-class="w-full h-full object-cover hover:opacity-80"
             />
           </div>
           <p 
@@ -151,6 +150,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import Button from '@/reusables/Button.vue'
+import SkeletonImage from '@/reusables/SkeletonImage.vue'
 
 interface CarouselImage {
   url: string

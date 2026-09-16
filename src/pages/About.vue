@@ -6,8 +6,11 @@
       fallbackSubtitle="Pelajari lebih lanjut tentang kami dan misi kami"
     />
 
+    <!-- Reserve the content height while Sanity responds -->
+    <SectionSkeleton v-if="loading" min-height="min-h-[80vh]" :cards="2" />
+
     <!-- About Content -->
-    <div v-if="!loading">
+    <div v-else>
       <div class="max-w-4xl mx-auto px-4 pt-16 md:pt-24">
         <!-- Description -->
         <div class="mb-16 md:mb-24">
@@ -52,12 +55,6 @@
       <UseCaseSection class="mt-16" :show-title="false" :show-description="false" />
       <CTA variant="dark" />
     </div>
-    
-
-    <!-- Loading State -->
-    <div v-else class="flex justify-center items-center min-h-[60vh]">
-      <div class="w-8 h-8 border-2 border-fortu-dark border-t-transparent rounded-full animate-spin"></div>
-    </div>
   </div>
 </template>
 
@@ -68,6 +65,7 @@ import { ABOUT_PAGE_QUERY, type AboutPage } from '@/sanity/queries'
 import PageHero from '@/components/PageHero.vue'
 import UseCaseSection from '@/components/UseCaseSection.vue'
 import CTA from '@/components/CTA.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const aboutContent = ref<AboutPage | null>(null)
 const loading = ref(true)

@@ -228,6 +228,8 @@
       ></div>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-screen" :cards="1" />
 </template>
 
 <script setup lang="ts">
@@ -238,6 +240,7 @@ import { PRODUCT_SLIDES_QUERY, type ProductSlide } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
 import FeatureIcon from '@/components/FeatureIcon.vue'
 import Button from '@/reusables/Button.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const getProductLink = (product: ProductSlide): string | null => {
   // First priority: linked product's slug

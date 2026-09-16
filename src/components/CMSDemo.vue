@@ -20,20 +20,37 @@
       </div>
 
       <!-- Main visualization container -->
-      <div class="relative max-w-6xl mx-auto h-[300px] mt-32 md:mt-48 md:h-[780px] flex items-center justify-center">
+      <div ref="stageRef" class="relative max-w-6xl mx-auto h-[300px] mt-32 md:mt-48 md:h-[780px] flex items-center justify-center">
+
+        <!-- Connection lines: geometry is measured from the real card / laptop
+             boxes every frame, so they stay attached at any viewport width -->
+        <svg class="connection-svg" aria-hidden="true" focusable="false">
+          <g v-for="conn in connectors" :key="conn.id">
+            <path
+              :d="conn.d"
+              fill="none"
+              stroke="rgba(191, 191, 191, 0.4)"
+              stroke-width="2"
+              stroke-dasharray="6 6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <circle
+              class="conn-dot"
+              :cx="conn.dotX"
+              :cy="conn.dotY"
+              :r="dotRadius"
+              :opacity="conn.dotOpacity"
+              fill="#F9F9F9"
+            />
+          </g>
+        </svg>
         
         <!-- Product cards converging -->
         <!-- Product 1 - Top Left -->
         <div v-if="getProductByPosition('top-left')" class="product-card product-1 absolute top-0 left-2 md:left-12 lg:left-24 z-30">
           <div class="relative group">
-            <!-- Connection line - L-shaped: right then down -->
-            <div class="connection-line connection-1">
-              <div class="line-horizontal"></div>
-              <div class="line-vertical"></div>
-              <div class="pulse-dot pulse-1"></div>
-            </div>
-            
-            <div class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-md md:rounded-lg border border-fortu-light/10 p-2 md:p-4 transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div ref="cardTopLeft" class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-md md:rounded-lg border border-fortu-light/10 p-2 md:p-4 transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-left')"
@@ -60,14 +77,7 @@
         <!-- Product 2 - Top Right -->
         <div v-if="getProductByPosition('top-right')" class="product-card product-2 absolute top-0 right-2 md:right-12 lg:right-24 z-30">
           <div class="relative group">
-            <!-- Connection line - L-shaped: left then down -->
-            <div class="connection-line connection-2">
-              <div class="line-horizontal"></div>
-              <div class="line-vertical"></div>
-              <div class="pulse-dot pulse-2"></div>
-            </div>
-            
-            <div class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div ref="cardTopRight"  class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('top-right')"
@@ -94,13 +104,7 @@
         <!-- Product 3 - Bottom Center -->
         <div v-if="getProductByPosition('bottom-center')" class="product-card product-3 absolute top-[-80px] md:top-[-150px] left-1/2 z-30">
           <div class="relative group">
-            
-            <!-- Connection line - straight down -->
-            <div class="connection-line connection-3">
-              <div class="line-vertical-down"></div>
-              <div class="pulse-dot pulse-3"></div>
-            </div>
-            <div class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
+            <div ref="cardBottomCenter"  class="relative z-20 w-28 md:w-56 bg-gradient-to-br from-fortu-off-white/10 to-fortu-off-white/5 backdrop-blur-xl rounded-xl md:rounded-2xl border border-fortu-light/10 p-2 md:p-4 shadow-2xl transform transition-all duration-700 hover:scale-105 hover:border-fortu-light/30">
               <div class="aspect-square rounded-lg md:rounded-xl overflow-hidden mb-2 md:mb-4 bg-fortu-dark">
                 <img 
                   v-if="getProductImage('bottom-center')"
@@ -129,7 +133,7 @@
           <!-- Laptop frame -->
           <div class="laptop-frame relative">
             <!-- Screen bezel -->
-            <div class="w-[600px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 mt-64 md:mt-0 to-fortu-medium/40 rounded-lg p-3">
+            <div ref="laptopScreen" class="w-[600px] md:w-[600px] bg-gradient-to-b from-fortu-medium/60 mt-64 md:mt-0 to-fortu-medium/40 rounded-lg p-3">
               
               <!-- Screen content -->
               <div class="bg-fortu-dark rounded-lg overflow-hidden aspect-[16/10]">
@@ -218,35 +222,203 @@
         <div class="particle particle-5"></div>
         <div class="particle particle-6"></div>
         
-        <!-- Mobile-only L-shaped connection lines with traveling dots -->
-        <div class="mobile-connection mobile-conn-1">
-          <div class="mobile-line-horizontal"></div>
-          <div class="mobile-line-vertical"></div>
-          <div class="mobile-pulse-dot mobile-dot-1"></div>
-        </div>
-        <div class="mobile-connection mobile-conn-2">
-          <div class="mobile-line-horizontal"></div>
-          <div class="mobile-line-vertical"></div>
-          <div class="mobile-pulse-dot mobile-dot-2"></div>
-        </div>
-        <div class="mobile-connection mobile-conn-3">
-          <div class="mobile-line-vertical"></div>
-          <div class="mobile-pulse-dot mobile-dot-3"></div>
-        </div>
       </div>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-[80vh]" tone="dark" :cards="3" />
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
 import { client } from '@/sanity/client'
 import { CMS_DEMO_QUERY, type CMSDemo, type CMSDemoProduct } from '@/sanity/queries'
 import { urlFor } from '@/sanity/client'
 import { IMAGE_CONFIG } from '@/config/image'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const cmsDemo = ref<CMSDemo | null>(null)
 const loading = ref(true)
+
+/* ------------------------------------------------------------------ *
+ * Connection lines
+ *
+ * The dashed connectors used to be fixed-size CSS boxes (120px across,
+ * 180px down), so they only met the laptop at the exact widths they were
+ * tuned for. Instead we measure the real card and laptop rectangles and
+ * draw the elbows as SVG paths, re-measuring on every animation frame the
+ * section is visible (the cards float, so their boxes move continuously).
+ * ------------------------------------------------------------------ */
+
+type Connector = {
+  id: string
+  d: string
+  dotX: number
+  dotY: number
+  dotOpacity: number
+}
+
+const stageRef = ref<HTMLElement | null>(null)
+const laptopScreen = ref<HTMLElement | null>(null)
+const cardTopLeft = ref<HTMLElement | null>(null)
+const cardTopRight = ref<HTMLElement | null>(null)
+const cardBottomCenter = ref<HTMLElement | null>(null)
+
+const connectors = ref<Connector[]>([])
+const isCompact = ref(false)
+const dotRadius = computed(() => (isCompact.value ? 3 : 4))
+
+// One travelling dot per connector, staggered like the old CSS animations.
+const DOT_DURATION = 3000
+const DOT_DELAYS: Record<string, number> = {
+  'top-left': 0,
+  'top-right': 1000,
+  'bottom-center': 2000,
+}
+
+// Detached path used purely to sample points along a connector.
+let measurePath: SVGPathElement | null = null
+const getMeasurePath = () => {
+  if (!measurePath) {
+    measurePath = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+  }
+  return measurePath
+}
+
+// Elbow that leaves horizontally and arrives vertically, with rounded corner.
+const elbow = (sx: number, sy: number, tx: number, ty: number) => {
+  const dx = tx - sx
+  const dy = ty - sy
+  const r = Math.min(14, Math.abs(dx), Math.abs(dy))
+  if (r < 1) return `M ${sx} ${sy} L ${tx} ${sy} L ${tx} ${ty}`
+  const sgnX = Math.sign(dx)
+  const sgnY = Math.sign(dy)
+  return `M ${sx} ${sy} L ${tx - sgnX * r} ${sy} Q ${tx} ${sy} ${tx} ${sy + sgnY * r} L ${tx} ${ty}`
+}
+
+const buildConnectors = (now: number): Connector[] => {
+  const stage = stageRef.value
+  const screen = laptopScreen.value
+  if (!stage || !screen) return []
+
+  const stageBox = stage.getBoundingClientRect()
+  const laptopBox = screen.getBoundingClientRect()
+  if (!stageBox.width || !laptopBox.width) return []
+
+  const laptopTop = laptopBox.top - stageBox.top
+  const laptopLeft = laptopBox.left - stageBox.left
+  const laptopRight = laptopBox.right - stageBox.left
+
+  const sources: Array<{ id: string; el: HTMLElement | null; targetX: number }> = [
+    { id: 'top-left', el: cardTopLeft.value, targetX: laptopLeft + laptopBox.width * 0.2 },
+    { id: 'top-right', el: cardTopRight.value, targetX: laptopLeft + laptopBox.width * 0.8 },
+    { id: 'bottom-center', el: cardBottomCenter.value, targetX: laptopLeft + laptopBox.width * 0.5 },
+  ]
+
+  const path = getMeasurePath()
+  const next: Connector[] = []
+
+  for (const source of sources) {
+    if (!source.el) continue
+    const box = source.el.getBoundingClientRect()
+    if (!box.width) continue
+
+    const cardLeft = box.left - stageBox.left
+    const cardRight = box.right - stageBox.left
+    const tx = Math.min(Math.max(source.targetX, laptopLeft + 16), laptopRight - 16)
+
+    // Leave from whichever edge actually faces the target: sideways when the
+    // laptop anchor is clear of the card (desktop), straight down when the
+    // card already sits above it (narrow viewports).
+    let sx: number
+    let sy: number
+    if (tx > cardRight) {
+      sx = cardRight
+      sy = box.top + box.height / 2 - stageBox.top
+    } else if (tx < cardLeft) {
+      sx = cardLeft
+      sy = box.top + box.height / 2 - stageBox.top
+    } else {
+      sx = tx
+      sy = box.bottom - stageBox.top
+    }
+
+    // The card may already sit below the laptop's top edge on short screens;
+    // stop the line at the card instead of drawing it backwards.
+    if (sy >= laptopTop) continue
+
+    const d = elbow(sx, sy, tx, laptopTop)
+
+    // Sample the travelling dot straight off the path we just built.
+    path.setAttribute('d', d)
+    const length = path.getTotalLength()
+    const elapsed = now - (DOT_DELAYS[source.id] ?? 0)
+    const progress = elapsed <= 0 ? 0 : (elapsed % DOT_DURATION) / DOT_DURATION
+    const point = path.getPointAtLength(length * progress)
+
+    next.push({
+      id: source.id,
+      d,
+      dotX: point.x,
+      dotY: point.y,
+      dotOpacity: progress > 0.8 ? Math.max(0, (1 - progress) / 0.2) : 1,
+    })
+  }
+
+  return next
+}
+
+let frameId = 0
+let visible = false
+let observer: IntersectionObserver | null = null
+
+const tick = (now: number) => {
+  connectors.value = buildConnectors(now)
+  frameId = requestAnimationFrame(tick)
+}
+
+const startTracking = () => {
+  if (frameId) return
+  frameId = requestAnimationFrame(tick)
+}
+
+const stopTracking = () => {
+  if (!frameId) return
+  cancelAnimationFrame(frameId)
+  frameId = 0
+}
+
+const handleResize = () => {
+  isCompact.value = window.matchMedia('(max-width: 768px)').matches
+  if (!visible) connectors.value = buildConnectors(performance.now())
+}
+
+const observeStage = () => {
+  if (!stageRef.value || observer) return
+  observer = new IntersectionObserver(
+    entries => {
+      visible = entries.some(entry => entry.isIntersecting)
+      if (visible) startTracking()
+      else {
+        stopTracking()
+        connectors.value = buildConnectors(performance.now())
+      }
+    },
+    { rootMargin: '100px' }
+  )
+  observer.observe(stageRef.value)
+}
+
+watch(
+  () => cmsDemo.value,
+  async value => {
+    if (!value) return
+    await nextTick()
+    handleResize()
+    observeStage()
+    connectors.value = buildConnectors(performance.now())
+  }
+)
 
 // Helper function to get product by position
 const getProductByPosition = (position: 'top-left' | 'top-right' | 'bottom-center') => {
@@ -323,6 +495,8 @@ const getProductImageForCMS = (product: CMSDemoProduct): string | undefined => {
 }
 
 onMounted(async () => {
+  handleResize()
+  window.addEventListener('resize', handleResize, { passive: true })
   try {
     cmsDemo.value = await client.fetch(CMS_DEMO_QUERY)
   } catch (e) {
@@ -330,6 +504,13 @@ onMounted(async () => {
   } finally {
     loading.value = false
   }
+})
+
+onBeforeUnmount(() => {
+  stopTracking()
+  observer?.disconnect()
+  observer = null
+  window.removeEventListener('resize', handleResize)
 })
 </script>
 
@@ -371,152 +552,19 @@ onMounted(async () => {
   }
 }
 
-/* Connection lines - L-shaped dashed lines */
-.connection-line {
+/* Connection lines - drawn as an SVG overlay sized to the stage */
+.connection-svg {
   position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
   pointer-events: none;
-  z-index: 10;
+  z-index: 20;
 }
 
-/* Connection 1 - Top Left: goes right then down */
-.connection-1 {
-  top: 50%;
-  left: 100%;
-}
-
-.connection-1 .line-horizontal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 120px;
-  height: 2px;
-  border-top: 2px dashed rgba(191, 191, 191, 0.4);
-}
-
-.connection-1 .line-vertical {
-  position: absolute;
-  top: 0;
-  left: 120px;
-  width: 2px;
-  height: 180px;
-  border-left: 2px dashed rgba(191, 191, 191, 0.4);
-}
-
-/* Connection 2 - Top Right: goes left then down */
-.connection-2 {
-  top: 50%;
-  right: 100%;
-}
-
-.connection-2 .line-horizontal {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 120px;
-  height: 2px;
-  border-top: 2px dashed rgba(191, 191, 191, 0.4);
-}
-
-.connection-2 .line-vertical {
-  position: absolute;
-  top: 0;
-  right: 120px;
-  width: 2px;
-  height: 180px;
-  border-left: 2px dashed rgba(191, 191, 191, 0.4);
-}
-
-/* Connection 3 - Bottom Center: goes straight down */
-.connection-3 {
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.connection-3 .line-vertical-down {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 2px;
-  height: 150px;
-  border-left: 2px dashed rgba(191, 191, 191, 0.4);
-}
-
-/* Pulsing dots that travel along the path */
-.pulse-dot {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: #F9F9F9;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(249, 249, 249, 0.8), 0 0 20px rgba(249, 249, 249, 0.4);
-  z-index: 11;
-}
-
-/* Pulse animation for connection 1 - right then down */
-.pulse-1 {
-  animation: pulse1 3s ease-in-out infinite;
-}
-
-@keyframes pulse1 {
-  0% {
-    top: -4px;
-    left: -4px;
-    opacity: 1;
-  }
-  40% {
-    top: -4px;
-    left: 116px;
-    opacity: 1;
-  }
-  100% {
-    top: 176px;
-    left: 116px;
-    opacity: 0;
-  }
-}
-
-/* Pulse animation for connection 2 - left then down */
-.pulse-2 {
-  animation: pulse2 3s ease-in-out infinite;
-  animation-delay: 1s;
-}
-
-@keyframes pulse2 {
-  0% {
-    top: -4px;
-    right: -4px;
-    opacity: 1;
-  }
-  40% {
-    top: -4px;
-    right: 116px;
-    opacity: 1;
-  }
-  100% {
-    top: 176px;
-    right: 116px;
-    opacity: 0;
-  }
-}
-
-/* Pulse animation for connection 3 - straight down */
-.pulse-3 {
-  animation: pulse3 3s ease-in-out infinite;
-  animation-delay: 2s;
-}
-
-@keyframes pulse3 {
-  0% {
-    top: -4px;
-    left: -4px;
-    opacity: 1;
-  }
-  100% {
-    top: 146px;
-    left: -4px;
-    opacity: 0;
-  }
+.conn-dot {
+  filter: drop-shadow(0 0 6px rgba(249, 249, 249, 0.8));
 }
 
 /* CMS product rows animation */
@@ -621,20 +669,11 @@ onMounted(async () => {
   }
 }
 
-/* Mobile-only connection lines - hidden on desktop */
-.mobile-connection {
-  display: none;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .laptop-container {
     transform: scale(0.55) translateY(140px);
     transform-origin: center center;
-  }
-  
-  .connection-line {
-    display: none;
   }
   
   .product-1 {
@@ -657,135 +696,6 @@ onMounted(async () => {
     display: none;
   }
   
-  /* Show mobile connection lines */
-  .mobile-connection {
-    display: block;
-    position: absolute;
-    pointer-events: none;
-    z-index: 15;
-  }
-  
-  /* Connection 1 - From top-left product card: straight down */
-  .mobile-conn-1 {
-    top: 80px;
-    left: 60px;
-    transform: translateX(-50%);
-  }
-  
-  .mobile-conn-1 .mobile-line-horizontal {
-    display: none;
-  }
-  
-  .mobile-conn-1 .mobile-line-vertical {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 2px;
-    height: 140px;
-    border-left: 2px dashed rgba(191, 191, 191, 0.4);
-  }
-  
-  /* Connection 2 - From top-right product card: straight down */
-  .mobile-conn-2 {
-    top: 80px;
-    right: 60px;
-    transform: translateX(50%);
-  }
-  
-  .mobile-conn-2 .mobile-line-horizontal {
-    display: none;
-  }
-  
-  .mobile-conn-2 .mobile-line-vertical {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 2px;
-    height: 140px;
-    border-left: 2px dashed rgba(191, 191, 191, 0.4);
-  }
-  
-  /* Connection 3 - From top-center product card: straight down */
-  .mobile-conn-3 {
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .mobile-conn-3 .mobile-line-vertical {
-    position: absolute;
-    width: 2px;
-    height: 140px;
-    border-left: 2px dashed rgba(191, 191, 191, 0.4);
-  }
-  
-  /* Mobile pulsing dots */
-  .mobile-pulse-dot {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: #F9F9F9;
-    border-radius: 50%;
-    box-shadow: 0 0 8px rgba(249, 249, 249, 0.8), 0 0 16px rgba(249, 249, 249, 0.4);
-    z-index: 11;
-  }
-  
-  /* Dot 1 - travels straight down from top-left */
-  .mobile-dot-1 {
-    animation: mobilePulse1 3s ease-in-out infinite;
-  }
-  
-  /* Dot 2 - travels straight down from top-right */
-  .mobile-dot-2 {
-    animation: mobilePulse2 3s ease-in-out infinite;
-    animation-delay: 1s;
-  }
-  
-  /* Dot 3 - travels straight down from top-center */
-  .mobile-dot-3 {
-    animation: mobilePulse3 3s ease-in-out infinite;
-    animation-delay: 2s;
-  }
-}
-
-/* Mobile pulse animations - straight down paths */
-@keyframes mobilePulse1 {
-  0% {
-    top: -3px;
-    left: -3px;
-    opacity: 1;
-  }
-  100% {
-    top: 136px;
-    left: -3px;
-    opacity: 0;
-  }
-}
-
-@keyframes mobilePulse2 {
-  0% {
-    top: -3px;
-    right: -3px;
-    opacity: 1;
-  }
-  100% {
-    top: 136px;
-    right: -3px;
-    opacity: 0;
-  }
-}
-
-@keyframes mobilePulse3 {
-  0% {
-    top: -3px;
-    left: -3px;
-    opacity: 1;
-  }
-  100% {
-    top: 136px;
-    left: -3px;
-    opacity: 0;
-  }
 }
 
 @keyframes float-mobile {

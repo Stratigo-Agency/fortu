@@ -1,8 +1,21 @@
 <template>
   <div class="product-catalog">
-    <!-- Loading State -->
-    <div v-if="loading" class="flex justify-center py-20">
-      <div class="w-8 h-8 border-2 border-fortu-dark border-t-transparent rounded-full animate-spin"></div>
+    <!-- Loading State - mirrors the carousel layout so nothing shifts -->
+    <div v-if="loading" class="overflow-hidden" aria-busy="true">
+      <div class="px-4 md:px-16">
+        <div class="skeleton h-9 md:h-10 w-52 rounded-lg mb-12"></div>
+      </div>
+      <div class="flex gap-4 md:gap-6 px-4 md:px-16 pb-4">
+        <div
+          v-for="n in 4"
+          :key="n"
+          class="flex-shrink-0 w-[220px] md:w-[300px] lg:w-[380px]"
+        >
+          <div class="skeleton aspect-[3/3.2] rounded-2xl"></div>
+          <div class="skeleton h-8 w-3/4 rounded-lg mt-3"></div>
+          <div class="skeleton h-9 w-40 rounded-full mt-4"></div>
+        </div>
+      </div>
     </div>
 
     <!-- Error State -->

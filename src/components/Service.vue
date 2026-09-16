@@ -139,6 +139,8 @@
       </div>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-[70vh]" :cards="3" />
 </template>
 
 <script setup lang="ts">
@@ -147,6 +149,7 @@ import { client } from '@/sanity/client'
 import { urlFor } from '@/sanity/client'
 import { SERVICE_SECTION_QUERY, type ServiceSection, type ServiceItem } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const serviceSection = ref<ServiceSection | null>(null)
 const loading = ref(true)

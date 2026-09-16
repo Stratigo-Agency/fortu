@@ -6,10 +6,19 @@
       fallbackSubtitle="We'd love to hear from you"
     />
 
-    <!-- Loading State -->
-    <div v-if="loading" class="px-4 md:px-16 py-24 flex justify-center">
-      <div class="w-8 h-8 border-2 border-fortu-dark border-t-transparent rounded-full animate-spin"></div>
-    </div>
+    <!-- Loading State - two columns, like the real contact layout -->
+    <SectionSkeleton v-if="loading" min-height="min-h-[70vh]" align="left" :cards="0">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 w-full">
+        <div class="space-y-4">
+          <div class="skeleton h-12 md:h-16 w-2/3 rounded-lg"></div>
+          <div class="skeleton h-4 w-full rounded"></div>
+          <div class="skeleton h-4 w-5/6 rounded"></div>
+          <div class="skeleton h-24 w-full rounded-2xl mt-8"></div>
+          <div class="skeleton h-24 w-full rounded-2xl"></div>
+        </div>
+        <div class="skeleton h-[420px] w-full rounded-2xl"></div>
+      </div>
+    </SectionSkeleton>
 
     <!-- Contact Content -->
     <div v-else class="px-4 md:px-16 py-16 md:py-24">
@@ -272,6 +281,7 @@ import { client } from '@/sanity/client'
 import { SITE_SETTINGS_QUERY, FAQ_QUERY, type SiteSettings, type FAQ } from '@/sanity/queries'
 import PageHero from '@/components/PageHero.vue'
 import CTA from '@/components/CTA.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 const settings = ref<SiteSettings | null>(null)
 const faq = ref<FAQ | null>(null)
 const loading = ref(true)

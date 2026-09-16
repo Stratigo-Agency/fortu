@@ -325,6 +325,8 @@
       <div class="w-8 h-8 border-2 border-fortu-off-white border-t-transparent rounded-full animate-spin"></div>
     </div>
   </section>
+
+  <SectionSkeleton v-else-if="loading" min-height="min-h-[70vh]" :cards="2" />
 </template>
 
 <script setup lang="ts">
@@ -335,6 +337,7 @@ import { PRODUCT_COMPARE_QUERY, type ProductCompare, type ProductCompareItem } f
 import { IMAGE_CONFIG } from '@/config/image'
 import CompareIcon from '@/components/CompareIcon.vue'
 import Button from '@/reusables/Button.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 const compare = ref<ProductCompare | null>(null)
 const loading = ref(true)

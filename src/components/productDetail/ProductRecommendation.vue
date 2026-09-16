@@ -1,5 +1,16 @@
 <template>
-  <div v-if="!loading && recommendedProducts.length > 0" class="py-16 bg-fortu-off-white">
+  <!-- Reserve the carousel's height while products are still loading -->
+  <SectionSkeleton v-if="loading" min-height="min-h-[50vh]" align="left" :cards="0">
+    <div class="skeleton h-9 md:h-10 w-52 rounded-lg mb-12"></div>
+    <div class="flex gap-4 md:gap-6 w-full">
+      <div v-for="n in 4" :key="n" class="flex-shrink-0 w-[220px] md:w-[300px] lg:w-[380px]">
+        <div class="skeleton aspect-[3/3.2] rounded-2xl"></div>
+        <div class="skeleton h-8 w-3/4 rounded-lg mt-3"></div>
+      </div>
+    </div>
+  </SectionSkeleton>
+
+  <div v-else-if="recommendedProducts.length > 0" class="py-16 bg-fortu-off-white">
     <ImageCarousel
       :images="productImages"
       heading="Cek Produk Lain"
@@ -18,6 +29,7 @@ import { client, urlFor } from '@/sanity/client'
 import { PRODUCTS_QUERY, type Product } from '@/sanity/queries'
 import { IMAGE_CONFIG } from '@/config/image'
 import ImageCarousel from '@/components/ImageCarousel.vue'
+import SectionSkeleton from '@/reusables/SectionSkeleton.vue'
 
 interface Props {
   currentProductId?: string
