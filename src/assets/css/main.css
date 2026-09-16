@@ -56,3 +56,18 @@
     animation: none;
   }
 }
+
+/* ------------------------------------------------------------------ *
+ * Viewport height
+ *
+ * `100vh` does not match what is actually on screen when a browser keeps
+ * chrome around the page - the gap is most obvious in landscape and on
+ * signage players. `dvh` tracks the real visible viewport, with `vh` left
+ * as the fallback for browsers that lack it.
+ * ------------------------------------------------------------------ */
+@layer utilities {
+  .min-h-dvh {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}

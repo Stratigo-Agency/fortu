@@ -1,10 +1,10 @@
 <template>
-  <section v-if="cmsDemo && !loading" class="cms-demo-section md:h-screen relative overflow-hidden pt-0 md:pb-32 bg-fortu-dark">
+  <section v-if="cmsDemo && !loading" class="cms-demo-section md:min-h-dvh relative overflow-hidden pt-0 md:pb-32 bg-fortu-dark">
     <!-- Grid pattern overlay -->
 
-    <div class="py-16 md:py-24 mx-auto px-6 relative z-10">
+    <div class="cms-demo-inner py-16 md:py-24 mx-auto px-6 relative z-10">
       <!-- Section header -->
-      <div class="text-center mb-10 md:mb-20">
+      <div class="cms-demo-header text-center mb-10 md:mb-20">
         <span class="inline-block px-4 py-2 rounded-full bg-fortu-off-white border text-fortu-dark font-light text-xs md:text-md tracking-wide uppercase mb-6">
           {{ cmsDemo.badge }}
         </span>
@@ -20,7 +20,7 @@
       </div>
 
       <!-- Main visualization container -->
-      <div ref="stageRef" class="relative max-w-6xl mx-auto h-[300px] mt-32 md:mt-48 md:h-[780px] flex items-center justify-center">
+      <div ref="stageRef" class="visualization-stage relative max-w-6xl mx-auto h-[300px] mt-32 md:mt-48 md:h-[780px] flex items-center justify-center">
 
         <!-- Connection lines: geometry is measured from the real card / laptop
              boxes every frame, so they stay attached at any viewport width -->
@@ -226,7 +226,7 @@
     </div>
   </section>
 
-  <SectionSkeleton v-else-if="loading" min-height="min-h-[80vh]" tone="dark" :cards="3" />
+  <SectionSkeleton v-else-if="loading" min-height="min-h-dvh" tone="dark" :cards="3" />
 </template>
 
 <script setup lang="ts">
@@ -305,9 +305,15 @@ const buildConnectors = (now: number): Connector[] => {
   const laptopBox = screen.getBoundingClientRect()
   if (!stageBox.width || !laptopBox.width) return []
 
-  const laptopTop = laptopBox.top - stageBox.top
-  const laptopLeft = laptopBox.left - stageBox.left
-  const laptopRight = laptopBox.right - stageBox.left
+  // Short viewports scale the whole stage down; getBoundingClientRect reports
+  // screen pixels, so divide back into the stage's own coordinate space.
+  const scale = stage.offsetWidth ? stageBox.width / stage.offsetWidth : 1
+  const toStageX = (clientX: number) => (clientX - stageBox.left) / scale
+  const toStageY = (clientY: number) => (clientY - stageBox.top) / scale
+
+  const laptopTop = toStageY(laptopBox.top)
+  const laptopLeft = toStageX(laptopBox.left)
+  const laptopRight = toStageX(laptopBox.right)
 
   const sources: Array<{ id: string; el: HTMLElement | null; targetX: number }> = [
     { id: 'top-left', el: cardTopLeft.value, targetX: laptopLeft + laptopBox.width * 0.2 },
@@ -323,8 +329,8 @@ const buildConnectors = (now: number): Connector[] => {
     const box = source.el.getBoundingClientRect()
     if (!box.width) continue
 
-    const cardLeft = box.left - stageBox.left
-    const cardRight = box.right - stageBox.left
+    const cardLeft = toStageX(box.left)
+    const cardRight = toStageX(box.right)
     const tx = Math.min(Math.max(source.targetX, laptopLeft + 16), laptopRight - 16)
 
     // Leave from whichever edge actually faces the target: sideways when the
@@ -334,13 +340,13 @@ const buildConnectors = (now: number): Connector[] => {
     let sy: number
     if (tx > cardRight) {
       sx = cardRight
-      sy = box.top + box.height / 2 - stageBox.top
+      sy = toStageY(box.top + box.height / 2)
     } else if (tx < cardLeft) {
       sx = cardLeft
-      sy = box.top + box.height / 2 - stageBox.top
+      sy = toStageY(box.top + box.height / 2)
     } else {
       sx = tx
-      sy = box.bottom - stageBox.top
+      sy = toStageY(box.bottom)
     }
 
     // The card may already sit below the laptop's top edge on short screens;
@@ -666,6 +672,47 @@ onBeforeUnmount(() => {
   }
   100% {
     filter: drop-shadow(0 0 30px rgba(191, 191, 191, 0.15));
+  }
+}
+
+/* Short viewports (landscape signage panels, laptops with little height):
+   the section used to be locked to one screen with overflow hidden, which cut
+   the visualisation off. It now grows to fit, and the composition is scaled
+   down so the whole thing still lands close to a single screen. */
+@media (min-width: 769px) and (max-height: 1100px) {
+  .cms-demo-section {
+    padding-bottom: 4rem;
+  }
+
+  .cms-demo-inner {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .cms-demo-header {
+    margin-bottom: 2rem;
+  }
+
+  .cms-demo-header h2 {
+    font-size: clamp(1.875rem, 6vh, 3.75rem);
+  }
+
+  .visualization-stage {
+    --stage-scale: 0.74;
+    /* the top-centre card hangs above the stage; leave it room to clear the
+       header instead of landing on the description */
+    margin-top: 6rem;
+    transform: scale(var(--stage-scale));
+    transform-origin: top center;
+    /* reclaim the space the scale no longer occupies */
+    margin-bottom: calc(-780px * (1 - var(--stage-scale)));
+  }
+}
+
+@media (min-width: 769px) and (max-height: 700px) {
+  .visualization-stage {
+    --stage-scale: 0.62;
+    margin-top: 5.5rem;
   }
 }
 

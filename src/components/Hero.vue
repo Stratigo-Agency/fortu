@@ -89,7 +89,7 @@ onMounted(async () => {
 <template>
   <section 
     v-if="hero && !loading" 
-    class="relative min-h-screen flex flex-col bg-[var(--card)] overflow-hidden pt-24 md:pt-0"
+    class="hero-section relative min-h-dvh flex flex-col bg-[var(--card)] overflow-hidden pt-24 md:pt-0"
   >
     <!-- Background Video -->
     <video
@@ -154,12 +154,12 @@ onMounted(async () => {
     </div>
     
     <!-- Client Carousel at bottom -->
-    <div class="relative z-[2] pb-8">
+    <div class="hero-carousel relative z-[2] pb-8">
       <ClientCarousel />
     </div>
   </section>
 
-  <SectionSkeleton v-else-if="loading" min-height="min-h-screen" :cards="0" class="pt-24" />
+  <SectionSkeleton v-else-if="loading" min-height="min-h-dvh" :cards="0" class="pt-24" />
 </template>
 
 <style scoped>
@@ -191,6 +191,56 @@ onMounted(async () => {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Short landscape screens (signage panels, phones on their side): scale the
+   copy to the viewport so the hero fills exactly one screen instead of
+   spilling past it and sliding under the fixed navbar. */
+@media (orientation: landscape) and (max-height: 720px) {
+  .hero-section {
+    padding-top: 4.5rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.75rem, 8vh, 4rem);
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.95rem, 3.4vh, 1.5rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-description {
+    font-size: clamp(0.85rem, 2.8vh, 1.125rem);
+    line-height: 1.45;
+    margin-bottom: 1rem;
+  }
+
+  .hero-buttons {
+    gap: 0.75rem;
+  }
+
+  /* the client strip is the biggest block down here - shrink it rather than
+     let it push the hero past the screen */
+  .hero-carousel {
+    padding-bottom: 0.5rem;
+  }
+
+  .hero-carousel :deep(.client-carousel-section) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .hero-carousel :deep(.carousel-card) {
+    height: 3.5rem;
+    padding: 0.5rem;
+  }
+
+  .hero-carousel :deep(.carousel-card img) {
+    height: 100%;
   }
 }
 </style>
