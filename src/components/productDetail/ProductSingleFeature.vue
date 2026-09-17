@@ -78,13 +78,19 @@
       </div>
     </div>
 
-    <!-- Media Content -->
+    <!-- Media Content
+
+         The media is deliberately NOT a flex item. A replaced element with
+         `height: auto` sitting directly in a flex container is sized
+         differently by each engine - WebKit stretches or collapses it, and
+         `min-width: auto` keeps its intrinsic 1920px width, so the image
+         either vanishes or overflows the section's `overflow-hidden`. A
+         block element with an explicit max-width and auto margins sizes the
+         same everywhere. -->
     <div 
-      class="w-full flex"
+      class="w-full"
       :class="{
-        'justify-center max-w-5xl mx-auto': feature.textAlignment === 'center' || !feature.textAlignment,
-        'justify-start': feature.textAlignment === 'left',
-        'justify-end': feature.textAlignment === 'right'
+        'max-w-5xl mx-auto': feature.textAlignment === 'center' || !feature.textAlignment
       }"
     >
       <!-- Video -->
@@ -95,7 +101,8 @@
         loop
         muted
         playsinline
-        class="w-full h-auto max-h-[70vh] object-contain rounded-2xl"
+        class="block w-full max-w-full h-auto max-h-[70vh] object-contain rounded-2xl"
+        :class="mediaAlignment"
       ></video>
       
       <!-- Image -->
@@ -107,7 +114,8 @@
         decoding="async"
         width="1920"
         height="1080"
-        class="h-auto max-h-[70vh] object-contain rounded-2xl"
+        class="block max-w-full h-auto max-h-[70vh] object-contain rounded-2xl"
+        :class="mediaAlignment"
       />
     </div>
   </section>
@@ -123,6 +131,14 @@ import CompareIcon from '@/components/CompareIcon.vue'
 const props = defineProps<{
   feature: ProductFeature
 }>()
+
+// Horizontal placement of the media, done with auto margins so the element
+// stays a plain block (see the template comment).
+const mediaAlignment = computed(() => {
+  if (props.feature.textAlignment === 'left') return 'mr-auto'
+  if (props.feature.textAlignment === 'right') return 'ml-auto'
+  return 'mx-auto'
+})
 
 const isDark = computed(() => {
   return props.feature.backgroundColor === 'dark' || !props.feature.backgroundColor
